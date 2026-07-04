@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {}
+    "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {}
   },
   "projects": {
-    "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {
+    "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
+        "projectUniqueName": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
         "projectName": "GeneratorGame",
-        "projectPath": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
+        "projectPath": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
         "packagesPath": "C:\\Users\\GYM MEN\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\obj\\",
+        "outputPath": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Visual Programm\\NuGetPackages"

@@ -25,7 +25,26 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     if (!string.IsNullOrWhiteSpace(databaseUrl))
     {
-        opt.UseNpgsql(databaseUrl);
+        if (databaseUrl.StartsWith("postgres://") || databaseUrl.StartsWith("postgresql://"))
+        {
+            var uri = new Uri(databaseUrl);
+            var userInfo = uri.UserInfo.Split(':');
+
+            var username = Uri.UnescapeDataString(userInfo[0]);
+            var password = Uri.UnescapeDataString(userInfo[1]);
+            var host = uri.Host;
+            var port = uri.Port;
+            var database = uri.AbsolutePath.TrimStart('/');
+
+            var connectionString =
+                $"Host={host};Port={port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+
+            opt.UseNpgsql(connectionString);
+        }
+        else
+        {
+            opt.UseNpgsql(databaseUrl);
+        }
     }
     else
     {
