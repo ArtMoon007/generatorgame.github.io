@@ -443,3 +443,102 @@ a:hover{text-decoration:underline}
     font-size: 16px;
     letter-spacing: 2px;
 }
+
+@media (max-width: 900px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .left-col,
+    .right-col {
+        order: 2;
+        width: 100%;
+    }
+
+    .center-col {
+        order: 1;
+        width: 100%;
+    }
+
+    .game-stage-square {
+        width: 100%;
+        min-height: 520px;
+    }
+
+    .fg-game {
+        padding: 10px;
+        grid-template-columns: 1fr 34px;
+        gap: 8px;
+    }
+
+    .fg-instruction {
+        font-size: 12px;
+        line-height: 1.15;
+    }
+
+    .fg-info {
+        font-size: 15px;
+    }
+
+    .fg-board-wrap {
+        width: 100%;
+        max-width: 92vw;
+        justify-self: center;
+    }
+
+    .fg-dot span {
+        font-size: 15px;
+    }
+
+    .fg-side-bar {
+        border-width: 3px;
+    }
+
+    .lb-panel,
+    .personal-panel {
+        max-height: 360px;
+    }
+}
+
+@media (max-width: 520px) {
+    .game-page {
+        padding: 8px;
+    }
+
+    .game-header {
+        margin-bottom: 8px;
+    }
+
+    .timer-display {
+        font-size: 18px !important;
+    }
+
+    .game-stage-square {
+        min-height: 430px;
+    }
+
+    .fg-game {
+        grid-template-columns: 1fr 28px;
+        padding: 8px;
+    }
+
+    .fg-info {
+        font-size: 13px;
+    }
+
+    .fg-instruction {
+        font-size: 10px;
+    }
+
+    .fg-dot {
+        width: 70%;
+        height: 70%;
+        left: 15%;
+        top: 15%;
+    }
+
+    .fg-dot span {
+        font-size: 13px;
+    }
+}
