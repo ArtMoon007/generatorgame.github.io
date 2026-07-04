@@ -6,100 +6,112 @@
 }
 
 <div class="generator-page">
-@await Html.PartialAsync("_GeneratorTabs", "bitebynight")
+    @await Html.PartialAsync("_GeneratorTabs", "bitebynight")
 
-<div class="game-page">
+    <div class="game-page">
 
-    <div class="game-header">
-        <div class="timer-lbl">TIMER</div>
-        <div class="timer-display" id="timerDisplay">00:00:000</div>
-    </div>
-
-    <div class="game-layout">
-        <div class="left-col">
-            <div class="lb-panel">
-                <div class="lb-header"><span>LEADERBOARD</span><span>TOP 100</span></div>
-                <div class="lb-list" id="lbList"><div class="lb-loading">загрузка...</div></div>
-                <div class="lb-my-row" id="myRow"></div>
-            </div>
+        <div class="game-header">
+            <div class="timer-lbl">TIMER</div>
+            <div class="timer-display" id="timerDisplay">00:00:000</div>
         </div>
 
-        <div class="center-col">
-            <div class="game-stage-square" id="gameStageSquare">
-                <div class="start-bar" id="startBar">
-                    <div class="start-text" onclick="startGame()">— НАЖМИ ЧТОБЫ НАЧАТЬ —</div>
+        <div class="game-layout">
+
+            <div class="left-col">
+                <div class="lb-panel">
+                    <div class="lb-header"><span>LEADERBOARD</span><span>TOP 100</span></div>
+                    <div class="lb-list" id="lbList"><div class="lb-loading">загрузка...</div></div>
+                    <div class="lb-my-row" id="myRow"></div>
                 </div>
-                <div class="finish-overlay" id="finishOverlay" style="display:none">
-                    <div class="finish-glow"></div>
-                    <div class="finish-title">⚡ ГЕНЕРАТОР ЗАПУЩЕН</div>
-                    <div class="finish-time" id="finishTime"></div>
-                    <div class="finish-rank" id="finishRank"></div>
-                    <button class="restart-btn" onclick="startGame()">ИГРАТЬ СНОВА</button>
+            </div>
+
+            <div class="center-col">
+                <div class="game-instruction bbn-instruction">
+                    <div>Подключи провода к розеткам нужного цвета.</div>
+                    <div>Включи все рубильники, затем потяни трос 10 раз.</div>
+                    <div>Чем быстрее запустишь генератор — тем выше место в таблице.</div>
                 </div>
-                <div class="game-stage-content" id="gameStageContent">
-                    <div class="stage-side">
-                        <div class="panel sw-panel" id="swPanel">
-                            <div class="panel-title">РУБИЛЬНИКИ</div>
-                            <div id="switchesGrid" class="switches-grid"></div>
-                            <div id="swHint" class="sw-hint">0/5</div>
-                        </div>
+
+                <div class="game-stage-square" id="gameStageSquare">
+                    <div class="start-bar" id="startBar">
+                        <div class="start-text" onclick="startGame()">— НАЖМИ ЧТОБЫ НАЧАТЬ —</div>
                     </div>
 
-                    <div class="stage-main">
-                        <div class="panel wire-panel" id="wirePanel">
-                            <div class="panel-title">ПРОВОДА</div>
-                            <canvas id="wireCanvas"></canvas>
-                            <div class="wire-hint" id="wireHint">потяни штекер к розетке нужного цвета</div>
-                        </div>
+                    <div class="finish-overlay" id="finishOverlay" style="display:none">
+                        <div class="finish-glow"></div>
+                        <div class="finish-title">⚡ ГЕНЕРАТОР ЗАПУЩЕН</div>
+                        <div class="finish-time" id="finishTime"></div>
+                        <div class="finish-rank" id="finishRank"></div>
+                        <button class="restart-btn" onclick="startGame()">ИГРАТЬ СНОВА</button>
                     </div>
 
-                    <div class="stage-side">
-                        <div class="panel cord-panel" id="cordPanel">
-                            <div class="panel-title">ТРОС</div>
-                            <div class="cord-machine">
-                                <div class="cord-engine-top">
-                                    <div class="cord-engine-slot"></div>
-                                    <div class="cord-drum-wrap">
-                                        <div class="cord-drum" id="cordDrum"></div>
+                    <div class="game-stage-content" id="gameStageContent">
+                        <div class="stage-side">
+                            <div class="panel sw-panel" id="swPanel">
+                                <div class="panel-title">РУБИЛЬНИКИ</div>
+                                <div id="switchesGrid" class="switches-grid"></div>
+                                <div id="swHint" class="sw-hint">0/5</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-main">
+                            <div class="panel wire-panel" id="wirePanel">
+                                <div class="panel-title">ПРОВОДА</div>
+                                <canvas id="wireCanvas"></canvas>
+                                <div class="wire-hint" id="wireHint">потяни штекер к розетке нужного цвета</div>
+                            </div>
+                        </div>
+
+                        <div class="stage-side">
+                            <div class="panel cord-panel" id="cordPanel">
+                                <div class="panel-title">ТРОС</div>
+
+                                <div class="cord-machine">
+                                    <div class="cord-engine-top">
+                                        <div class="cord-engine-slot"></div>
+                                        <div class="cord-drum-wrap">
+                                            <div class="cord-drum" id="cordDrum"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="cord-track-wrap">
-                                    <div class="cord-track" id="cordTrack">
-                                        <div class="cord-rope" id="cordRope"></div>
-                                        <div class="cord-handle" id="cordHandle">
-                                            <div class="cord-handle-body">
-                                                <div class="cord-handle-grip"></div>
-                                                <div class="cord-handle-grip"></div>
-                                                <div class="cord-handle-grip"></div>
+
+                                    <div class="cord-track-wrap">
+                                        <div class="cord-track" id="cordTrack">
+                                            <div class="cord-rope" id="cordRope"></div>
+                                            <div class="cord-handle" id="cordHandle">
+                                                <div class="cord-handle-body">
+                                                    <div class="cord-handle-grip"></div>
+                                                    <div class="cord-handle-grip"></div>
+                                                    <div class="cord-handle-grip"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="cord-progress-wrap">
+                                    <div class="cord-progress-bar" id="cordBar"></div>
+                                </div>
+
+                                <div class="cord-count" id="cordCount">0 / 10</div>
+                                <div class="cord-hint">потяни трос вниз 10 раз</div>
                             </div>
-                            <div class="cord-progress-wrap"><div class="cord-progress-bar" id="cordBar"></div></div>
-                            <div class="cord-count" id="cordCount">0 / 10</div>
-                            <div class="cord-hint">потяни трос вниз 10 раз</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="right-col">
-            <div class="panel personal-panel right-personal-panel">
-                <div class="panel-title">МОИ ПОПЫТКИ</div>
-                <div class="pp-user" id="ppUser">—</div>
-                <div class="pp-best" id="ppBest">—</div>
-                <div class="pp-list" id="ppList"></div>
+            <div class="right-col">
+                <div class="panel personal-panel right-personal-panel">
+                    <div class="panel-title">МОИ ПОПЫТКИ</div>
+                    <div class="pp-user" id="ppUser">—</div>
+                    <div class="pp-best" id="ppBest">—</div>
+                    <div class="pp-list" id="ppList"></div>
+                </div>
             </div>
+
         </div>
-    </div><!-- /game-layout -->
-
+    </div>
 </div>
-<!-- /game-page -->
-
-</div>
-<!-- /generator-page -->
 
 @section Scripts {
     <script>
@@ -108,5 +120,5 @@
         const CURRENT_GENERATOR = "bitebynight";
     </script>
 
-    <script src="~/js/bytebynight.js?v=2"></script>
+    <script src="~/js/bytebynight.js?v=3"></script>
 }
