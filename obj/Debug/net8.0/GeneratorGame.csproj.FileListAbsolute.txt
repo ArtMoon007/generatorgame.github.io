@@ -130,3 +130,4 @@ C:\Users\GYM MEN\source\repos\GeneratorGame\obj\Debug\net8.0\refint\GeneratorGam
 C:\Users\GYM MEN\source\repos\GeneratorGame\obj\Debug\net8.0\GeneratorGame.pdb
 C:\Users\GYM MEN\source\repos\GeneratorGame\obj\Debug\net8.0\GeneratorGame.genruntimeconfig.cache
 C:\Users\GYM MEN\source\repos\GeneratorGame\obj\Debug\net8.0\ref\GeneratorGame.dll
+C:\Users\GYM MEN\source\repos\GeneratorGame\obj\Debug\net8.0\GeneratorGame.sourcelink.json

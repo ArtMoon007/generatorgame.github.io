@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {}
+    "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {}
   },
   "projects": {
-    "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {
+    "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
+        "projectUniqueName": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
         "projectName": "GeneratorGame",
-        "projectPath": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
+        "projectPath": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\GeneratorGame.csproj",
         "packagesPath": "C:\\Users\\GYM MEN\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\obj\\",
+        "outputPath": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Visual Programm\\NuGetPackages"
@@ -31,6 +31,7 @@
         },
         "frameworks": {
           "net8.0": {
+            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {}
           }
@@ -45,10 +46,11 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
             "BCrypt.Net-Next": {
@@ -81,6 +83,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.28, 8.0.28]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.28, 8.0.28]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.28, 8.0.28]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.28, 8.0.28]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -89,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

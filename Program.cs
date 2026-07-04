@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -14,14 +15,27 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromDays(30);
         options.SlidingExpiration = true;
     });
+
 builder.Services.AddAuthorization();
 
 // DB
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlite("Data Source=generator.db"));
+{
+    if (!string.IsNullOrWhiteSpace(databaseUrl))
+    {
+        opt.UseNpgsql(databaseUrl);
+    }
+    else
+    {
+        opt.UseSqlite("Data Source=generator.db");
+    }
+});
 
 // Session
 builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddSession(opt =>
 {
     opt.IdleTimeout = TimeSpan.FromDays(7);
@@ -33,19 +47,21 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-// ⚠️ БАЗА ДАННЫХ (ПРАВИЛЬНО)
+// Apply migrations
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    // лучше так, чем EnsureCreated
     db.Database.Migrate();
 }
 
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseSession();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.Use(async (context, next) =>
@@ -54,6 +70,7 @@ app.Use(async (context, next) =>
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
         var userName = context.User.Identity.Name;
+
         if (int.TryParse(userId, out var parsedId))
         {
             context.Session.SetInt32("UserId", parsedId);
@@ -61,13 +78,15 @@ app.Use(async (context, next) =>
         }
     }
 
-    if (context.Request.Path.StartsWithSegments("/auth/login") && context.User.Identity?.IsAuthenticated == true)
+    if (context.Request.Path.StartsWithSegments("/auth/login") &&
+        context.User.Identity?.IsAuthenticated == true)
     {
         context.Response.Redirect("/", true);
         return;
     }
 
-    if (context.Request.Path.StartsWithSegments("/auth/register") && context.User.Identity?.IsAuthenticated == true)
+    if (context.Request.Path.StartsWithSegments("/auth/register") &&
+        context.User.Identity?.IsAuthenticated == true)
     {
         context.Response.Redirect("/", true);
         return;
