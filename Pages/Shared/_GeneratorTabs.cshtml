@@ -1,0 +1,8 @@
+@model string
+@{
+    var active = Model ?? "";
+}
+<div class="generator-tabs">
+    <a href="/generators/bitebynight" class="generator-tab @(active == "bitebynight" ? "active" : "")">BITE BY NIGHT</a>
+    <a href="/generators/forsaken" class="generator-tab @(active == "forsaken" ? "active" : "")">FORSAKEN</a>
+</div>

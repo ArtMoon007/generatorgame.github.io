@@ -1,0 +1,39 @@
+﻿@page "/auth/register"
+@model GeneratorGame.Pages.Auth.RegisterModel
+@{
+    ViewData["Title"] = "Регистрация";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="auth-wrap">
+    <div class="auth-card">
+        <div class="auth-logo">GEN<span class="accent">ERATOR</span></div>
+        <div class="auth-sub">CHALLENGE · LEADERBOARD · SPEED</div>
+        <div class="auth-tabs">
+            <a href="/auth/login" class="auth-tab">ВХОД</a>
+            <a href="/auth/register" class="auth-tab active">РЕГИСТРАЦИЯ</a>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="auth-error">@Model.ErrorMessage</div>
+        }
+
+        <form method="post">
+            <div class="field">
+                <label>ЛОГИН</label>
+                <input name="Username" value="@Model.Username" placeholder="your_username" required autocomplete="username" />
+            </div>
+            <div class="field">
+                <label>ПАРОЛЬ</label>
+                <input name="Password" type="password" placeholder="••••••••" required autocomplete="new-password" />
+            </div>
+            <div class="field">
+                <label>ПОДТВЕРДИ ПАРОЛЬ</label>
+                <input name="Confirm" type="password" placeholder="••••••••" required autocomplete="new-password" />
+            </div>
+            <button type="submit" class="auth-main-btn">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+        </form>
+    </div>
+</div>
+

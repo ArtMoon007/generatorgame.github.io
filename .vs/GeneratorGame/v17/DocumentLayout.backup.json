@@ -1,0 +1,483 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\robloxcallback.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\robloxcallback.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\robloxcallback.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\robloxcallback.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\data\\models\\score.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:data\\models\\score.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\roblox.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\roblox.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\roblox.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\roblox.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\auth\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\wwwroot\\js\\game.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:wwwroot\\js\\game.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\error.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\error.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\privacy.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\privacy.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\api\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\api\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|c:\\users\\gym men\\source\\repos\\generatorgame\\pages\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{D5DD0FE3-1E51-465D-B0E3-C55C78841EA1}|GeneratorGame.csproj|solutionrelative:pages\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 471,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Score.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Data\\Models\\Score.cs",
+              "RelativeDocumentMoniker": "Data\\Models\\Score.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Data\\Models\\Score.cs",
+              "RelativeToolTip": "Data\\Models\\Score.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:31:50.106Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Data\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Data\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Data\\Models\\User.cs",
+              "RelativeToolTip": "Data\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:30:05.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RobloxCallback.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\RobloxCallback.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Auth\\RobloxCallback.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\RobloxCallback.cshtml.cs",
+              "RelativeToolTip": "Pages\\Auth\\RobloxCallback.cshtml.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAA6wEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:28:20.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RobloxCallback.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\RobloxCallback.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Auth\\RobloxCallback.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\RobloxCallback.cshtml",
+              "RelativeToolTip": "Pages\\Auth\\RobloxCallback.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T22:28:15.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "game.js",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\game.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\game.js",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\game.js",
+              "RelativeToolTip": "wwwroot\\js\\game.js",
+              "ViewState": "AgIAACcAAAAAAAAAAAAkwEIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-28T22:13:34.122Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Error.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Error.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Error.cshtml",
+              "RelativeToolTip": "Pages\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T21:48:07.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Privacy.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Privacy.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Privacy.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Privacy.cshtml.cs",
+              "RelativeToolTip": "Pages\\Privacy.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T21:47:53.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Roblox.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Roblox.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Roblox.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Roblox.cshtml",
+              "RelativeToolTip": "Pages\\Auth\\Roblox.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T22:09:31.481Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Login.cshtml.cs",
+              "RelativeToolTip": "Pages\\Auth\\Login.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:24:30.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Register.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Register.cshtml.cs",
+              "RelativeToolTip": "Pages\\Auth\\Register.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T21:39:41.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:31:59.704Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Logout.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Logout.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Logout.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Logout.cshtml",
+              "RelativeToolTip": "Pages\\Auth\\Logout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T22:24:39.502Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Logout.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Logout.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Logout.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Logout.cshtml.cs",
+              "RelativeToolTip": "Pages\\Auth\\Logout.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:24:50.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Login.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Login.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Login.cshtml",
+              "RelativeToolTip": "Pages\\Auth\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T21:24:28.559Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:08:31.327Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Roblox.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Roblox.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Roblox.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Roblox.cshtml.cs",
+              "RelativeToolTip": "Pages\\Auth\\Roblox.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T22:09:39.206Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Error.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Error.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Error.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Error.cshtml.cs",
+              "RelativeToolTip": "Pages\\Error.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T21:48:08.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Register.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Auth\\Register.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Auth\\Register.cshtml",
+              "RelativeToolTip": "Pages\\Auth\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T21:39:23.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAmwFcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-28T21:26:37.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Privacy.cshtml",
+              "RelativeToolTip": "Pages\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T21:47:40.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "Pages\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T21:43:41.535Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Pages\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\_ViewImports.cshtml",
+              "RelativeToolTip": "Pages\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T21:37:03.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T21:36:51.665Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Index.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Index.cshtml",
+              "RelativeToolTip": "Pages\\Index.cshtml",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAtwHQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T21:35:45.172Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Api\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Api\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Api\\_ViewImports.cshtml",
+              "RelativeToolTip": "Pages\\Api\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-27T22:01:02.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "bootstrap.css",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+              "RelativeDocumentMoniker": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+              "RelativeToolTip": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-27T22:00:53.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Shared\\_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_Layout.cshtml.css",
+              "ToolTip": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\Pages\\Shared\\_Layout.cshtml.css",
+              "RelativeToolTip": "Pages\\Shared\\_Layout.cshtml.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-27T21:58:44.142Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 342,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+@page
+@model GeneratorGame.Pages.Auth.RegisterModel
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="auth-error">@Model.ErrorMessage</div>
+}
+
+<form method="post">
+
+    <div class="field">
+        <label>ЛОГИН</label>
+        <input asp-for="Username"
+               placeholder="your_username"
+               required
+               minlength="3"
+               maxlength="20"
+               autocomplete="username" />
+    </div>
+
+    <div class="field">
+        <label>ПАРОЛЬ</label>
+        <input asp-for="Password"
+               type="password"
+               placeholder="минимум 6 символов"
+               required
+               minlength="6"
+               autocomplete="new-password" />
+    </div>
+
+    <div class="field">
+        <label>ПОВТОРИТЬ ПАРОЛЬ</label>
+        <input asp-for="Confirm"
+               type="password"
+               placeholder="••••••••"
+               required
+               autocomplete="new-password" />
+    </div>
+
+    <button type="submit" class="auth-main-btn">
+        СОЗДАТЬ АККАУНТ
+    </button>
+
+</form>
+
+<div class="auth-hint" style="margin-top:14px;text-align:center">
+    Уже есть аккаунт?
+    <a href="/auth/login">Войти</a>
+</div>

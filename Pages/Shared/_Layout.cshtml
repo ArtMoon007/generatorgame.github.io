@@ -1,0 +1,44 @@
+@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>@ViewData["Title"] — GENERATOR</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">GEN<span class="accent">ERATOR</span></div>
+        <div class="nav-right">
+            @{
+                var _uid = Context.Session.GetInt32("UserId");
+                var _name = Context.Session.GetString("UserName") ?? "";
+                var _av = Context.Session.GetString("UserAvatar") ?? "";
+            }
+            @if (_uid != null)
+            {
+                <div class="nav-user">
+                    @if (!string.IsNullOrEmpty(_av))
+                    {
+                        <img src="@_av" class="nav-avatar" alt="" />
+                    }
+                    else
+                    {
+                        <div class="nav-avatar-ph">@(_name.Length > 0 ? _name[0].ToString().ToUpper() : "?")</div>
+                    }
+                    <span class="nav-name">@_name</span>
+                </div>
+                <a href="/auth/logout" class="nav-btn">ВЫЙТИ</a>
+            }
+            else
+            {
+                <a href="/auth/login" class="nav-btn">ВОЙТИ</a>
+            }
+        </div>
+    </nav>
+    @RenderBody()
+    <script src="~/js/game.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
