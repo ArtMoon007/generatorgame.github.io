@@ -25,11 +25,16 @@ public class LoginModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(string username, string password, bool rememberMe = true)
+    public async Task<IActionResult> OnPostAsync(string login, string password, bool rememberMe = true)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
+        login = (login ?? string.Empty).Trim();
+        var normalizedEmail = login.ToLowerInvariant();
 
-        if (user == null)
+        var user = await _db.Users.FirstOrDefaultAsync(u =>
+            u.Username == login ||
+            (u.Email != null && u.Email == normalizedEmail));
+
+        if (user == null || string.IsNullOrEmpty(user.PasswordHash))
         {
             ErrorMessage = "Неверный логин или пароль";
             return Page();

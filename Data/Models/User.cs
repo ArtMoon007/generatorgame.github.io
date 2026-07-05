@@ -6,6 +6,8 @@ public class User
 
     public string Username { get; set; } = null!;
 
+    public string? Email { get; set; }
+
     // 🔐 ЛОКАЛЬНЫЙ ВХОД
     public string? PasswordHash { get; set; }
 

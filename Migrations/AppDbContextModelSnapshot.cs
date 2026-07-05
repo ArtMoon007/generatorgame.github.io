@@ -54,6 +54,9 @@ namespace GeneratorGame.Migrations
                     b.Property<string>("AvatarUrl")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -72,9 +75,11 @@ namespace GeneratorGame.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("RobloxId")
-                        .IsUnique()
-                        .HasFilter("[RobloxId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("Username")
                         .IsUnique();

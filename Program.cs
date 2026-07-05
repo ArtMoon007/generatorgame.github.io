@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -51,6 +52,11 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
         opt.UseSqlite("Data Source=generator.db");
     }
 });
+
+Console.WriteLine(string.IsNullOrWhiteSpace(databaseUrl)
+    ? "DATABASE: SQLite fallback"
+    : "DATABASE: PostgreSQL DATABASE_URL found");
+
 
 // Session
 builder.Services.AddDistributedMemoryCache();

@@ -4,6 +4,7 @@
     ViewData["Title"] = "Вход";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+
 <div class="auth-wrap">
     <div class="auth-card">
         <div class="auth-logo">GEN<span class="accent">ERATOR</span></div>
@@ -12,24 +13,27 @@
             <a href="/auth/login" class="auth-tab active">ВХОД</a>
             <a href="/auth/register" class="auth-tab">РЕГИСТРАЦИЯ</a>
         </div>
+
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
         {
             <div class="auth-error">@Model.ErrorMessage</div>
         }
+
         <form method="post">
             <div class="field">
-                <label>ЛОГИН</label>
-                <input name="username" placeholder="your_username" required autocomplete="username" />
+                <label>ЛОГИН ИЛИ ПОЧТА</label>
+                <input name="login" placeholder="username or email" required autocomplete="username" />
             </div>
             <div class="field">
                 <label>ПАРОЛЬ</label>
                 <input name="password" type="password" placeholder="••••••••" required autocomplete="current-password" />
             </div>
             <label class="auth-remember">
-                <input type="checkbox" name="rememberMe" checked />
-                <span>запомнить меня на 30 дней</span>
+                <input type="checkbox" name="rememberMe" value="true" checked />
+                <span class="auth-remember-box"></span>
+                <span class="auth-remember-text">Запомнить меня на 30 дней</span>
             </label>
             <button type="submit" class="auth-main-btn">ВОЙТИ</button>
         </form>
-        @* SUGGESTED EDIT: Removed duplicate hint and added link back home *@
-
+    </div>
+</div>

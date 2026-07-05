@@ -1,9 +1,11 @@
 // ============================================================
 // FORSAKEN GENERATOR — RANDOM SOLVABLE FLOW 6x6
+// fixed: anti-skip, layer lock, leaderboard highlight
 // ============================================================
 
 var FG_SIZE = 6;
 var FG_LAYERS = 4;
+var FG_MIN_PATH_CELLS = 4;
 
 var FG_COLORS = [
     '#ff4f7b', '#e60028', '#ff8a00', '#f5dfc3',
@@ -23,6 +25,8 @@ var fgPaths = {};
 var fgActivePair = null;
 var fgMouseDown = false;
 var fgLastCellKey = null;
+var fgLayerLocked = false;
+var fgInputCooldownUntil = 0;
 
 // ============================================================
 // TIMER
@@ -77,6 +81,14 @@ function startGame() {
 
     fgLayer = 1;
     fgMoves = 0;
+    fgPairs = [];
+    fgPaths = {};
+    fgActivePair = null;
+    fgMouseDown = false;
+    fgLastCellKey = null;
+    fgLayerLocked = false;
+    fgInputCooldownUntil = 0;
+
     gameReady = true;
     gameStarted = true;
 
@@ -89,6 +101,9 @@ function completeGame() {
 
     gameReady = false;
     gameStarted = false;
+    fgLayerLocked = true;
+    fgMouseDown = false;
+    fgActivePair = null;
 
     var ms = Date.now() - startTime;
 
@@ -113,19 +128,24 @@ function completeGame() {
                 generator: currentGenerator()
             })
         })
-        .then(function () {
-            loadLeaderboard();
-            loadMyScores();
+            .then(function (r) {
+                if (!r.ok) throw new Error('score rejected');
+                return r.json().catch(function () { return {}; });
+            })
+            .then(function () {
+                loadLeaderboard();
+                loadMyScores();
 
-            var fr2 = document.getElementById('finishRank');
-            if (fr2) fr2.textContent = 'результат добавлен в таблицу';
-        })
-        .catch(function () {
-            var fr2 = document.getElementById('finishRank');
-            if (fr2) fr2.textContent = 'не удалось сохранить результат';
-        });
+                var fr2 = document.getElementById('finishRank');
+                if (fr2) fr2.textContent = 'результат добавлен в таблицу';
+            })
+            .catch(function () {
+                var fr2 = document.getElementById('finishRank');
+                if (fr2) fr2.textContent = 'результат отклонён античитом';
+            });
     }
 }
+
 // ============================================================
 // RANDOM SOLVABLE GENERATOR
 // ============================================================
@@ -134,7 +154,7 @@ function fgTargetPairsForLayer() {
     if (fgLayer === 1) return fgRand(3, 5);
     if (fgLayer === 2) return fgRand(4, 7);
     if (fgLayer === 3) return fgRand(5, 9);
-    return fgRand(6, 13);
+    return fgRand(6, 11);
 }
 
 function fgGenerateRandomLayer() {
@@ -143,11 +163,13 @@ function fgGenerateRandomLayer() {
     fgActivePair = null;
     fgMouseDown = false;
     fgLastCellKey = null;
+    fgLayerLocked = false;
+    fgInputCooldownUntil = Date.now() + 180;
 
     var target = fgTargetPairsForLayer();
     var best = null;
 
-    for (var attempt = 0; attempt < 200; attempt++) {
+    for (var attempt = 0; attempt < 260; attempt++) {
         var puzzle = fgTryBuildPuzzle(target);
 
         if (puzzle && puzzle.pairs.length >= 2) {
@@ -156,7 +178,13 @@ function fgGenerateRandomLayer() {
         }
     }
 
-    if (!best) best = fgTryBuildPuzzle(3);
+    if (!best) {
+        best = fgTryBuildPuzzle(2);
+    }
+
+    if (!best || !best.pairs.length) {
+        best = { pairs: fgFallbackPairs() };
+    }
 
     fgPairs = best.pairs;
     fgPaths = {};
@@ -175,12 +203,12 @@ function fgTryBuildPuzzle(target) {
     for (var id = 1; id <= target; id++) {
         var path = null;
 
-        for (var t = 0; t < 80; t++) {
+        for (var t = 0; t < 100; t++) {
             path = fgRandomPath(occupied);
-            if (path && path.length >= 2) break;
+            if (path && path.length >= FG_MIN_PATH_CELLS) break;
         }
 
-        if (!path || path.length < 2) break;
+        if (!path || path.length < FG_MIN_PATH_CELLS) break;
 
         var a = path[0];
         var b = path[path.length - 1];
@@ -209,7 +237,7 @@ function fgRandomPath(occupied) {
     var local = {};
     local[start.x + ',' + start.y] = true;
 
-    var maxSteps = fgRand(2, 7);
+    var maxSteps = fgRand(FG_MIN_PATH_CELLS - 1, 7);
 
     for (var i = 0; i < maxSteps; i++) {
         var last = path[path.length - 1];
@@ -224,7 +252,12 @@ function fgRandomPath(occupied) {
         local[next.x + ',' + next.y] = true;
     }
 
-    return path.length >= 2 ? path : null;
+    if (path.length < FG_MIN_PATH_CELLS) return null;
+
+    var end = path[path.length - 1];
+    if (fgDistance(path[0], end) < FG_MIN_PATH_CELLS - 1) return null;
+
+    return path;
 }
 
 function fgRandomFreeCell(occupied) {
@@ -240,6 +273,25 @@ function fgRandomFreeCell(occupied) {
     return cells[Math.floor(Math.random() * cells.length)];
 }
 
+function fgFallbackPairs() {
+    return [
+        {
+            id: 1,
+            color: FG_COLORS[0],
+            a: { x: 0, y: 0 },
+            b: { x: 3, y: 0 },
+            done: false
+        },
+        {
+            id: 2,
+            color: FG_COLORS[1],
+            a: { x: 0, y: 2 },
+            b: { x: 3, y: 2 },
+            done: false
+        }
+    ];
+}
+
 function fgNeighbors(x, y) {
     return [
         { x: x + 1, y: y },
@@ -253,6 +305,10 @@ function fgNeighbors(x, y) {
 
 function fgRand(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+function fgDistance(a, b) {
+    return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 }
 
 function fgShuffle(arr) {
@@ -308,14 +364,14 @@ function fgBindBoardEvents() {
     if (!board) return;
 
     board.onmousedown = function (e) {
-        if (!gameReady) return;
+        if (!fgCanInput()) return;
         e.preventDefault();
         fgMouseDown = true;
         fgHandlePointer(e.clientX, e.clientY);
     };
 
     board.onmousemove = function (e) {
-        if (!gameReady || !fgMouseDown) return;
+        if (!fgCanInput() || !fgMouseDown) return;
         e.preventDefault();
         fgHandlePointer(e.clientX, e.clientY);
     };
@@ -325,7 +381,7 @@ function fgBindBoardEvents() {
     };
 
     board.ontouchstart = function (e) {
-        if (!gameReady) return;
+        if (!fgCanInput()) return;
         e.preventDefault();
         fgMouseDown = true;
         var t = e.touches[0];
@@ -333,7 +389,7 @@ function fgBindBoardEvents() {
     };
 
     board.ontouchmove = function (e) {
-        if (!gameReady || !fgMouseDown) return;
+        if (!fgCanInput() || !fgMouseDown) return;
         e.preventDefault();
         var t = e.touches[0];
         fgHandlePointer(t.clientX, t.clientY);
@@ -342,9 +398,19 @@ function fgBindBoardEvents() {
     document.ontouchend = function () {
         fgStopDraw();
     };
+
+    document.ontouchcancel = function () {
+        fgStopDraw();
+    };
+}
+
+function fgCanInput() {
+    return gameReady && gameStarted && !fgLayerLocked && Date.now() >= fgInputCooldownUntil;
 }
 
 function fgHandlePointer(clientX, clientY) {
+    if (!fgCanInput()) return;
+
     var board = document.getElementById('fgBoard');
     if (!board) return;
 
@@ -381,6 +447,8 @@ function fgRenderLines() {
     var rect = board.getBoundingClientRect();
     var w = rect.width;
     var h = rect.height;
+
+    if (w <= 0 || h <= 0) return;
 
     svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
     svg.innerHTML = '';
@@ -435,6 +503,8 @@ function fgCenter(x, y, w, h) {
 // ============================================================
 
 function fgHandleCell(x, y) {
+    if (!fgCanInput()) return;
+
     var dot = fgDotAt(x, y);
 
     if (!fgActivePair) {
@@ -470,22 +540,29 @@ function fgHandleCell(x, y) {
 
     if (!fgIsNear(last, { x: x, y: y })) return;
 
+    var start = path[0];
+    var target = start.x === pair.a.x && start.y === pair.a.y ? pair.b : pair.a;
+    var isTarget = target.x === x && target.y === y;
+
     var otherPath = fgPathAt(x, y);
     if (otherPath && otherPath.id !== pair.id) return;
 
     var otherDot = fgDotAt(x, y);
     if (otherDot && otherDot.id !== pair.id) return;
+    if (otherDot && otherDot.id === pair.id && !isTarget) return;
+
+    if (isTarget && path.length + 1 < FG_MIN_PATH_CELLS) {
+        return;
+    }
 
     path.push({ x: x, y: y });
 
-    var start = path[0];
-    var target = start.x === pair.a.x && start.y === pair.a.y ? pair.b : pair.a;
-
-    if (target.x === x && target.y === y) {
+    if (isTarget) {
         pair.done = true;
         fgActivePair = null;
         fgMouseDown = false;
         fgLastCellKey = null;
+        fgInputCooldownUntil = Date.now() + 90;
 
         fgRenderLines();
         fgUpdateInfo();
@@ -520,6 +597,14 @@ function fgStopDraw() {
 }
 
 function fgFinishLayer() {
+    if (fgLayerLocked) return;
+
+    fgLayerLocked = true;
+    fgMouseDown = false;
+    fgActivePair = null;
+    fgLastCellKey = null;
+    fgInputCooldownUntil = Date.now() + 900;
+
     var fill = document.getElementById('fgProgressFill');
     if (fill) fill.style.height = (fgLayer / FG_LAYERS * 100) + '%';
 
@@ -531,7 +616,7 @@ function fgFinishLayer() {
 
         fgLayer++;
         fgGenerateRandomLayer();
-    }, 450);
+    }, 900);
 }
 
 // ============================================================
@@ -568,9 +653,10 @@ function fgPathAt(x, y) {
 
         for (var i = 0; i < path.length; i++) {
             if (path[i].x === x && path[i].y === y) {
+                var pair = fgPairById(Number(id));
                 return {
                     id: Number(id),
-                    color: fgPairById(Number(id)).color
+                    color: pair ? pair.color : '#fff'
                 };
             }
         }
@@ -619,23 +705,81 @@ function loadLeaderboard() {
         .catch(function () { });
 }
 
-function renderLB(list) {
+function renderLB(data) {
+    var list = Array.isArray(data) ? data : (data && Array.isArray(data.top) ? data.top : []);
+    var myRankFromServer = data && typeof data.myRank === 'number' ? data.myRank : null;
+
     var el = document.getElementById('lbList');
     if (!el) return;
 
     if (!list || !list.length) {
         el.innerHTML = '<div class="lb-empty">Пока никто не играл</div>';
+        renderMyRankRow(null, myRankFromServer);
         return;
     }
 
+    var me = typeof CURRENT_USER !== 'undefined' ? CURRENT_USER : '';
+
     el.innerHTML = list.map(function (e, i) {
+        var rc = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
         var displayName = e.robloxUsername || e.username || 'Player';
-        return '<div class="lb-row">' +
-            '<div class="lb-num">' + (i + 1) + '</div>' +
-            '<div class="lb-name">' + displayName + '</div>' +
+
+        var av = e.robloxAvatarUrl
+            ? '<img src="' + e.robloxAvatarUrl + '" alt=""/>'
+            : '<span class="lb-av-txt">' + displayName[0].toUpperCase() + '</span>';
+
+        var isMe =
+            (e.username || '').toLowerCase() === String(me).toLowerCase() ||
+            (e.robloxUsername || '').toLowerCase() === String(me).toLowerCase();
+
+        var nm = e.robloxId
+            ? '<a href="https://www.roblox.com/users/' + e.robloxId + '/profile" target="_blank">' + displayName + '</a>'
+            : '<span' + (isMe ? ' style="color:#e05050"' : '') + '>' + displayName + '</span>';
+
+        return '<div class="lb-row' + (isMe ? ' lb-me' : '') + '">' +
+            '<div class="lb-num ' + rc + '">' + (i + 1) + '</div>' +
+            '<div class="lb-av">' + av + '</div>' +
+            '<div class="lb-name">' + nm + '</div>' +
             '<div class="lb-time">' + e.timeFormatted + '</div>' +
             '</div>';
     }).join('');
+
+    var myIndex = list.findIndex(function (e) {
+        return (e.username || '').toLowerCase() === String(me).toLowerCase() ||
+            (e.robloxUsername || '').toLowerCase() === String(me).toLowerCase();
+    });
+
+    renderMyRankRow(myIndex >= 0 ? { index: myIndex, entry: list[myIndex] } : null, myRankFromServer);
+}
+
+function renderMyRankRow(found, myRankFromServer) {
+    var mr = document.getElementById('myRow');
+    if (!mr) return;
+
+    if (found) {
+        var e = found.entry;
+        var displayName = e.robloxUsername || e.username || 'Player';
+
+        mr.innerHTML =
+            '<div class="lb-my-inner">' +
+            '<div class="lb-num" style="color:#e05050">' + (found.index + 1) + '</div>' +
+            '<div class="lb-av"><span class="lb-av-txt">' + displayName[0].toUpperCase() + '</span></div>' +
+            '<div class="lb-name" style="color:#e05050">' + displayName + '</div>' +
+            '<div class="lb-time" style="color:#e05050">' + e.timeFormatted + '</div>' +
+            '</div><div class="lb-my-lbl">твоё место</div>';
+        return;
+    }
+
+    if (myRankFromServer && myRankFromServer > 100) {
+        mr.innerHTML =
+            '<div class="lb-my-inner">' +
+            '<div class="lb-num" style="color:#e05050">#' + myRankFromServer + '</div>' +
+            '<div class="lb-name" style="color:#e05050">ты вне TOP 100</div>' +
+            '</div><div class="lb-my-lbl">твоё место после топа</div>';
+        return;
+    }
+
+    mr.innerHTML = '';
 }
 
 function loadMyScores() {

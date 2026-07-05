@@ -19,6 +19,7 @@ public class RegisterModel : PageModel
     }
 
     [BindProperty] public string Username { get; set; } = "";
+    [BindProperty] public string Email { get; set; } = "";
     [BindProperty] public string Password { get; set; } = "";
     [BindProperty] public string Confirm { get; set; } = "";
 
@@ -37,9 +38,19 @@ public class RegisterModel : PageModel
     public async Task<IActionResult> OnPostAsync()
     {
         if (string.IsNullOrWhiteSpace(Username) ||
+            string.IsNullOrWhiteSpace(Email) ||
             string.IsNullOrWhiteSpace(Password))
         {
             ErrorMessage = "Заполни все поля";
+            return Page();
+        }
+
+        Username = Username.Trim();
+        Email = Email.Trim().ToLowerInvariant();
+
+        if (!Email.Contains('@') || !Email.Contains('.'))
+        {
+            ErrorMessage = "Введи нормальную почту";
             return Page();
         }
 
@@ -56,10 +67,10 @@ public class RegisterModel : PageModel
         }
 
         // проверка уникальности
-        var exists = await _db.Users.AnyAsync(u => u.Username == Username);
+        var exists = await _db.Users.AnyAsync(u => u.Username == Username || u.Email == Email);
         if (exists)
         {
-            ErrorMessage = "Такой пользователь уже существует";
+            ErrorMessage = "Такой логин или почта уже заняты";
             return Page();
         }
 
@@ -69,6 +80,7 @@ public class RegisterModel : PageModel
         var user = new User
         {
             Username = Username,
+            Email = Email,
             PasswordHash = hash
         };
 

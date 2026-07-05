@@ -19,9 +19,12 @@ public class AppDbContext : DbContext
             .IsUnique();
 
         b.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+
+        b.Entity<User>()
             .HasIndex(u => u.RobloxId)
-            .IsUnique()
-            .HasFilter("[RobloxId] IS NOT NULL");
+            .IsUnique();
 
         b.Entity<Score>()
             .HasOne(s => s.User)

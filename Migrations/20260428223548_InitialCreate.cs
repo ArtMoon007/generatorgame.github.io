@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -16,7 +17,8 @@ namespace GeneratorGame.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Sqlite:Autoincrement", true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(type: "TEXT", nullable: false),
                     PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
                     RobloxId = table.Column<string>(type: "TEXT", nullable: true),
@@ -34,7 +36,8 @@ namespace GeneratorGame.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Sqlite:Autoincrement", true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     TimeMs = table.Column<long>(type: "INTEGER", nullable: false),
                     PlayedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -59,8 +62,7 @@ namespace GeneratorGame.Migrations
                 name: "IX_Users_RobloxId",
                 table: "Users",
                 column: "RobloxId",
-                unique: true,
-                filter: "[RobloxId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Username",

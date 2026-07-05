@@ -205,6 +205,64 @@ a:hover{text-decoration:underline}
     background:#9a0000;
 }
 
+.auth-remember{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin:2px 0 14px;
+    color:#777;
+    font-size:12px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.auth-remember input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.auth-remember-box{
+    width:18px;
+    height:18px;
+    border:1px solid #3a1414;
+    border-radius:5px;
+    background:#0b0b0b;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;
+    position:relative;
+    flex-shrink:0;
+    transition:background .15s,border-color .15s,box-shadow .15s;
+}
+
+.auth-remember-box::after{
+    content:'';
+    position:absolute;
+    left:5px;
+    top:2px;
+    width:5px;
+    height:9px;
+    border:solid #fff;
+    border-width:0 2px 2px 0;
+    opacity:0;
+    transform:rotate(45deg) scale(.75);
+    transition:opacity .15s,transform .15s;
+}
+
+.auth-remember input:checked + .auth-remember-box{
+    background:#7a0000;
+    border-color:#dd4444;
+    box-shadow:0 0 12px rgba(204,34,34,.25);
+}
+
+.auth-remember input:checked + .auth-remember-box::after{
+    opacity:1;
+    transform:rotate(45deg) scale(1);
+}
+
+.auth-remember-text{
+    line-height:1.25;
+}
+
 .auth-sec-btn{
     display:block;
     width:100%;
@@ -1495,5 +1553,60 @@ a:hover{text-decoration:underline}
     .lb-time,
     .pp-row{
         font-size:12px;
+    }
+}
+@media (max-width:980px){
+    .sw-panel {
+        min-height: 280px !important;
+    }
+
+    .switches-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .sw-item {
+        min-height: 46px !important;
+        padding: 8px 10px !important;
+        background: #101010;
+        border: 1px solid #202020;
+        border-radius: 8px;
+    }
+
+    .sw-led {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .sw-body {
+        padding: 8px 10px !important;
+    }
+
+    .sw-track {
+        width: 42px !important;
+        height: 22px !important;
+    }
+
+    .sw-knob {
+        width: 16px !important;
+        height: 16px !important;
+        top: 2px !important;
+        left: 2px !important;
+    }
+
+    .sw-item.on .sw-knob {
+        left: 21px !important;
+    }
+
+    .sw-lbl {
+        font-size: 13px !important;
+    }
+
+    .cord-track,
+    .cord-handle,
+    .cord-panel {
+        touch-action: none !important;
+        overscroll-behavior: contain !important;
     }
 }
