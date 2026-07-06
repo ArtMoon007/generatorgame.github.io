@@ -29,11 +29,11 @@ public class LoginModel : PageModel
     public async Task<IActionResult> OnPostAsync(string login, string password, bool rememberMe = true)
     {
         login = (login ?? string.Empty).Trim();
-        var normalizedEmail = login.ToLowerInvariant();
+        var normalizedLogin = login.ToLowerInvariant();
 
         var user = await _db.Users.FirstOrDefaultAsync(u =>
-            u.Username == login ||
-            (u.Email != null && u.Email == normalizedEmail));
+            u.Username.ToLower() == normalizedLogin ||
+            (u.Email != null && u.Email == normalizedLogin));
 
         if (user == null || string.IsNullOrEmpty(user.PasswordHash))
         {

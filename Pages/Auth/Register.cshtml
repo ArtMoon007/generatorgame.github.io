@@ -19,22 +19,22 @@
             <div class="auth-error">@Model.ErrorMessage</div>
         }
 
-        <form method="post" asp-page="/Auth/Register" asp-antiforgery="true">
+        <form method="post" action="/auth/register" class="auth-form">
             <div class="field">
                 <label>ЛОГИН</label>
-                <input name="Username" value="@Model.Username" placeholder="your_username" required autocomplete="username" />
+                <input name="Username" value="@Model.Username" placeholder="your_username" required autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
             </div>
             <div class="field">
                 <label>ПОЧТА</label>
-                <input name="Email" value="@Model.Email" type="email" placeholder="you@example.com" required autocomplete="email" />
+                <input name="Email" value="@Model.Email" type="email" placeholder="you@example.com" required autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" />
             </div>
             <div class="field">
                 <label>ПАРОЛЬ</label>
-                <input name="Password" type="password" placeholder="••••••••" required autocomplete="new-password" />
+                <input name="Password" type="password" placeholder="••••••••" required autocomplete="new-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
             </div>
             <div class="field">
                 <label>ПОДТВЕРДИ ПАРОЛЬ</label>
-                <input name="Confirm" type="password" placeholder="••••••••" required autocomplete="new-password" />
+                <input name="Confirm" type="password" placeholder="••••••••" required autocomplete="new-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
             </div>
             <button type="submit" class="auth-main-btn">ЗАРЕГИСТРИРОВАТЬСЯ</button>
         </form>

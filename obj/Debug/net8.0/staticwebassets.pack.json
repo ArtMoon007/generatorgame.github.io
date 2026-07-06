@@ -5,8 +5,28 @@
       "PackagePath": "staticwebassets\\GeneratorGame.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\android-chrome-192x192.png",
+      "PackagePath": "staticwebassets\\android-chrome-192x192.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\android-chrome-512x512.png",
+      "PackagePath": "staticwebassets\\android-chrome-512x512.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\apple-touch-icon.png",
+      "PackagePath": "staticwebassets\\apple-touch-icon.png"
+    },
+    {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon-16x16.png",
+      "PackagePath": "staticwebassets\\favicon-16x16.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon-32x32.png",
+      "PackagePath": "staticwebassets\\favicon-32x32.png"
     },
     {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon.ico",
@@ -251,6 +271,10 @@
     {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\site.webmanifest",
+      "PackagePath": "staticwebassets\\site.webmanifest"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.GeneratorGame.Microsoft.AspNetCore.StaticWebAssets.props",
