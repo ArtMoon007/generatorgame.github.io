@@ -100,6 +100,7 @@ a:hover{text-decoration:underline}
     border:1px solid #222;
     border-radius:12px;
     width:320px;
+    max-width:100%;
     padding:28px;
 }
 
@@ -189,6 +190,7 @@ a:hover{text-decoration:underline}
 
 .auth-main-btn{
     width:100%;
+    display:block;
     background:#7a0000;
     border:none;
     border-radius:6px;
@@ -199,6 +201,9 @@ a:hover{text-decoration:underline}
     cursor:pointer;
     font-weight:700;
     transition:background .2s;
+    touch-action:manipulation;
+    position:relative;
+    z-index:1;
 }
 
 .auth-main-btn:hover{
@@ -1267,6 +1272,23 @@ a:hover{text-decoration:underline}
         padding:8px 12px;
         flex-wrap:wrap;
         gap:8px;
+    }
+
+    .auth-wrap{
+        min-height:calc(100dvh - 46px);
+        align-items:flex-start;
+        padding:18px 12px 28px;
+    }
+
+    .auth-card{
+        width:100%;
+        max-width:360px;
+        padding:22px 18px;
+    }
+
+    .auth-main-btn{
+        min-height:46px;
+        font-size:12px;
     }
 
     .nav-name{

@@ -19,7 +19,7 @@
             <div class="auth-error">@Model.ErrorMessage</div>
         }
 
-        <form method="post">
+        <form method="post" asp-page="/Auth/Login" asp-antiforgery="true">
             <div class="field">
                 <label>ЛОГИН ИЛИ ПОЧТА</label>
                 <input name="login" placeholder="username or email" required autocomplete="username" />
