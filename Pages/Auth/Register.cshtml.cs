@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+using System.Net.Mail;
+using System.Security.Claims;
 using GeneratorGame.Data;
 using GeneratorGame.Data.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -37,6 +38,9 @@ public class RegisterModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        Username = (Username ?? string.Empty).Trim();
+        Email = (Email ?? string.Empty).Trim().ToLowerInvariant();
+
         if (string.IsNullOrWhiteSpace(Username) ||
             string.IsNullOrWhiteSpace(Email) ||
             string.IsNullOrWhiteSpace(Password))
@@ -45,10 +49,7 @@ public class RegisterModel : PageModel
             return Page();
         }
 
-        Username = Username.Trim();
-        Email = Email.Trim().ToLowerInvariant();
-
-        if (!Email.Contains('@') || !Email.Contains('.'))
+        if (!IsValidEmail(Email))
         {
             ErrorMessage = "Введи нормальную почту";
             return Page();
@@ -66,7 +67,6 @@ public class RegisterModel : PageModel
             return Page();
         }
 
-        // проверка уникальности
         var exists = await _db.Users.AnyAsync(u => u.Username == Username || u.Email == Email);
         if (exists)
         {
@@ -74,18 +74,23 @@ public class RegisterModel : PageModel
             return Page();
         }
 
-        // hash пароля
-        var hash = BCrypt.Net.BCrypt.HashPassword(Password);
-
         var user = new User
         {
             Username = Username,
             Email = Email,
-            PasswordHash = hash
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(Password)
         };
 
-        _db.Users.Add(user);
-        await _db.SaveChangesAsync();
+        try
+        {
+            _db.Users.Add(user);
+            await _db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            ErrorMessage = "Не удалось создать аккаунт. Проверь логин и почту";
+            return Page();
+        }
 
         var claims = new List<Claim>
         {
@@ -107,5 +112,18 @@ public class RegisterModel : PageModel
         HttpContext.Session.SetString("UserName", user.Username);
 
         return RedirectToPage("/Index");
+    }
+
+    private static bool IsValidEmail(string email)
+    {
+        try
+        {
+            var parsed = new MailAddress(email);
+            return parsed.Address.Equals(email, StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

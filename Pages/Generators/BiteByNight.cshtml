@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Bite by Night";
     var userName = HttpContext.Session.GetString("UserName") ?? "";
+    var isLoggedIn = User.Identity?.IsAuthenticated == true && HttpContext.Session.GetInt32("UserId") != null;
 }
 
 <div class="generator-page">
@@ -115,7 +116,7 @@
 
 @section Scripts {
     <script>
-        const IS_LOGGED_IN = true;
+        const IS_LOGGED_IN = @Json.Serialize(isLoggedIn);
         const CURRENT_USER = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(userName));
         const CURRENT_GENERATOR = "bitebynight";
     </script>

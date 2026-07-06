@@ -711,12 +711,18 @@ a:hover{text-decoration:underline}
     display:flex;
     flex-direction:column;
     gap:5px;
+    width:100%;
+    max-width:100%;
+    min-width:0;
 }
 
 .sw-item{
     display:flex;
     align-items:center;
     gap:7px;
+    width:100%;
+    max-width:100%;
+    min-width:0;
     cursor:pointer;
     padding:3px 4px;
     border-radius:4px;
@@ -743,6 +749,7 @@ a:hover{text-decoration:underline}
 
 .sw-body{
     flex:1;
+    min-width:0;
     background:#0a0a0a;
     border:1px solid #1e1e1e;
     border-radius:3px;
@@ -755,6 +762,7 @@ a:hover{text-decoration:underline}
 .sw-track{
     width:26px;
     height:14px;
+    flex:0 0 auto;
     background:#060606;
     border:1px solid #252525;
     border-radius:7px;
@@ -783,6 +791,7 @@ a:hover{text-decoration:underline}
     font-size:9px;
     color:#444;
     font-family:'Courier New',monospace;
+    flex:0 0 auto;
 }
 
 .sw-item.on .sw-lbl{color:#22aa22}
@@ -1376,6 +1385,8 @@ a:hover{text-decoration:underline}
         height:auto!important;
         min-height:220px!important;
         width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
     }
 
     #wireCanvas{
@@ -1389,6 +1400,9 @@ a:hover{text-decoration:underline}
         display:grid!important;
         grid-template-columns:repeat(5,1fr)!important;
         gap:7px!important;
+        width:100%!important;
+        max-width:100%!important;
+        min-width:0!important;
     }
 
     .sw-item{
@@ -1531,10 +1545,40 @@ a:hover{text-decoration:underline}
 
     .sw-item{
         min-height:58px;
+        gap:6px!important;
+        padding:7px 8px!important;
+    }
+
+    .sw-led{
+        width:15px!important;
+        height:15px!important;
+        flex-basis:15px!important;
+    }
+
+    .sw-body{
+        padding:7px 8px!important;
+    }
+
+    .sw-track{
+        width:34px!important;
+        height:18px!important;
+        flex-basis:34px!important;
+    }
+
+    .sw-knob{
+        width:12px!important;
+        height:12px!important;
+        top:2px!important;
+        left:2px!important;
+    }
+
+    .sw-item.on .sw-knob{
+        left:18px!important;
     }
 
     .sw-lbl{
         font-size:10px;
+        min-width:24px!important;
     }
 
     .cord-track-wrap{
@@ -1558,12 +1602,17 @@ a:hover{text-decoration:underline}
 @media (max-width:980px){
     .sw-panel {
         min-height: 280px !important;
+        overflow-x: hidden !important;
+        align-items: stretch !important;
     }
 
     .switches-grid {
         display: grid !important;
         grid-template-columns: 1fr !important;
         gap: 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
     }
 
     .sw-item {
@@ -1572,20 +1621,29 @@ a:hover{text-decoration:underline}
         background: #101010;
         border: 1px solid #202020;
         border-radius: 8px;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
     }
 
     .sw-led {
         width: 18px !important;
         height: 18px !important;
+        flex: 0 0 18px !important;
     }
 
     .sw-body {
         padding: 8px 10px !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
     }
 
     .sw-track {
         width: 42px !important;
         height: 22px !important;
+        flex: 0 0 42px !important;
     }
 
     .sw-knob {
@@ -1601,6 +1659,8 @@ a:hover{text-decoration:underline}
 
     .sw-lbl {
         font-size: 13px !important;
+        min-width: 30px !important;
+        text-align: right !important;
     }
 
     .cord-track,
@@ -1608,5 +1668,55 @@ a:hover{text-decoration:underline}
     .cord-panel {
         touch-action: none !important;
         overscroll-behavior: contain !important;
+    }
+}
+
+@media (max-width:520px){
+    .sw-panel{
+        min-height:240px!important;
+        padding:8px!important;
+    }
+
+    .switches-grid{
+        gap:7px!important;
+    }
+
+    .sw-item{
+        min-height:42px!important;
+        gap:6px!important;
+        padding:7px 8px!important;
+    }
+
+    .sw-led{
+        width:15px!important;
+        height:15px!important;
+        flex:0 0 15px!important;
+    }
+
+    .sw-body{
+        padding:7px 8px!important;
+        min-width:0!important;
+    }
+
+    .sw-track{
+        width:34px!important;
+        height:18px!important;
+        flex:0 0 34px!important;
+    }
+
+    .sw-knob{
+        width:12px!important;
+        height:12px!important;
+        top:2px!important;
+        left:2px!important;
+    }
+
+    .sw-item.on .sw-knob{
+        left:18px!important;
+    }
+
+    .sw-lbl{
+        min-width:24px!important;
+        font-size:10px!important;
     }
 }

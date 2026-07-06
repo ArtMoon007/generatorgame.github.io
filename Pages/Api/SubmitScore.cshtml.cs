@@ -46,7 +46,14 @@ public class SubmitScoreModel : PageModel
             .FirstOrDefaultAsync();
 
         if (lastScore != null && req.TimeMs == lastScore.TimeMs)
-            return BadRequest(new { error = "Duplicate score" });
+            return new JsonResult(new
+            {
+                ok = true,
+                duplicate = true,
+                userId = userId.Value,
+                generator,
+                timeMs = req.TimeMs
+            });
 
         _db.Scores.Add(new Score
         {
@@ -73,8 +80,8 @@ public class SubmitScoreModel : PageModel
 
         var minTime = generator switch
         {
-            "bitebynight" => 6_000,
-            "forsaken" => 10_000,
+            "bitebynight" => 3_000,
+            "forsaken" => 2_000,
             _ => 5_000
         };
 

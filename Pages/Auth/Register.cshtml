@@ -19,7 +19,7 @@
             <div class="auth-error">@Model.ErrorMessage</div>
         }
 
-        <form method="post">
+        <form method="post" asp-page="/Auth/Register" asp-antiforgery="true">
             <div class="field">
                 <label>ЛОГИН</label>
                 <input name="Username" value="@Model.Username" placeholder="your_username" required autocomplete="username" />
