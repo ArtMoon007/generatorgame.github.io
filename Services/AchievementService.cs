@@ -111,6 +111,87 @@ public class AchievementService
         }
     }
 
+    public async Task<IReadOnlyList<AchievementDto>> BackfillAsync(int userId)
+    {
+        var scores = await _db.Scores
+            .Where(s => s.UserId == userId)
+            .Select(s => new { s.Generator, s.TimeMs })
+            .ToListAsync();
+
+        if (scores.Count == 0) return Array.Empty<AchievementDto>();
+
+        var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId);
+        if (stat == null)
+        {
+            stat = new UserStat { UserId = userId, Level = 1 };
+            _db.UserStats.Add(stat);
+        }
+
+        var favorite = scores
+            .GroupBy(s => s.Generator)
+            .OrderByDescending(g => g.Count())
+            .ThenBy(g => g.Key)
+            .Select(g => g.Key)
+            .FirstOrDefault() ?? "bitebynight";
+
+        stat.GamesPlayed = scores.Count;
+        stat.Wins = scores.Count;
+        stat.TotalPlayTimeMs = scores.Sum(s => s.TimeMs);
+        stat.FavoriteGenerator = favorite;
+        stat.Experience = Math.Max(stat.Experience, scores.Count * BaseGameExperience);
+        stat.UpdatedAt = DateTime.UtcNow;
+
+        var existingKeys = await _db.UserAchievements
+            .Where(a => a.UserId == userId)
+            .Select(a => a.Key)
+            .ToListAsync();
+
+        var existing = existingKeys.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var unlocked = new List<UserAchievement>();
+        var bestTime = scores.Min(s => s.TimeMs);
+
+        TryUnlock("first_game");
+        if (scores.Count >= 5) TryUnlock("five_games");
+        if (scores.Count >= 20) TryUnlock("twenty_games");
+        if (scores.Any(s => s.Generator == "bitebynight")) TryUnlock("first_bbn");
+        if (scores.Any(s => s.Generator == "forsaken")) TryUnlock("first_forsaken");
+        if (bestTime <= 30_000) TryUnlock("sub_30");
+        if (bestTime <= 10_000) TryUnlock("sub_10");
+        if (bestTime <= 5_000) TryUnlock("sub_5");
+
+        stat.Level = CalculateLevel(stat.Experience);
+        if (stat.Level >= 5) TryUnlock("level_5");
+        if (stat.Level >= 10) TryUnlock("level_10");
+        stat.Level = CalculateLevel(stat.Experience);
+
+        return unlocked.Select(ToDto).ToList();
+
+        void TryUnlock(string key)
+        {
+            if (existing.Contains(key)) return;
+
+            var def = AchievementCatalog.Get(key);
+            if (def == null) return;
+
+            existing.Add(key);
+            stat.Experience += def.Experience;
+
+            var achievement = new UserAchievement
+            {
+                UserId = userId,
+                Key = def.Key,
+                Title = def.Title,
+                Description = def.Description,
+                Icon = def.Icon,
+                Experience = def.Experience,
+                UnlockedAt = DateTime.UtcNow
+            };
+
+            _db.UserAchievements.Add(achievement);
+            unlocked.Add(achievement);
+        }
+    }
+
     public static int CalculateLevel(int experience)
     {
         var level = 1;

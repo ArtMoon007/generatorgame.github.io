@@ -65,13 +65,24 @@ public class SubmitScoreModel : PageModel
             return StatusCode(500, new { error = "Score save failed" });
         }
 
+        int? rank = null;
+        RankNotification? rankNotification = null;
+
         try
         {
-            var rank = await GetRankAsync(userId.Value, generator);
-            var rankNotification = BuildRankNotification(rank, previousBest, req.TimeMs);
+            rank = await GetRankAsync(userId.Value, generator);
+            rankNotification = BuildRankNotification(rank, previousBest, req.TimeMs);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"RANK WARNING: {ex.GetType().Name}: {ex.Message}");
+        }
+
+        try
+        {
             var achievementResult = await _achievements.RecordGameAsync(userId.Value, generator, req.TimeMs, rank);
             await _db.SaveChangesAsync();
-
+            
             return new JsonResult(new
             {
                 ok = true,
