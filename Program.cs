@@ -80,6 +80,11 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
+
+    AchievementDatabaseInitializer.EnsureSchemaAsync(db).GetAwaiter().GetResult();
+
+    var achievements = scope.ServiceProvider.GetRequiredService<AchievementService>();
+    AchievementDatabaseInitializer.BackfillAllAsync(db, achievements).GetAwaiter().GetResult();
 }
 
 app.UseStaticFiles();
