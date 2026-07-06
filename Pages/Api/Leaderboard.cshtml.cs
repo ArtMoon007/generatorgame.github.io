@@ -28,6 +28,7 @@ public class LeaderboardModel : PageModel
                 u => u.Id,
                 (s, u) => new
                 {
+                    u.Id,
                     u.Username,
                     u.RobloxUsername,
                     u.RobloxId,

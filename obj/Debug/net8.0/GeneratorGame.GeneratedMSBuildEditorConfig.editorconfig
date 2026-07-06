@@ -26,6 +26,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXE15U2NvcmVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/Online.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXE9ubGluZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/PlayerProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXFBsYXllclByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/SubmitScore.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXFN1Ym1pdFNjb3JlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -80,6 +88,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_GeneratorTabs.cshtml]

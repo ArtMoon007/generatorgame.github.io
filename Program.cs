@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using GeneratorGame.Data;
+using GeneratorGame.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -69,6 +70,8 @@ builder.Services.AddSession(opt =>
 });
 
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<AchievementService>();
+builder.Services.AddSingleton<OnlineTracker>();
 
 var app = builder.Build();
 

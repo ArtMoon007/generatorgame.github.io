@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kjlfArjLOB1gHUx6YiOfUk1klB9gJbrlsXEsT2L9N+8=",
+  "Hash": "c4sZaJSjYjgM/PIWrYUUKHV9+ehvs/W/L/XvlnYPJ6E=",
   "Source": "GeneratorGame",
   "BasePath": "_content/GeneratorGame",
   "Mode": "Default",
@@ -207,6 +207,25 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
+      "Identity": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\achievements.js",
+      "SourceId": "GeneratorGame",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\",
+      "BasePath": "_content/GeneratorGame",
+      "RelativePath": "js/achievements.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\achievements.js"
+    },
+    {
       "Identity": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\bytebynight.js",
       "SourceId": "GeneratorGame",
       "SourceType": "Discovered",
@@ -243,6 +262,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\forsaken.js"
+    },
+    {
+      "Identity": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\online.js",
+      "SourceId": "GeneratorGame",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\",
+      "BasePath": "_content/GeneratorGame",
+      "RelativePath": "js/online.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\online.js"
     },
     {
       "Identity": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",

@@ -139,9 +139,11 @@ function completeGame() {
                     return body;
                 });
             })
-            .then(function () {
+            .then(function (body) {
                 loadLeaderboard();
                 loadMyScores();
+                if (window.showAchievementUnlocks) window.showAchievementUnlocks(body.newAchievements);
+                if (window.showRankUnlock) window.showRankUnlock(body.rankNotification);
 
                 var fr2 = document.getElementById('finishRank');
                 if (fr2) fr2.textContent = 'результат добавлен в таблицу';
@@ -745,9 +747,7 @@ function renderLB(data) {
             (e.username || '').toLowerCase() === String(me).toLowerCase() ||
             (e.robloxUsername || '').toLowerCase() === String(me).toLowerCase();
 
-        var nm = e.robloxId
-            ? '<a href="https://www.roblox.com/users/' + e.robloxId + '/profile" target="_blank">' + displayName + '</a>'
-            : '<span' + (isMe ? ' style="color:#e05050"' : '') + '>' + displayName + '</span>';
+        var nm = '<button type="button" class="lb-profile-btn' + (isMe ? ' is-me' : '') + '" onclick="openLeaderboardProfile(' + (e.id || 0) + ')">' + displayName + '</button>';
 
         return '<div class="lb-row' + (isMe ? ' lb-me' : '') + '">' +
             '<div class="lb-num ' + rc + '">' + (i + 1) + '</div>' +

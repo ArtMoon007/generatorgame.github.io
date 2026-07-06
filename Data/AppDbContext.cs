@@ -9,6 +9,8 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Score> Scores => Set<Score>();
+    public DbSet<UserStat> UserStats => Set<UserStat>();
+    public DbSet<UserAchievement> UserAchievements => Set<UserAchievement>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -35,5 +37,25 @@ public class AppDbContext : DbContext
         // Ускоряет выборку лидерборда по конкретному генератору
         b.Entity<Score>()
             .HasIndex(s => new { s.Generator, s.TimeMs });
+
+        b.Entity<UserStat>()
+            .HasOne(s => s.User)
+            .WithOne(u => u.Stat)
+            .HasForeignKey<UserStat>(s => s.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        b.Entity<UserStat>()
+            .HasIndex(s => s.UserId)
+            .IsUnique();
+
+        b.Entity<UserAchievement>()
+            .HasOne(a => a.User)
+            .WithMany(u => u.Achievements)
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        b.Entity<UserAchievement>()
+            .HasIndex(a => new { a.UserId, a.Key })
+            .IsUnique();
     }
 }

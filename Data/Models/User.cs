@@ -20,4 +20,6 @@ public class User
 
     // 🎮 СКОРОСТЬ / СЧЕТ
     public List<Score> Scores { get; set; } = new();
+    public UserStat? Stat { get; set; }
+    public List<UserAchievement> Achievements { get; set; } = new();
 }

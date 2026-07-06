@@ -1,0 +1,73 @@
+@page "/profile"
+@model GeneratorGame.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Профиль";
+    var profile = Model.View;
+}
+
+<main class="profile-page">
+    <div class="profile-actions">
+        <button type="button" class="profile-back-btn" onclick="if (history.length > 1) { history.back(); } else { location.href='/generators/bitebynight'; }">← НАЗАД</button>
+        <a href="/generators/bitebynight">BITE BY NIGHT</a>
+        <a href="/generators/forsaken">FORSAKEN</a>
+    </div>
+
+    <section class="profile-hero">
+        <div class="profile-main">
+            @if (!string.IsNullOrWhiteSpace(profile.AvatarUrl))
+            {
+                <img class="profile-avatar" src="@profile.AvatarUrl" alt="" />
+            }
+            else
+            {
+                <div class="profile-avatar profile-avatar-fallback">@profile.Username.FirstOrDefault().ToString().ToUpper()</div>
+            }
+
+            <div class="profile-title-block">
+                <div class="profile-kicker">PLAYER PROFILE</div>
+                <h1>@profile.Username</h1>
+                <div class="profile-level-row">
+                    <span>LVL @profile.Level</span>
+                    <span>@profile.Experience / @profile.NextLevelExperience XP</span>
+                </div>
+                <div class="profile-xp">
+                    <div style="width:@profile.LevelProgress%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-rank">
+            <span>ТЕКУЩИЙ ТОП</span>
+            <strong>@(profile.Rank.HasValue ? $"#{profile.Rank.Value}" : "-")</strong>
+        </div>
+    </section>
+
+    <section class="profile-stats">
+        <div class="profile-stat"><span>Лучшее время</span><strong>@profile.BestTime</strong></div>
+        <div class="profile-stat"><span>Среднее время</span><strong>@profile.AverageTime</strong></div>
+        <div class="profile-stat"><span>Количество игр</span><strong>@profile.GamesPlayed</strong></div>
+        <div class="profile-stat"><span>Любимый генератор</span><strong>@profile.FavoriteGenerator</strong></div>
+        <div class="profile-stat"><span>Всего часов</span><strong>@profile.TotalHours.ToString("0.00")</strong></div>
+    </section>
+
+    <section class="profile-achievements-section">
+        <div class="profile-section-head">
+            <h2>Достижения</h2>
+            <span>@profile.Achievements.Count(a => a.Unlocked) / @profile.Achievements.Count</span>
+        </div>
+
+        <div class="profile-achievements-grid">
+            @foreach (var achievement in profile.Achievements)
+            {
+                <article class="profile-achievement @(achievement.Unlocked ? "is-unlocked" : "is-locked")">
+                    <div class="profile-achievement-icon">@achievement.Icon</div>
+                    <div>
+                        <h3>@achievement.Title</h3>
+                        <p>@achievement.Description</p>
+                        <span>+@achievement.Experience XP</span>
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+</main>

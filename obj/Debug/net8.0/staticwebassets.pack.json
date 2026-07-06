@@ -37,12 +37,20 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\achievements.js",
+      "PackagePath": "staticwebassets\\js\\achievements.js"
+    },
+    {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\bytebynight.js",
       "PackagePath": "staticwebassets\\js\\bytebynight.js"
     },
     {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\forsaken.js",
       "PackagePath": "staticwebassets\\js\\forsaken.js"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\online.js",
+      "PackagePath": "staticwebassets\\js\\online.js"
     },
     {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\LICENSE",

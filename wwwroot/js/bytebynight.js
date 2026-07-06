@@ -389,9 +389,12 @@ function completeGame(){
     var fr=document.getElementById('finishRank'); if(fr) fr.textContent='результат сохранён в таблицу';
     if(typeof IS_LOGGED_IN!=='undefined'&&IS_LOGGED_IN===true){
         fetch('/api/submit-score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({timeMs:ms, generator: currentGenerator()})})
-            .then(function(){
+            .then(function(r){ return r.json().catch(function(){ return {}; }); })
+            .then(function(body){
                 loadLeaderboard();
                 loadMyScores();
+                if(window.showAchievementUnlocks) window.showAchievementUnlocks(body.newAchievements);
+                if(window.showRankUnlock) window.showRankUnlock(body.rankNotification);
                 var fr2=document.getElementById('finishRank'); if(fr2) fr2.textContent='результат добавлен в таблицу';
             })
             .catch(function(){
@@ -416,7 +419,7 @@ function renderLB(list){
         var displayName=e.robloxUsername||e.username||'Player';
         var av=e.robloxAvatarUrl?'<img src="'+e.robloxAvatarUrl+'" alt=""/>':'<span class="lb-av-txt">'+displayName[0].toUpperCase()+'</span>';
         var isMe = (e.username||'') === me || (e.robloxUsername||'') === me;
-        var nm=e.robloxId?'<a href="https://www.roblox.com/users/'+e.robloxId+'/profile" target="_blank">'+displayName+'</a>':'<span'+(isMe?' style="color:#e05050"':'')+'>'+displayName+'</span>';
+        var nm='<button type="button" class="lb-profile-btn'+(isMe?' is-me':'')+'" onclick="openLeaderboardProfile('+(e.id||0)+')">'+displayName+'</button>';
         return '<div class="lb-row'+(isMe?' lb-me':'')+'"><div class="lb-num '+rc+'">'+(i+1)+'</div><div class="lb-av">'+av+'</div><div class="lb-name">'+nm+'</div><div class="lb-time">'+e.timeFormatted+'</div></div>';
     }).join('');
     var myI=list.findIndex(function(e){ return (e.username||'')===me || (e.robloxUsername||'')===me; });

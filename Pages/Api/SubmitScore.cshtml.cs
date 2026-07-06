@@ -1,5 +1,6 @@
 using GeneratorGame.Data;
 using GeneratorGame.Data.Models;
+using GeneratorGame.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,12 @@ public class SubmitScoreModel : PageModel
     };
 
     private readonly AppDbContext _db;
+    private readonly AchievementService _achievements;
 
-    public SubmitScoreModel(AppDbContext db)
+    public SubmitScoreModel(AppDbContext db, AchievementService achievements)
     {
         _db = db;
+        _achievements = achievements;
     }
 
     public async Task<IActionResult> OnPostAsync([FromBody] SubmitRequest req)
@@ -42,6 +45,10 @@ public class SubmitScoreModel : PageModel
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId.Value);
         if (user == null) return Unauthorized();
 
+        var previousBest = await _db.Scores
+            .Where(s => s.UserId == userId.Value && s.Generator == generator)
+            .MinAsync(s => (long?)s.TimeMs);
+
         _db.Scores.Add(new Score
         {
             UserId = userId.Value,
@@ -52,19 +59,30 @@ public class SubmitScoreModel : PageModel
         try
         {
             await _db.SaveChangesAsync();
+
+            var rank = await GetRankAsync(userId.Value, generator);
+            var rankNotification = BuildRankNotification(rank, previousBest, req.TimeMs);
+            var achievementResult = await _achievements.RecordGameAsync(userId.Value, generator, req.TimeMs, rank);
+            await _db.SaveChangesAsync();
+
+            return new JsonResult(new
+            {
+                ok = true,
+                userId = userId.Value,
+                generator,
+                timeMs = req.TimeMs,
+                level = achievementResult.Level,
+                experience = achievementResult.Experience,
+                nextLevelExperience = achievementResult.NextLevelExperience,
+                newAchievements = achievementResult.NewAchievements,
+                rank,
+                rankNotification
+            });
         }
         catch (DbUpdateException)
         {
             return StatusCode(500, new { error = "Save failed" });
         }
-
-        return new JsonResult(new
-        {
-            ok = true,
-            userId = userId.Value,
-            generator,
-            timeMs = req.TimeMs
-        });
     }
 
     private static bool IsValidTime(string generator, long timeMs)
@@ -97,5 +115,46 @@ public class SubmitScoreModel : PageModel
         return null;
     }
 
+    private async Task<int?> GetRankAsync(int userId, string generator)
+    {
+        var myBest = await _db.Scores
+            .Where(s => s.UserId == userId && s.Generator == generator)
+            .MinAsync(s => (long?)s.TimeMs);
+
+        if (myBest == null) return null;
+
+        var betterPlayers = await _db.Scores
+            .Where(s => s.Generator == generator)
+            .GroupBy(s => s.UserId)
+            .Select(g => new { UserId = g.Key, BestMs = g.Min(s => s.TimeMs) })
+            .CountAsync(x => x.BestMs < myBest.Value);
+
+        return betterPlayers + 1;
+    }
+
+    private static RankNotification? BuildRankNotification(int? rank, long? previousBest, long timeMs)
+    {
+        if (rank == null || rank > 100) return null;
+        if (previousBest != null && timeMs >= previousBest.Value) return null;
+
+        var label = rank.Value switch
+        {
+            1 => "топ 1",
+            2 => "топ 2",
+            3 => "топ 3",
+            4 => "топ 4",
+            5 => "топ 5",
+            <= 10 => "топ 10",
+            _ => "топ 100"
+        };
+
+        return new RankNotification(
+            rank.Value,
+            "Поздравляю!",
+            $"Ты попал в {label}",
+            $"+ место #{rank.Value}");
+    }
+
     public record SubmitRequest(long TimeMs, string Generator);
+    public record RankNotification(int Rank, string Title, string Description, string Meta);
 }
