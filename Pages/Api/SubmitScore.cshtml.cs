@@ -59,7 +59,14 @@ public class SubmitScoreModel : PageModel
         try
         {
             await _db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            return StatusCode(500, new { error = "Score save failed" });
+        }
 
+        try
+        {
             var rank = await GetRankAsync(userId.Value, generator);
             var rankNotification = BuildRankNotification(rank, previousBest, req.TimeMs);
             var achievementResult = await _achievements.RecordGameAsync(userId.Value, generator, req.TimeMs, rank);
@@ -79,9 +86,20 @@ public class SubmitScoreModel : PageModel
                 rankNotification
             });
         }
-        catch (DbUpdateException)
+        catch (Exception ex)
         {
-            return StatusCode(500, new { error = "Save failed" });
+            Console.WriteLine($"ACHIEVEMENT WARNING: {ex.GetType().Name}: {ex.Message}");
+
+            return new JsonResult(new
+            {
+                ok = true,
+                userId = userId.Value,
+                generator,
+                timeMs = req.TimeMs,
+                achievementWarning = true,
+                newAchievements = Array.Empty<object>(),
+                rankNotification = (object?)null
+            });
         }
     }
 
