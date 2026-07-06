@@ -72,7 +72,6 @@ builder.Services.AddSession(opt =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<AchievementService>();
 builder.Services.AddScoped<VisitCounterService>();
-builder.Services.AddSingleton<OnlineTracker>();
 
 var app = builder.Build();
 

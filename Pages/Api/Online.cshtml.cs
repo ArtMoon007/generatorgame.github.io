@@ -7,12 +7,10 @@ namespace GeneratorGame.Pages.Api;
 [IgnoreAntiforgeryToken]
 public class OnlineModel : PageModel
 {
-    private readonly OnlineTracker _online;
     private readonly VisitCounterService _visits;
 
-    public OnlineModel(OnlineTracker online, VisitCounterService visits)
+    public OnlineModel(VisitCounterService visits)
     {
-        _online = online;
         _visits = visits;
     }
 
@@ -22,16 +20,14 @@ public class OnlineModel : PageModel
             ? HttpContext.TraceIdentifier
             : request.ClientId.Trim();
 
-        var snapshot = _online.Touch(clientId);
-        var visits = await _visits.RegisterVisitAsync(request.CountVisit);
-        return new JsonResult(new { online = snapshot.Online, visits });
+        var snapshot = await _visits.RegisterVisitAsync(clientId, request.CountVisit);
+        return new JsonResult(new { online = snapshot.Online, visits = snapshot.Visits });
     }
 
     public async Task<IActionResult> OnGetAsync()
     {
-        var snapshot = _online.Snapshot();
-        var visits = await _visits.GetVisitsAsync();
-        return new JsonResult(new { online = snapshot.Online, visits });
+        var snapshot = await _visits.GetSnapshotAsync();
+        return new JsonResult(new { online = snapshot.Online, visits = snapshot.Visits });
     }
 
     public record OnlineRequest(string ClientId, bool CountVisit = false);
