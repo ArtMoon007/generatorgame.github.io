@@ -106,14 +106,14 @@ app.Use(async (context, next) =>
     if (context.Request.Path.StartsWithSegments("/auth/login") &&
         context.User.Identity?.IsAuthenticated == true)
     {
-        context.Response.Redirect("/", true);
+        context.Response.Redirect("/Generators/BiteByNight");
         return;
     }
 
     if (context.Request.Path.StartsWithSegments("/auth/register") &&
         context.User.Identity?.IsAuthenticated == true)
     {
-        context.Response.Redirect("/", true);
+        context.Response.Redirect("/Generators/BiteByNight");
         return;
     }
 

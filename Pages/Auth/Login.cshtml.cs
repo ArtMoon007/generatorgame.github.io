@@ -29,11 +29,12 @@ public class LoginModel : PageModel
     public async Task<IActionResult> OnPostAsync(string login, string password, bool rememberMe = true)
     {
         login = (login ?? string.Empty).Trim();
+        password ??= string.Empty;
         var normalizedLogin = login.ToLowerInvariant();
 
         var user = await _db.Users.FirstOrDefaultAsync(u =>
             u.Username.ToLower() == normalizedLogin ||
-            (u.Email != null && u.Email == normalizedLogin));
+            (u.Email != null && u.Email.ToLower() == normalizedLogin));
 
         if (user == null || string.IsNullOrEmpty(user.PasswordHash))
         {
@@ -66,7 +67,7 @@ public class LoginModel : PageModel
         HttpContext.Session.SetInt32("UserId", user.Id);
         HttpContext.Session.SetString("UserName", user.Username);
 
-        return RedirectToPage("/Index");
+        return RedirectToPage("/Generators/BiteByNight");
     }
 
     private void SetSession(int id, string name, string? avatar)
