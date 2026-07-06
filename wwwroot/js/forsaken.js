@@ -129,8 +129,15 @@ function completeGame() {
             })
         })
             .then(function (r) {
-                if (!r.ok) throw new Error('score rejected');
-                return r.json().catch(function () { return {}; });
+                return r.json().catch(function () { return {}; }).then(function (body) {
+                    if (!r.ok) {
+                        var err = new Error(body && body.error ? body.error : 'save failed');
+                        err.status = r.status;
+                        throw err;
+                    }
+
+                    return body;
+                });
             })
             .then(function () {
                 loadLeaderboard();
@@ -139,11 +146,17 @@ function completeGame() {
                 var fr2 = document.getElementById('finishRank');
                 if (fr2) fr2.textContent = 'результат добавлен в таблицу';
             })
-            .catch(function () {
+            .catch(function (err) {
                 var fr2 = document.getElementById('finishRank');
-                if (fr2) fr2.textContent = 'результат отклонён античитом';
+                if (fr2) fr2.textContent = fgSaveErrorText(err);
             });
     }
+}
+
+function fgSaveErrorText(err) {
+    if (err && err.status === 401) return 'войдите в аккаунт, чтобы сохранить результат';
+    if (err && err.message === 'Suspicious time') return 'результат слишком быстрый';
+    return 'не удалось сохранить результат';
 }
 
 // ============================================================

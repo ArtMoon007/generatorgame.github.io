@@ -24,6 +24,8 @@ public class SubmitScoreModel : PageModel
 
     public async Task<IActionResult> OnPostAsync([FromBody] SubmitRequest req)
     {
+        if (req == null) return BadRequest(new { error = "Invalid request" });
+
         var userId = GetCurrentUserId();
         if (userId == null) return Unauthorized();
 
@@ -40,21 +42,6 @@ public class SubmitScoreModel : PageModel
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId.Value);
         if (user == null) return Unauthorized();
 
-        var lastScore = await _db.Scores
-            .Where(s => s.UserId == userId.Value && s.Generator == generator)
-            .OrderByDescending(s => s.Id)
-            .FirstOrDefaultAsync();
-
-        if (lastScore != null && req.TimeMs == lastScore.TimeMs)
-            return new JsonResult(new
-            {
-                ok = true,
-                duplicate = true,
-                userId = userId.Value,
-                generator,
-                timeMs = req.TimeMs
-            });
-
         _db.Scores.Add(new Score
         {
             UserId = userId.Value,
@@ -62,7 +49,14 @@ public class SubmitScoreModel : PageModel
             Generator = generator
         });
 
-        await _db.SaveChangesAsync();
+        try
+        {
+            await _db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            return StatusCode(500, new { error = "Save failed" });
+        }
 
         return new JsonResult(new
         {
@@ -80,9 +74,9 @@ public class SubmitScoreModel : PageModel
 
         var minTime = generator switch
         {
-            "bitebynight" => 3_000,
-            "forsaken" => 2_000,
-            _ => 5_000
+            "bitebynight" => 500,
+            "forsaken" => 1_500,
+            _ => 500
         };
 
         return timeMs >= minTime;
