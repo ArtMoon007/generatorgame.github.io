@@ -24,8 +24,15 @@ public class ProfileModel : PageModel
         var userId = GetCurrentUserId();
         if (userId == null) return RedirectToPage("/Auth/Login");
 
-        await _achievements.BackfillAsync(userId.Value);
-        await _db.SaveChangesAsync();
+        try
+        {
+            await _achievements.BackfillAsync(userId.Value);
+            await _db.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"PROFILE ACHIEVEMENT WARNING: {ex.GetType().Name}: {ex.Message}");
+        }
 
         var user = await _db.Users
             .Where(u => u.Id == userId.Value)
@@ -35,8 +42,7 @@ public class ProfileModel : PageModel
                 u.Username,
                 u.RobloxUsername,
                 u.RobloxAvatarUrl,
-                u.AvatarUrl,
-                Stat = u.Stat
+                u.AvatarUrl
             })
             .FirstOrDefaultAsync();
 
@@ -47,18 +53,37 @@ public class ProfileModel : PageModel
             .Select(s => new { s.Generator, s.TimeMs })
             .ToListAsync();
 
-        var achievements = await _db.UserAchievements
-            .Where(a => a.UserId == userId.Value)
-            .OrderByDescending(a => a.UnlockedAt)
-            .Select(a => new AchievementCard(
-                a.Key,
-                a.Title,
-                a.Description,
-                a.Icon,
-                a.Experience,
-                true,
-                a.UnlockedAt))
-            .ToListAsync();
+        var experience = 0;
+        var level = 1;
+        var achievements = new List<AchievementCard>();
+
+        try
+        {
+            var stat = await _db.UserStats
+                .Where(s => s.UserId == userId.Value)
+                .Select(s => new { s.Experience, s.Level })
+                .FirstOrDefaultAsync();
+
+            experience = stat?.Experience ?? 0;
+            level = stat?.Level ?? AchievementService.CalculateLevel(experience);
+
+            achievements = await _db.UserAchievements
+                .Where(a => a.UserId == userId.Value)
+                .OrderByDescending(a => a.UnlockedAt)
+                .Select(a => new AchievementCard(
+                    a.Key,
+                    a.Title,
+                    a.Description,
+                    a.Icon,
+                    a.Experience,
+                    true,
+                    a.UnlockedAt))
+                .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"PROFILE STAT WARNING: {ex.GetType().Name}: {ex.Message}");
+        }
 
         var unlockedKeys = achievements.Select(a => a.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
         var locked = AchievementCatalog.All
@@ -70,13 +95,11 @@ public class ProfileModel : PageModel
             .OrderByDescending(g => g.Count())
             .ThenBy(g => g.Key)
             .Select(g => g.Key)
-            .FirstOrDefault() ?? user.Stat?.FavoriteGenerator ?? "bitebynight";
+            .FirstOrDefault() ?? "bitebynight";
 
         var best = scores.Count > 0 ? scores.Min(s => s.TimeMs) : 0;
         var average = scores.Count > 0 ? (long)scores.Average(s => s.TimeMs) : 0;
         var totalMs = scores.Sum(s => s.TimeMs);
-        var experience = user.Stat?.Experience ?? 0;
-        var level = user.Stat?.Level ?? AchievementService.CalculateLevel(experience);
         var nextLevel = AchievementService.ExperienceForNextLevel(level);
         var currentLevel = AchievementService.ExperienceForLevel(level);
         var levelProgress = nextLevel == currentLevel

@@ -27,8 +27,7 @@ public class PlayerProfileModel : PageModel
                 u.Username,
                 u.RobloxUsername,
                 u.RobloxAvatarUrl,
-                u.AvatarUrl,
-                u.Stat
+                u.AvatarUrl
             })
             .FirstOrDefaultAsync();
 
@@ -39,31 +38,51 @@ public class PlayerProfileModel : PageModel
             .Select(s => new { s.Generator, s.TimeMs })
             .ToListAsync();
 
-        var achievements = await _db.UserAchievements
-            .Where(a => a.UserId == userId)
-            .OrderByDescending(a => a.UnlockedAt)
-            .Take(8)
-            .Select(a => new
-            {
-                a.Title,
-                a.Description,
-                a.Icon,
-                a.Experience,
-                a.UnlockedAt
-            })
-            .ToListAsync();
+        var achievements = Array.Empty<object>().ToList();
+        var achievementsUnlocked = 0;
+        var experience = 0;
+        var level = 1;
+
+        try
+        {
+            var stat = await _db.UserStats
+                .Where(s => s.UserId == userId)
+                .Select(s => new { s.Experience, s.Level })
+                .FirstOrDefaultAsync();
+
+            experience = stat?.Experience ?? 0;
+            level = stat?.Level ?? AchievementService.CalculateLevel(experience);
+
+            achievements = await _db.UserAchievements
+                .Where(a => a.UserId == userId)
+                .OrderByDescending(a => a.UnlockedAt)
+                .Take(8)
+                .Select(a => new
+                {
+                    a.Title,
+                    a.Description,
+                    a.Icon,
+                    a.Experience,
+                    a.UnlockedAt
+                } as object)
+                .ToListAsync();
+
+            achievementsUnlocked = await _db.UserAchievements.CountAsync(a => a.UserId == userId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"PLAYER PROFILE STAT WARNING: {ex.GetType().Name}: {ex.Message}");
+        }
 
         var favorite = scores
             .GroupBy(s => s.Generator)
             .OrderByDescending(g => g.Count())
             .ThenBy(g => g.Key)
             .Select(g => g.Key)
-            .FirstOrDefault() ?? user.Stat?.FavoriteGenerator ?? "bitebynight";
+            .FirstOrDefault() ?? "bitebynight";
 
         var best = scores.Count > 0 ? scores.Min(s => s.TimeMs) : 0;
         var average = scores.Count > 0 ? (long)scores.Average(s => s.TimeMs) : 0;
-        var experience = user.Stat?.Experience ?? 0;
-        var level = user.Stat?.Level ?? AchievementService.CalculateLevel(experience);
 
         return new JsonResult(new
         {
@@ -77,7 +96,7 @@ public class PlayerProfileModel : PageModel
             averageTime = average > 0 ? FormatTime(average) : "-",
             favoriteGenerator = GeneratorName(favorite),
             totalHours = Math.Round(scores.Sum(s => s.TimeMs) / 3_600_000.0, 2),
-            achievementsUnlocked = await _db.UserAchievements.CountAsync(a => a.UserId == userId),
+            achievementsUnlocked,
             achievementsTotal = AchievementCatalog.All.Count,
             achievements
         });
