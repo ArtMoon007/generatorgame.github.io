@@ -67,6 +67,44 @@ public static class AchievementDatabaseInitializer
                     SELECT 1
                     FROM information_schema.columns
                     WHERE table_schema = 'public'
+                      AND table_name = 'UserAchievements'
+                      AND column_name = 'Id'
+                      AND column_default IS NULL
+                ) THEN
+                    CREATE SEQUENCE IF NOT EXISTS "UserAchievements_Id_seq";
+                    ALTER SEQUENCE "UserAchievements_Id_seq" OWNED BY "UserAchievements"."Id";
+                    ALTER TABLE "UserAchievements"
+                    ALTER COLUMN "Id" SET DEFAULT nextval('"UserAchievements_Id_seq"'::regclass);
+                    PERFORM setval(
+                        '"UserAchievements_Id_seq"'::regclass,
+                        GREATEST(COALESCE((SELECT MAX("Id") FROM "UserAchievements"), 0), 1),
+                        true
+                    );
+                END IF;
+
+                IF EXISTS (
+                    SELECT 1
+                    FROM information_schema.columns
+                    WHERE table_schema = 'public'
+                      AND table_name = 'UserStats'
+                      AND column_name = 'Id'
+                      AND column_default IS NULL
+                ) THEN
+                    CREATE SEQUENCE IF NOT EXISTS "UserStats_Id_seq";
+                    ALTER SEQUENCE "UserStats_Id_seq" OWNED BY "UserStats"."Id";
+                    ALTER TABLE "UserStats"
+                    ALTER COLUMN "Id" SET DEFAULT nextval('"UserStats_Id_seq"'::regclass);
+                    PERFORM setval(
+                        '"UserStats_Id_seq"'::regclass,
+                        GREATEST(COALESCE((SELECT MAX("Id") FROM "UserStats"), 0), 1),
+                        true
+                    );
+                END IF;
+
+                IF EXISTS (
+                    SELECT 1
+                    FROM information_schema.columns
+                    WHERE table_schema = 'public'
                       AND table_name = 'UserStats'
                       AND column_name = 'UpdatedAt'
                       AND data_type = 'text'

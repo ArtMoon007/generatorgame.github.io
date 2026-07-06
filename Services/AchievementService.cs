@@ -16,6 +16,24 @@ public class AchievementService
 
     public async Task<AchievementResult> RecordGameAsync(int userId, string generator, long timeMs, int? rank)
     {
+        if (_db.Database.IsNpgsql())
+        {
+            var postgresUnlocked = await BackfillPostgresAsync(userId);
+            var postgresStat = await _db.UserStats
+                .Where(s => s.UserId == userId)
+                .Select(s => new { s.Level, s.Experience })
+                .FirstOrDefaultAsync();
+
+            var experience = postgresStat?.Experience ?? 0;
+            var level = postgresStat?.Level ?? CalculateLevel(experience);
+
+            return new AchievementResult(
+                level,
+                experience,
+                ExperienceForNextLevel(level),
+                postgresUnlocked);
+        }
+
         var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId);
         if (stat == null)
         {
@@ -113,6 +131,11 @@ public class AchievementService
 
     public async Task<IReadOnlyList<AchievementDto>> BackfillAsync(int userId)
     {
+        if (_db.Database.IsNpgsql())
+        {
+            return await BackfillPostgresAsync(userId);
+        }
+
         var scores = await _db.Scores
             .Where(s => s.UserId == userId)
             .Select(s => new { s.Generator, s.TimeMs })
@@ -213,6 +236,127 @@ public class AchievementService
         return betterPlayers + 1;
     }
 
+    private async Task<IReadOnlyList<AchievementDto>> BackfillPostgresAsync(int userId)
+    {
+        var scores = await _db.Scores
+            .Where(s => s.UserId == userId)
+            .Select(s => new ScoreLite(s.Generator, s.TimeMs))
+            .ToListAsync();
+
+        if (scores.Count == 0) return Array.Empty<AchievementDto>();
+
+        var favorite = scores
+            .GroupBy(s => s.Generator)
+            .OrderByDescending(g => g.Count())
+            .ThenBy(g => g.Key)
+            .Select(g => g.Key)
+            .FirstOrDefault() ?? "bitebynight";
+
+        var bestTime = scores.Min(s => s.TimeMs);
+        var bbnRank = await GetRankAsync(userId, "bitebynight");
+        var forsakenRank = await GetRankAsync(userId, "forsaken");
+        var keys = BuildAchievementKeys(scores, bestTime, bbnRank, forsakenRank);
+        var totalAchievementExperience = keys
+            .Select(AchievementCatalog.Get)
+            .Where(a => a != null)
+            .Sum(a => a!.Experience);
+
+        var experience = scores.Count * BaseGameExperience + totalAchievementExperience;
+        var level = CalculateLevel(experience);
+        var totalMs = scores.Sum(s => s.TimeMs);
+
+        await _db.Database.ExecuteSqlInterpolatedAsync($"""
+            INSERT INTO "UserStats" (
+                "Id", "UserId", "GamesPlayed", "Wins", "TotalPlayTimeMs",
+                "Experience", "Level", "FavoriteGenerator", "UpdatedAt"
+            )
+            SELECT
+                COALESCE((SELECT MAX("Id") FROM "UserStats"), 0) + 1,
+                {userId}, {scores.Count}, {scores.Count}, {totalMs},
+                {experience}, {level}, {favorite}, now()
+            WHERE NOT EXISTS (
+                SELECT 1 FROM "UserStats" WHERE "UserId" = {userId}
+            );
+            """);
+
+        await _db.Database.ExecuteSqlInterpolatedAsync($"""
+            UPDATE "UserStats"
+            SET "GamesPlayed" = {scores.Count},
+                "Wins" = {scores.Count},
+                "TotalPlayTimeMs" = {totalMs},
+                "Experience" = GREATEST("Experience", {experience}),
+                "Level" = GREATEST("Level", {level}),
+                "FavoriteGenerator" = {favorite},
+                "UpdatedAt" = now()
+            WHERE "UserId" = {userId};
+            """);
+
+        var unlocked = new List<AchievementDto>();
+
+        foreach (var key in keys)
+        {
+            var def = AchievementCatalog.Get(key);
+            if (def == null) continue;
+
+            var rows = await _db.Database.ExecuteSqlInterpolatedAsync($"""
+                INSERT INTO "UserAchievements" (
+                    "Id", "UserId", "Key", "Title", "Description",
+                    "Icon", "Experience", "UnlockedAt"
+                )
+                SELECT
+                    COALESCE((SELECT MAX("Id") FROM "UserAchievements"), 0) + 1,
+                    {userId}, {def.Key}, {def.Title}, {def.Description},
+                    {def.Icon}, {def.Experience}, now()
+                WHERE NOT EXISTS (
+                    SELECT 1
+                    FROM "UserAchievements"
+                    WHERE "UserId" = {userId} AND "Key" = {def.Key}
+                );
+                """);
+
+            if (rows > 0)
+            {
+                unlocked.Add(new AchievementDto(
+                    def.Key,
+                    def.Title,
+                    def.Description,
+                    def.Icon,
+                    def.Experience,
+                    DateTime.UtcNow));
+            }
+        }
+
+        return unlocked;
+    }
+
+    private static List<string> BuildAchievementKeys(
+        List<ScoreLite> scores,
+        long bestTime,
+        int? bbnRank,
+        int? forsakenRank)
+    {
+        var keys = new List<string> { "first_game" };
+
+        if (scores.Count >= 5) keys.Add("five_games");
+        if (scores.Count >= 20) keys.Add("twenty_games");
+        if (scores.Any(s => s.Generator == "bitebynight")) keys.Add("first_bbn");
+        if (scores.Any(s => s.Generator == "forsaken")) keys.Add("first_forsaken");
+        if (bbnRank is > 0 and <= 10) keys.Add("bbn_top_10");
+        if (forsakenRank is > 0 and <= 10) keys.Add("forsaken_top_10");
+        if (bestTime <= 30_000) keys.Add("sub_30");
+        if (bestTime <= 10_000) keys.Add("sub_10");
+        if (bestTime <= 5_000) keys.Add("sub_5");
+
+        var experienceBeforeLevelAchievements = scores.Count * BaseGameExperience +
+            keys.Select(AchievementCatalog.Get).Where(a => a != null).Sum(a => a!.Experience);
+        var level = CalculateLevel(experienceBeforeLevelAchievements);
+
+        if (level >= 5) keys.Add("level_5");
+        if (level >= 10) keys.Add("level_10");
+
+        return keys.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
     public static int CalculateLevel(int experience)
     {
         var level = 1;
@@ -245,6 +389,7 @@ public class AchievementService
             achievement.Icon,
             achievement.Experience,
             achievement.UnlockedAt);
+    private record ScoreLite(string Generator, long TimeMs);
 }
 
 public record AchievementResult(
