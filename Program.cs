@@ -71,6 +71,7 @@ builder.Services.AddSession(opt =>
 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<AchievementService>();
+builder.Services.AddScoped<VisitCounterService>();
 builder.Services.AddSingleton<OnlineTracker>();
 
 var app = builder.Build();
@@ -85,6 +86,9 @@ using (var scope = app.Services.CreateScope())
 
     var achievements = scope.ServiceProvider.GetRequiredService<AchievementService>();
     AchievementDatabaseInitializer.BackfillAllAsync(db, achievements).GetAwaiter().GetResult();
+
+    var visits = scope.ServiceProvider.GetRequiredService<VisitCounterService>();
+    visits.EnsureSchemaAsync().GetAwaiter().GetResult();
 }
 
 app.UseStaticFiles();

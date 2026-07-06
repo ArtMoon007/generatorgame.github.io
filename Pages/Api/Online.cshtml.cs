@@ -8,25 +8,31 @@ namespace GeneratorGame.Pages.Api;
 public class OnlineModel : PageModel
 {
     private readonly OnlineTracker _online;
+    private readonly VisitCounterService _visits;
 
-    public OnlineModel(OnlineTracker online)
+    public OnlineModel(OnlineTracker online, VisitCounterService visits)
     {
         _online = online;
+        _visits = visits;
     }
 
-    public IActionResult OnPost([FromBody] OnlineRequest request)
+    public async Task<IActionResult> OnPostAsync([FromBody] OnlineRequest request)
     {
         var clientId = string.IsNullOrWhiteSpace(request.ClientId)
             ? HttpContext.TraceIdentifier
             : request.ClientId.Trim();
 
-        return new JsonResult(new { online = _online.Touch(clientId) });
+        var snapshot = _online.Touch(clientId);
+        var visits = await _visits.RegisterVisitAsync(request.CountVisit);
+        return new JsonResult(new { online = snapshot.Online, visits });
     }
 
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
-        return new JsonResult(new { online = _online.Count() });
+        var snapshot = _online.Snapshot();
+        var visits = await _visits.GetVisitsAsync();
+        return new JsonResult(new { online = snapshot.Online, visits });
     }
 
-    public record OnlineRequest(string ClientId);
+    public record OnlineRequest(string ClientId, bool CountVisit = false);
 }

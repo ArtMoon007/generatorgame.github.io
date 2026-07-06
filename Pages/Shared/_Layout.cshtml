@@ -17,11 +17,11 @@
     <nav class="navbar">
         <div class="nav-brand">
             <div class="nav-logo">GEN<span class="accent">ERATOR</span></div>
-            <div class="online-badge" title="Онлайн сейчас">
+            <button class="online-badge" id="onlineBadge" type="button" title="Показать визиты">
                 <span class="online-dot"></span>
                 <span id="onlineCount">0</span>
-                <span>онлайн</span>
-            </div>
+                <span id="onlineLabel">онлайн</span>
+            </button>
         </div>
         <div class="nav-right">
             @{
@@ -73,7 +73,7 @@
             </a>
         </div>
     </footer>
-    <script src="~/js/online.js?v=1"></script>
+    <script src="~/js/online.js?v=4"></script>
     <script src="~/js/achievements.js?v=3"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

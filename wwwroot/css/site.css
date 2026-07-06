@@ -105,6 +105,36 @@ html,body{
     font-weight:800;
     letter-spacing:.7px;
     white-space:nowrap;
+    font-family:inherit;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+}
+
+.online-badge:hover,
+.online-badge:focus-visible{
+    border-color:#2f7139;
+    color:#b8ffc0;
+    outline:none;
+}
+
+.online-badge.is-visits{
+    background:#f4f4f4;
+    border-color:#fff;
+    color:#101010;
+    box-shadow:0 0 18px rgba(255,255,255,.12);
+}
+
+.online-badge.is-visits:hover,
+.online-badge.is-visits:focus-visible{
+    background:#fff;
+    color:#000;
+    border-color:#fff;
+}
+
+.online-badge.is-visits .online-dot{
+    background:#101010;
+    box-shadow:none;
 }
 
 .online-dot{
