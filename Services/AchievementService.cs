@@ -149,12 +149,16 @@ public class AchievementService
         var existing = existingKeys.ToHashSet(StringComparer.OrdinalIgnoreCase);
         var unlocked = new List<UserAchievement>();
         var bestTime = scores.Min(s => s.TimeMs);
+        var bbnRank = await GetRankAsync(userId, "bitebynight");
+        var forsakenRank = await GetRankAsync(userId, "forsaken");
 
         TryUnlock("first_game");
         if (scores.Count >= 5) TryUnlock("five_games");
         if (scores.Count >= 20) TryUnlock("twenty_games");
         if (scores.Any(s => s.Generator == "bitebynight")) TryUnlock("first_bbn");
         if (scores.Any(s => s.Generator == "forsaken")) TryUnlock("first_forsaken");
+        if (bbnRank is > 0 and <= 10) TryUnlock("bbn_top_10");
+        if (forsakenRank is > 0 and <= 10) TryUnlock("forsaken_top_10");
         if (bestTime <= 30_000) TryUnlock("sub_30");
         if (bestTime <= 10_000) TryUnlock("sub_10");
         if (bestTime <= 5_000) TryUnlock("sub_5");
@@ -190,6 +194,23 @@ public class AchievementService
             _db.UserAchievements.Add(achievement);
             unlocked.Add(achievement);
         }
+    }
+
+    private async Task<int?> GetRankAsync(int userId, string generator)
+    {
+        var myBest = await _db.Scores
+            .Where(s => s.UserId == userId && s.Generator == generator)
+            .MinAsync(s => (long?)s.TimeMs);
+
+        if (myBest == null) return null;
+
+        var betterPlayers = await _db.Scores
+            .Where(s => s.Generator == generator)
+            .GroupBy(s => s.UserId)
+            .Select(g => new { UserId = g.Key, BestMs = g.Min(s => s.TimeMs) })
+            .CountAsync(x => x.BestMs < myBest.Value);
+
+        return betterPlayers + 1;
     }
 
     public static int CalculateLevel(int experience)

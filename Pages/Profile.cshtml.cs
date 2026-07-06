@@ -9,10 +9,12 @@ namespace GeneratorGame.Pages;
 public class ProfileModel : PageModel
 {
     private readonly AppDbContext _db;
+    private readonly AchievementService _achievements;
 
-    public ProfileModel(AppDbContext db)
+    public ProfileModel(AppDbContext db, AchievementService achievements)
     {
         _db = db;
+        _achievements = achievements;
     }
 
     public ProfileView View { get; private set; } = new();
@@ -21,6 +23,9 @@ public class ProfileModel : PageModel
     {
         var userId = GetCurrentUserId();
         if (userId == null) return RedirectToPage("/Auth/Login");
+
+        await _achievements.BackfillAsync(userId.Value);
+        await _db.SaveChangesAsync();
 
         var user = await _db.Users
             .Where(u => u.Id == userId.Value)

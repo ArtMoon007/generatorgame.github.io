@@ -9,107 +9,107 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GeneratorGame
 build_property.RootNamespace = GeneratorGame
-build_property.ProjectDir = c:\Users\GYM MEN\source\repos\GeneratorGame\
+build_property.ProjectDir = C:\Users\GYM MEN\source\repos\GeneratorGame\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\GYM MEN\source\repos\GeneratorGame
+build_property.MSBuildProjectDirectory = C:\Users\GYM MEN\source\repos\GeneratorGame
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/Leaderboard.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/Leaderboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXExlYWRlcmJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/MyScores.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/MyScores.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXE15U2NvcmVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/Online.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/Online.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXE9ubGluZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/PlayerProfile.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/PlayerProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXFBsYXllclByb2ZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/SubmitScore.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/SubmitScore.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXFN1Ym1pdFNjb3JlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/_ViewImports.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXF9WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/_ViewStart.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXF9WaWV3U3RhcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Login.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Logout.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Register.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Roblox.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/Roblox.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxSb2Jsb3guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/RobloxCallback.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/RobloxCallback.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxSb2Jsb3hDYWxsYmFjay5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/_ViewImports.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Auth/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Error.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Generators/BiteByNight.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Generators/BiteByNight.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJhdG9yc1xCaXRlQnlOaWdodC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Generators/Forsaken.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Generators/Forsaken.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VuZXJhdG9yc1xGb3JzYWtlbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Index.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Privacy.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Profile.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_GeneratorTabs.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_GeneratorTabs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9HZW5lcmF0b3JUYWJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/_ViewImports.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/_ViewStart.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_Layout.cshtml]
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-xr9dwat5mn
