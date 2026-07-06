@@ -191,6 +191,7 @@ a:hover{text-decoration:underline}
 .auth-main-btn{
     width:100%;
     display:block;
+    min-height:46px;
     background:#7a0000;
     border:none;
     border-radius:6px;
@@ -203,7 +204,8 @@ a:hover{text-decoration:underline}
     transition:background .2s;
     touch-action:manipulation;
     position:relative;
-    z-index:1;
+    z-index:5;
+    -webkit-tap-highlight-color:transparent;
 }
 
 .auth-main-btn:hover{

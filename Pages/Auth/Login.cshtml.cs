@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GeneratorGame.Pages.Auth;
 
+[IgnoreAntiforgeryToken]
 public class LoginModel : PageModel
 {
     private readonly AppDbContext _db;

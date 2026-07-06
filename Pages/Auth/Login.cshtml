@@ -19,7 +19,7 @@
             <div class="auth-error">@Model.ErrorMessage</div>
         }
 
-        <form method="post" asp-page="/Auth/Login" asp-antiforgery="true">
+        <form id="loginForm" method="post" action="/auth/login">
             <div class="field">
                 <label>ЛОГИН ИЛИ ПОЧТА</label>
                 <input name="login" placeholder="username or email" required autocomplete="username" />
@@ -33,7 +33,23 @@
                 <span class="auth-remember-box"></span>
                 <span class="auth-remember-text">Запомнить меня на 30 дней</span>
             </label>
-            <button type="submit" class="auth-main-btn">ВОЙТИ</button>
+            <button id="loginSubmit" type="submit" class="auth-main-btn">ВОЙТИ</button>
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var form = document.getElementById('loginForm');
+            var btn = document.getElementById('loginSubmit');
+            if (!form || !btn) return;
+
+            btn.addEventListener('touchend', function (e) {
+                e.preventDefault();
+                if (form.requestSubmit) form.requestSubmit();
+                else form.submit();
+            }, { passive: false });
+        })();
+    </script>
+}
