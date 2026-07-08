@@ -2402,6 +2402,10 @@ a:hover{text-decoration:underline}
     z-index:20;
 }
 
+.player-level-card-mobile{
+    display:none;
+}
+
 .player-level-ring{
     --progress:0;
     width:74px;
@@ -3466,6 +3470,17 @@ a:hover{text-decoration:underline}
 
     .game-header{
         margin-bottom:10px;
+    }
+
+    .player-level-card-mobile{
+        display:flex;
+        width:100%;
+        margin:0 0 10px;
+        min-height:92px;
+    }
+
+    .left-col > .player-level-card{
+        display:none;
     }
 
     .timer-display{

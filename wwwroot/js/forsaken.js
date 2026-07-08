@@ -106,6 +106,7 @@ function p3(n) { return String(n).padStart(3, '0'); }
 // ============================================================
 
 function startGame() {
+    if (window.GameSounds) window.GameSounds.stop('generatorStart');
     var sb = document.getElementById('startBar');
     if (sb) sb.style.display = 'none';
 

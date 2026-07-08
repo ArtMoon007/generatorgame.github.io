@@ -10,6 +10,7 @@
     @await Html.PartialAsync("_GeneratorTabs", "forsaken")
 
     <div class="game-page">
+        <div class="player-level-card player-level-card-mobile" data-player-level-card></div>
         <div class="game-header">
             <div class="timer-lbl">GENERATOR</div>
             <div class="timer-display" id="timerDisplay" style="font-size:20px;letter-spacing:3px">00:00:000</div>
@@ -93,5 +94,5 @@
         const CURRENT_GENERATOR = "forsaken";
     </script>
 
-    <script src="~/js/forsaken.js?v=14"></script>
+    <script src="~/js/forsaken.js?v=15"></script>
 }

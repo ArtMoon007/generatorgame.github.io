@@ -72,6 +72,7 @@ function setStage(n){
 
 // ── START / RESTART ───────────────────────────────────────
 function startGame(){
+    if(window.GameSounds) window.GameSounds.stop('generatorStart');
     var sb=document.getElementById('startBar'); if(sb) sb.style.display='none';
     var fo=document.getElementById('finishOverlay'); if(fo) fo.style.display='none';
     var square=document.getElementById('gameStageSquare'); if(square) square.classList.remove('is-finished');

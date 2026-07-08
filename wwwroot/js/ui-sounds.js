@@ -103,6 +103,18 @@
         }
     }
 
+    function stop(name) {
+        var pool = pools[name];
+        if (!pool) return;
+
+        pool.forEach(function (audio) {
+            try {
+                audio.pause();
+                audio.currentTime = 0;
+            } catch {}
+        });
+    }
+
     function unlock() {
         if (unlocked) return;
         unlocked = true;
@@ -226,6 +238,7 @@
 
     window.GameSounds = {
         play: function (name) { play(name, false); },
+        stop: stop,
         unlock: unlock,
         setVolume: setVolume,
         setMuted: setMuted,
