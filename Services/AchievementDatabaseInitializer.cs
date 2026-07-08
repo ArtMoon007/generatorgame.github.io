@@ -55,6 +55,10 @@ public static class AchievementDatabaseInitializer
             ALTER TABLE "UserAchievements" ADD COLUMN IF NOT EXISTS "Experience" integer NOT NULL DEFAULT 0;
             ALTER TABLE "UserAchievements" ADD COLUMN IF NOT EXISTS "UnlockedAt" timestamp with time zone NOT NULL DEFAULT now();
 
+            ALTER TABLE "Users" ADD COLUMN IF NOT EXISTS "VipUntil" timestamp with time zone NULL;
+            ALTER TABLE "Users" ADD COLUMN IF NOT EXISTS "HideStatsFromOthers" boolean NOT NULL DEFAULT false;
+            ALTER TABLE "Users" ADD COLUMN IF NOT EXISTS "UsernameChangedAt" timestamp with time zone NULL;
+
             CREATE UNIQUE INDEX IF NOT EXISTS "IX_UserStats_UserId"
                 ON "UserStats" ("UserId");
 
@@ -125,6 +129,45 @@ public static class AchievementDatabaseInitializer
                     ALTER TABLE "UserAchievements"
                     ALTER COLUMN "UnlockedAt" TYPE timestamp with time zone
                     USING COALESCE(NULLIF("UnlockedAt", '')::timestamp with time zone, now());
+                END IF;
+
+                IF EXISTS (
+                    SELECT 1
+                    FROM information_schema.columns
+                    WHERE table_schema = 'public'
+                      AND table_name = 'Users'
+                      AND column_name = 'VipUntil'
+                      AND data_type = 'text'
+                ) THEN
+                    ALTER TABLE "Users"
+                    ALTER COLUMN "VipUntil" TYPE timestamp with time zone
+                    USING NULLIF("VipUntil", '')::timestamp with time zone;
+                END IF;
+
+                IF EXISTS (
+                    SELECT 1
+                    FROM information_schema.columns
+                    WHERE table_schema = 'public'
+                      AND table_name = 'Users'
+                      AND column_name = 'HideStatsFromOthers'
+                      AND data_type <> 'boolean'
+                ) THEN
+                    ALTER TABLE "Users"
+                    ALTER COLUMN "HideStatsFromOthers" TYPE boolean
+                    USING COALESCE("HideStatsFromOthers"::text::boolean, false);
+                END IF;
+
+                IF EXISTS (
+                    SELECT 1
+                    FROM information_schema.columns
+                    WHERE table_schema = 'public'
+                      AND table_name = 'Users'
+                      AND column_name = 'UsernameChangedAt'
+                      AND data_type = 'text'
+                ) THEN
+                    ALTER TABLE "Users"
+                    ALTER COLUMN "UsernameChangedAt" TYPE timestamp with time zone
+                    USING NULLIF("UsernameChangedAt", '')::timestamp with time zone;
                 END IF;
             END $$;
             """);

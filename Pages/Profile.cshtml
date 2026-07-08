@@ -25,7 +25,37 @@
 
             <div class="profile-title-block">
                 <div class="profile-kicker">PLAYER PROFILE</div>
-                <h1>@profile.Username</h1>
+                <h1 class="@(profile.IsVip ? "is-vip-name" : "")">
+                    @profile.Username
+                    @if (profile.IsVip)
+                    {
+                        <span class="vip-name-badge">♛ VIP</span>
+                    }
+                </h1>
+                <div class="profile-vip-row">
+                    <a href="/vip" class="profile-vip-btn">@(profile.IsVip ? "VIP АКТИВЕН" : "КУПИТЬ VIP")</a>
+                    @if (profile.IsVip)
+                    {
+                        <label class="profile-hide-toggle">
+                            <input type="checkbox" id="hideStatsToggle" @(profile.HideStatsFromOthers ? "checked" : "") />
+                            <span>Скрыть статистику</span>
+                        </label>
+                    }
+                </div>
+                <div class="profile-username-form">
+                    <input id="profileUsernameInput" value="@profile.Username" maxlength="20" autocomplete="off" />
+                    <button type="button" id="profileUsernameBtn">СМЕНИТЬ НИК</button>
+                    <span id="profileUsernameStatus">
+                        @if (profile.NextUsernameChangeAt.HasValue && profile.NextUsernameChangeAt.Value > DateTime.UtcNow)
+                        {
+                            @($"Доступно после {profile.NextUsernameChangeAt.Value.ToLocalTime():dd.MM.yyyy}")
+                        }
+                        else
+                        {
+                            @("Можно менять 1 раз в месяц")
+                        }
+                    </span>
+                </div>
                 <div class="profile-level-row">
                     <span>LVL @profile.Level</span>
                     <span>@profile.Experience / @profile.NextLevelExperience XP</span>
@@ -71,3 +101,68 @@
         </div>
     </section>
 </main>
+
+@section Scripts {
+    <script>
+        const hideStatsToggle = document.getElementById('hideStatsToggle');
+        if (hideStatsToggle) {
+            hideStatsToggle.addEventListener('change', function () {
+                fetch('/api/vip-settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ hideStats: hideStatsToggle.checked })
+                }).catch(function () {});
+            });
+        }
+
+        const usernameInput = document.getElementById('profileUsernameInput');
+        const usernameButton = document.getElementById('profileUsernameBtn');
+        const usernameStatus = document.getElementById('profileUsernameStatus');
+
+        if (usernameInput && usernameButton && usernameStatus) {
+            const setUsernameStatus = function (text, isError) {
+                usernameStatus.textContent = text;
+                usernameStatus.classList.toggle('is-error', !!isError);
+            };
+
+            usernameButton.addEventListener('click', async function () {
+                const username = usernameInput.value.trim();
+                if (!/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
+                    setUsernameStatus('Ник: 3-20 символов, латиница, цифры или _', true);
+                    return;
+                }
+
+                usernameButton.disabled = true;
+                setUsernameStatus('Проверяем ник...', false);
+
+                try {
+                    const response = await fetch('/api/profile-settings?handler=username', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username })
+                    });
+                    const body = await response.json().catch(function () { return {}; });
+
+                    if (!response.ok || body.error) {
+                        setUsernameStatus(body.error || 'Не удалось сменить ник', true);
+                        return;
+                    }
+
+                    setUsernameStatus('Ник изменен. Следующая смена через месяц.', false);
+                    setTimeout(function () { window.location.reload(); }, 650);
+                } catch {
+                    setUsernameStatus('Сервер не ответил, попробуй еще раз', true);
+                } finally {
+                    usernameButton.disabled = false;
+                }
+            });
+
+            usernameInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    usernameButton.click();
+                }
+            });
+        }
+    </script>
+}

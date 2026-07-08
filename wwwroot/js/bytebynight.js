@@ -11,6 +11,42 @@ function currentGenerator(){
     return typeof CURRENT_GENERATOR !== 'undefined' ? CURRENT_GENERATOR : 'bitebynight';
 }
 
+function pvpMatchId(){
+    try { return new URLSearchParams(location.search).get('pvpMatchId'); }
+    catch(e){ return null; }
+}
+
+function submitPvpRound(ms){
+    var matchId = pvpMatchId();
+    if(!matchId) return;
+    fetch('/api/pvp?handler=submitRound',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({matchId:parseInt(matchId,10), timeMs:ms})
+    })
+        .then(function(r){ return r.json().catch(function(){ return {}; }); })
+        .then(function(body){
+            var match = body && body.match;
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type:'pvp-round-submitted', match:match }, location.origin);
+            }
+            var fr=document.getElementById('finishRank');
+            if(!fr || !match) return;
+            var my = match.myWins || 0;
+            var opp = match.opponentWins || 0;
+            if(match.status === 'complete'){
+                fr.textContent = (match.iWonMatch ? 'PVP матч выигран' : 'PVP матч проигран') + ' · счет ' + my + ':' + opp;
+            } else if(match.opponentTimeMs){
+                fr.textContent = 'PVP раунд завершен · счет ' + my + ':' + opp + ' · вернись в PVP';
+            } else {
+                fr.textContent = 'PVP результат отправлен · ждем соперника';
+            }
+        })
+        .catch(function(){
+            var fr=document.getElementById('finishRank'); if(fr) fr.textContent='PVP результат не отправлен';
+        });
+}
+
 // ── TIMER ──────────────────────────────────────────────────
 function startTimer(){ startTime=Date.now(); timerInt=setInterval(tickTimer,13); }
 function stopTimer(){ clearInterval(timerInt); }
@@ -382,11 +418,16 @@ function finishCord(){ completeGame(); }
 function completeGame(){
     stopTimer(); setStage(3); gameReady=false; gameStarted=false;
     var ms=Date.now()-startTime;
+    submitPvpRound(ms);
     var square=document.getElementById('gameStageSquare'); if(square) square.classList.add('is-finished');
     var fo=document.getElementById('finishOverlay'); if(fo) fo.style.display='flex';
     var wp=document.getElementById('wirePanel'); if(wp) wp.style.display='none';
     var ft=document.getElementById('finishTime'); if(ft) ft.textContent=fmt(ms);
     var fr=document.getElementById('finishRank'); if(fr) fr.textContent='результат сохранён в таблицу';
+    if(pvpMatchId()){
+        if(fr) fr.textContent='PVP результат отправляется...';
+        return;
+    }
     if(typeof IS_LOGGED_IN!=='undefined'&&IS_LOGGED_IN===true){
         fetch('/api/submit-score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({timeMs:ms, generator: currentGenerator()})})
             .then(function(r){ return r.json().catch(function(){ return {}; }); })
@@ -416,10 +457,10 @@ function renderLB(list){
     var me=typeof CURRENT_USER!=='undefined'?CURRENT_USER:'';
     el.innerHTML=list.map(function(e,i){
         var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-        var displayName=e.robloxUsername||e.username||'Player';
+        var displayName=(e.isVip?'\u265B ':'')+(e.robloxUsername||e.username||'Player');
         var av=e.robloxAvatarUrl?'<img src="'+e.robloxAvatarUrl+'" alt=""/>':'<span class="lb-av-txt">'+displayName[0].toUpperCase()+'</span>';
         var isMe = (e.username||'') === me || (e.robloxUsername||'') === me;
-        var nm='<button type="button" class="lb-profile-btn'+(isMe?' is-me':'')+'" onclick="openLeaderboardProfile('+(e.id||0)+')">'+displayName+'</button>';
+        var nm='<button type="button" class="lb-profile-btn'+(isMe?' is-me':'')+(e.isVip?' is-vip':'')+'" onclick="openLeaderboardProfile('+(e.id||0)+')">'+displayName+'</button>';
         return '<div class="lb-row'+(isMe?' lb-me':'')+'"><div class="lb-num '+rc+'">'+(i+1)+'</div><div class="lb-av">'+av+'</div><div class="lb-name">'+nm+'</div><div class="lb-time">'+e.timeFormatted+'</div></div>';
     }).join('');
     var myI=list.findIndex(function(e){ return (e.username||'')===me || (e.robloxUsername||'')===me; });

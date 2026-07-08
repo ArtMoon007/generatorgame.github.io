@@ -13,7 +13,8 @@ public class SubmitScoreModel : PageModel
     private static readonly HashSet<string> AllowedGenerators = new(StringComparer.OrdinalIgnoreCase)
     {
         "bitebynight",
-        "forsaken"
+        "forsaken",
+        "vip"
     };
 
     private readonly AppDbContext _db;
@@ -44,6 +45,9 @@ public class SubmitScoreModel : PageModel
 
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId.Value);
         if (user == null) return Unauthorized();
+
+        if (generator == "vip" && !VipService.IsVip(user.VipUntil))
+            return Forbid();
 
         var previousBest = await _db.Scores
             .Where(s => s.UserId == userId.Value && s.Generator == generator)
@@ -123,6 +127,7 @@ public class SubmitScoreModel : PageModel
         {
             "bitebynight" => 500,
             "forsaken" => 1_500,
+            "vip" => 2_500,
             _ => 500
         };
 

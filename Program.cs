@@ -72,6 +72,8 @@ builder.Services.AddSession(opt =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<AchievementService>();
 builder.Services.AddScoped<VisitCounterService>();
+builder.Services.AddScoped<VipService>();
+builder.Services.AddScoped<PvpService>();
 
 var app = builder.Build();
 
@@ -82,6 +84,8 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 
     AchievementDatabaseInitializer.EnsureSchemaAsync(db).GetAwaiter().GetResult();
+    ProfileDatabaseInitializer.EnsureSchemaAsync(db).GetAwaiter().GetResult();
+    PvpDatabaseInitializer.EnsureSchemaAsync(db).GetAwaiter().GetResult();
 
     var achievements = scope.ServiceProvider.GetRequiredService<AchievementService>();
     AchievementDatabaseInitializer.BackfillAllAsync(db, achievements).GetAwaiter().GetResult();

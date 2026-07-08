@@ -13,7 +13,10 @@
     <meta name="theme-color" content="#0b0b0b" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+@{
+    var isEmbedded = Context.Request.Query["embedded"] == "1";
+}
+<body class="@(isEmbedded ? "pvp-embedded" : "")">
     <nav class="navbar">
         <div class="nav-brand">
             <div class="nav-logo">GEN<span class="accent">ERATOR</span></div>
@@ -75,6 +78,7 @@
     </footer>
     <script src="~/js/online.js?v=4"></script>
     <script src="~/js/achievements.js?v=3"></script>
+    <script src="~/js/pvp-invites.js?v=1"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

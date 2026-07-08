@@ -9,6 +9,40 @@ html,body{
     overflow-x:hidden;
 }
 
+body.pvp-embedded .navbar,
+body.pvp-embedded .site-footer,
+body.pvp-embedded .generator-tabs{
+    display:none!important;
+}
+
+body.pvp-embedded .left-col,
+body.pvp-embedded .right-col{
+    display:none!important;
+}
+
+body.pvp-embedded .game-layout{
+    display:flex!important;
+    justify-content:center!important;
+}
+
+body.pvp-embedded .center-col{
+    width:100%!important;
+    max-width:900px!important;
+}
+
+body.pvp-embedded .generator-page{
+    height:100vh!important;
+    min-height:100vh!important;
+}
+
+body.pvp-embedded .game-page{
+    padding:6px!important;
+}
+
+body.pvp-embedded .restart-btn{
+    display:none!important;
+}
+
 /* PROFILE / ACHIEVEMENTS */
 .site-footer{
     display:flex;
@@ -183,6 +217,225 @@ html,body{
     text-decoration:none;
 }
 
+.vip-name-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    margin-left:8px;
+    padding:4px 8px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#ffe28a,#a97812);
+    color:#111;
+    font-size:11px;
+    vertical-align:middle;
+}
+
+.profile-title-block h1.is-vip-name{
+    color:#f8db7a;
+    text-shadow:0 0 18px rgba(248,219,122,.24);
+}
+
+.profile-title-block h1.is-vip-name .vip-name-badge{
+    color:#111;
+    text-shadow:none;
+}
+
+.profile-vip-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:0 0 10px;
+}
+
+.profile-vip-btn{
+    min-height:28px;
+    display:inline-flex;
+    align-items:center;
+    border:1px solid #8a671b;
+    border-radius:7px;
+    padding:0 10px;
+    background:#171107;
+    color:#f8db7a;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.profile-vip-btn:hover{
+    background:#f8db7a;
+    color:#111;
+    text-decoration:none;
+}
+
+.profile-hide-toggle{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:#aaa;
+    font-size:12px;
+}
+
+.profile-hide-toggle input{
+    accent-color:#d8b35a;
+}
+
+.vip-page{
+    width:min(1040px,calc(100% - 28px));
+    margin:28px auto 40px;
+    color:#fff;
+}
+
+.vip-hero{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:24px;
+    border:1px solid #6f5317;
+    border-radius:8px;
+    background:
+        linear-gradient(135deg,rgba(248,219,122,.16),rgba(169,120,18,.08)),
+        #0f0f0f;
+    box-shadow:0 0 34px rgba(248,219,122,.08);
+}
+
+.vip-crown{
+    width:76px;
+    height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    background:linear-gradient(135deg,#ffe28a,#a97812);
+    color:#111;
+    font-size:42px;
+    font-weight:900;
+    box-shadow:0 0 24px rgba(248,219,122,.24);
+}
+
+.vip-kicker{
+    color:#f8db7a;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.vip-hero h1{
+    margin:4px 0;
+    font-size:44px;
+    line-height:1;
+    letter-spacing:0;
+}
+
+.vip-hero p{
+    margin:0;
+    color:#d7d7d7;
+    font-weight:800;
+}
+
+.vip-benefits,
+.vip-buy-box{
+    margin-top:14px;
+    padding:20px;
+    border:1px solid #242424;
+    border-radius:8px;
+    background:#101010;
+}
+
+.vip-benefits h2{
+    margin:0 0 14px;
+    font-size:22px;
+}
+
+.vip-benefit-list{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+}
+
+.vip-benefit-list div{
+    min-height:54px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    border:1px solid #2a2414;
+    border-radius:8px;
+    background:#0b0b0b;
+    color:#dcdcdc;
+    font-size:14px;
+    line-height:1.3;
+}
+
+.vip-benefit-list span{
+    width:30px;
+    height:30px;
+    flex:0 0 30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:7px;
+    background:#171107;
+    color:#f8db7a;
+    font-weight:900;
+}
+
+.vip-buy-box{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    border-color:#6f5317;
+}
+
+.vip-buy-box strong,
+.vip-buy-box span{
+    display:block;
+}
+
+.vip-buy-box strong{
+    color:#fff;
+    font-size:18px;
+}
+
+.vip-buy-box span{
+    color:#aaa;
+    margin-top:4px;
+}
+
+.vip-buy-box button{
+    min-height:44px;
+    padding:0 18px;
+    border:1px solid #ffe28a;
+    border-radius:8px;
+    background:linear-gradient(135deg,#ffe28a,#a97812);
+    color:#111;
+    font-weight:900;
+    letter-spacing:1px;
+    opacity:.72;
+}
+
+.vip-generator-page .timer-lbl,
+.vip-instruction,
+.vip-lb-panel .lb-header{
+    color:#f8db7a;
+}
+
+.vip-stage-square{
+    border-color:#6f5317!important;
+    box-shadow:0 0 24px rgba(248,219,122,.12);
+}
+
+.vip-fg-board .fg-cell{
+    border-right-width:1px;
+    border-bottom-width:1px;
+}
+
+.vip-fg-board .fg-dot span{
+    font-size:14px;
+}
+
 .profile-hero{
     display:flex;
     align-items:center;
@@ -237,6 +490,65 @@ html,body{
     line-height:1.1;
     overflow-wrap:anywhere;
     margin-bottom:10px;
+}
+
+.profile-username-form{
+    width:min(460px,70vw);
+    display:grid;
+    grid-template-columns:minmax(140px,1fr) auto;
+    gap:8px;
+    align-items:center;
+    margin:0 0 12px;
+}
+
+.profile-username-form input{
+    min-width:0;
+    height:36px;
+    padding:0 11px;
+    color:#fff;
+    background:#090909;
+    border:1px solid #2a1616;
+    border-radius:8px;
+    outline:none;
+    font-weight:800;
+}
+
+.profile-username-form input:focus{
+    border-color:#e05050;
+    box-shadow:0 0 0 3px rgba(224,80,80,.12);
+}
+
+.profile-username-form button{
+    height:36px;
+    padding:0 12px;
+    color:#fff;
+    background:#1a0b0b;
+    border:1px solid #4a2020;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+
+.profile-username-form button:hover{
+    border-color:#e05050;
+}
+
+.profile-username-form button:disabled{
+    opacity:.6;
+    cursor:wait;
+}
+
+#profileUsernameStatus{
+    grid-column:1 / -1;
+    color:#888;
+    font-size:11px;
+    line-height:1.25;
+}
+
+#profileUsernameStatus.is-error{
+    color:#ff6b6b;
 }
 
 .profile-level-row{
@@ -480,6 +792,16 @@ html,body{
 
 .lb-profile-btn.is-me{
     color:#e05050;
+}
+
+.lb-profile-btn.is-vip{
+    color:#f8db7a;
+    font-weight:900;
+    text-shadow:0 0 12px rgba(248,219,122,.18);
+}
+
+.lb-profile-btn.is-vip:hover{
+    color:#ffe28a;
 }
 
 .profile-modal{
@@ -1018,6 +1340,634 @@ a:hover{text-decoration:underline}
     background:linear-gradient(135deg,#7a0000,#a80000);
     border-color:#dd4444;
     box-shadow:0 0 16px rgba(204,34,34,.4),inset 0 0 8px rgba(255,255,255,.06);
+}
+
+.generator-tab.vip-tab{
+    color:#d8b35a;
+    border-color:#6f5317;
+}
+
+.generator-tab.vip-tab:hover,
+.generator-tab.vip-tab.active{
+    color:#111;
+    background:linear-gradient(135deg,#f8db7a,#a97812);
+    border-color:#ffe28a;
+    box-shadow:0 0 20px rgba(248,219,122,.28);
+}
+
+.generator-tab.pvp-tab{
+    color:#8fd5ff;
+    border-color:#16435e;
+}
+
+.generator-tab.pvp-tab:hover,
+.generator-tab.pvp-tab.active{
+    color:#061018;
+    background:linear-gradient(135deg,#8fd5ff,#2f8fdd);
+    border-color:#a9e2ff;
+    box-shadow:0 0 20px rgba(143,213,255,.22);
+}
+
+.pvp-page{
+    width:min(1120px,calc(100% - 28px));
+    margin:20px auto 42px;
+    color:#fff;
+}
+
+.pvp-shell{
+    margin-top:14px;
+    border:1px solid #20252a;
+    border-radius:8px;
+    background:#0f1011;
+    padding:18px;
+}
+
+.pvp-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+    margin-bottom:16px;
+}
+
+.pvp-head span,
+.pvp-card-top span{
+    display:block;
+    color:#777;
+    font-size:10px;
+    letter-spacing:2px;
+    font-weight:800;
+}
+
+.pvp-head h1{
+    margin:4px 0 0;
+    font-size:30px;
+    letter-spacing:0;
+}
+
+.pvp-rules{
+    border:1px solid #203345;
+    border-radius:8px;
+    background:#0b151d;
+    color:#8fd5ff;
+    padding:10px 12px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.pvp-generator-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+}
+
+.pvp-generator-card{
+    border:1px solid #23282d;
+    border-radius:8px;
+    background:#0a0b0c;
+    padding:14px;
+}
+
+.pvp-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+}
+
+.pvp-card-top strong{
+    display:block;
+    margin-top:4px;
+    font-size:22px;
+}
+
+.pvp-cups{
+    color:#f8db7a;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.pvp-rank-line{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin:16px 0;
+    padding:10px;
+    border:1px solid #1c2934;
+    border-radius:8px;
+    background:#0b1218;
+}
+
+.pvp-rank-badge{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+}
+
+.pvp-rank-icon{
+    width:46px;
+    height:46px;
+    display:flex!important;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    background:#111;
+    font-size:28px!important;
+    line-height:1;
+    flex:0 0 46px;
+}
+
+.pvp-rank-line .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#8fd5ff;
+    font-size:18px;
+    font-weight:900;
+}
+
+.pvp-rank-badge div small{
+    display:block;
+    margin-top:2px;
+    color:#aaa;
+}
+
+.pvp-rank-line small{
+    color:#888;
+    font-weight:800;
+}
+
+.pvp-rank-line.rank-wood{
+    border-color:#6b4428;
+    background:#170f09;
+}
+
+.pvp-rank-line.rank-wood .pvp-rank-icon{
+    background:#241509;
+    box-shadow:0 0 18px rgba(151,91,42,.18);
+}
+
+.pvp-rank-line.rank-wood .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#c48655;
+}
+
+.pvp-rank-line.rank-bronze{
+    border-color:#6d4628;
+    background:#160e08;
+}
+
+.pvp-rank-line.rank-bronze .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#d58b4a;
+}
+
+.pvp-rank-line.rank-silver{
+    border-color:#77818b;
+    background:#111417;
+}
+
+.pvp-rank-line.rank-silver .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#cfd9e3;
+}
+
+.pvp-rank-line.rank-gold{
+    border-color:#8a671b;
+    background:#171107;
+}
+
+.pvp-rank-line.rank-gold .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#f8db7a;
+}
+
+.pvp-rank-line.rank-diamond{
+    border-color:#63d9ff;
+    background:#07141a;
+}
+
+.pvp-rank-line.rank-diamond .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#9cecff;
+}
+
+.pvp-rank-line.rank-sapphire{
+    border-color:#356dff;
+    background:#071022;
+}
+
+.pvp-rank-line.rank-sapphire .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#7ba4ff;
+}
+
+.pvp-rank-line.rank-legend{
+    border-color:#b66bff;
+    background:#160923;
+}
+
+.pvp-rank-line.rank-legend .pvp-rank-badge span:not(.pvp-rank-icon){
+    color:#d8b8ff;
+}
+
+.pvp-search-btn,
+.pvp-ready-btn,
+.pvp-exit-btn,
+.pvp-cancel-btn{
+    width:100%;
+    min-height:42px;
+    border-radius:8px;
+    border:1px solid #2f8fdd;
+    background:#0b1720;
+    color:#8fd5ff;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.pvp-search-btn:hover,
+.pvp-ready-btn:hover{
+    background:#8fd5ff;
+    color:#061018;
+}
+
+.pvp-match-panel{
+    margin-top:12px;
+    border:1px solid #243241;
+    border-radius:8px;
+    background:#090d10;
+    padding:14px;
+}
+
+.pvp-panel-title{
+    color:#fff;
+    font-size:18px;
+    font-weight:900;
+}
+
+.pvp-status{
+    color:#aaa;
+    margin-top:6px;
+}
+
+.pvp-searching{
+    min-height:150px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin:14px 0;
+    border:1px solid #1f3447;
+    border-radius:8px;
+    background:#071019;
+    text-align:center;
+}
+
+.pvp-searching[hidden]{
+    display:none!important;
+}
+
+.pvp-spinner{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:3px solid rgba(143,213,255,.18);
+    border-top-color:#8fd5ff;
+    animation:pvpSpin .9s linear infinite;
+}
+
+.pvp-searching strong{
+    color:#fff;
+    font-size:20px;
+    letter-spacing:0;
+}
+
+.pvp-searching span{
+    color:#aaa;
+    font-size:13px;
+}
+
+.pvp-searching b{
+    color:#8fd5ff;
+    font-size:18px;
+}
+
+.pvp-countdown{
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    background:rgba(0,0,0,.62);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    text-align:center;
+}
+
+.pvp-countdown[hidden]{
+    display:none!important;
+}
+
+.pvp-countdown-card{
+    width:min(560px,100%);
+    min-height:330px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    border:1px solid #31532f;
+    border-radius:12px;
+    background:
+        linear-gradient(135deg,rgba(115,255,152,.14),rgba(143,213,255,.08)),
+        #071208;
+    box-shadow:0 26px 90px rgba(0,0,0,.55),0 0 42px rgba(115,255,152,.16);
+    padding:30px;
+}
+
+.pvp-countdown span{
+    color:#9bffb5;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.pvp-countdown strong{
+    color:#fff;
+    font-size:132px;
+    line-height:1;
+    font-weight:900;
+    text-shadow:0 0 34px rgba(115,255,152,.3);
+}
+
+.pvp-countdown small{
+    max-width:360px;
+    color:#bfcfc4;
+    font-size:14px;
+    line-height:1.35;
+    font-weight:800;
+}
+
+@keyframes pvpSpin{
+    to{transform:rotate(360deg)}
+}
+
+.pvp-score{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    margin:14px 0;
+}
+
+.pvp-score > div{
+    border:1px solid #1e252b;
+    border-radius:8px;
+    padding:10px;
+    background:#0d0f11;
+}
+
+.pvp-score span{
+    display:block;
+    color:#777;
+    font-size:11px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.pvp-round-results{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    margin:14px 0;
+}
+
+.pvp-round-results[hidden]{
+    display:none!important;
+}
+
+.pvp-round-results > div{
+    border:1px solid #26313a;
+    border-radius:8px;
+    background:#0b1014;
+    padding:12px;
+}
+
+.pvp-round-results > div:last-child{
+    border-color:#24452e;
+    background:#08120b;
+}
+
+.pvp-round-results span{
+    display:block;
+    color:#888;
+    font-size:11px;
+    font-weight:900;
+    margin-bottom:6px;
+    text-transform:uppercase;
+}
+
+.pvp-round-results strong{
+    display:block;
+    color:#fff;
+    font-size:24px;
+    font-family:'Courier New',monospace;
+}
+
+.pvp-round-results > div:last-child strong{
+    color:#73ff98;
+}
+
+.pvp-game-frame-wrap{
+    margin:14px 0;
+    border:1px solid #27323d;
+    border-radius:8px;
+    background:#050607;
+    overflow:hidden;
+    height:min(78vh,860px);
+    min-height:620px;
+}
+
+.pvp-game-frame-wrap[hidden]{
+    display:none!important;
+}
+
+.pvp-game-frame-wrap iframe{
+    width:100%;
+    height:100%;
+    border:0;
+    display:block;
+    background:#070707;
+}
+
+.pvp-round-dots{
+    display:flex;
+    gap:8px;
+}
+
+.pvp-round-dots span{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    border:1px solid #444;
+    background:#141414;
+}
+
+.pvp-round-dots span.is-win{
+    background:#33d469;
+    border-color:#7cff9e;
+    box-shadow:0 0 14px rgba(51,212,105,.32);
+}
+
+.pvp-round-dots span.is-lose{
+    background:#e05050;
+    border-color:#ff8585;
+    box-shadow:0 0 14px rgba(224,80,80,.28);
+}
+
+.pvp-actions{
+    display:flex;
+    gap:10px;
+}
+
+.pvp-cancel-btn{
+    border-color:#4b2424;
+    background:#160d0d;
+    color:#e05050;
+}
+
+.pvp-exit-btn{
+    border-color:#604a20;
+    background:#171105;
+    color:#f8db7a;
+}
+
+.pvp-exit-btn:hover{
+    background:#f8db7a;
+    color:#111;
+}
+
+.pvp-duel-box{
+    margin-top:12px;
+    border:1px solid #2a2630;
+    border-radius:8px;
+    background:#0c0b10;
+    padding:14px;
+}
+
+.pvp-duel-box > div:first-child span{
+    display:block;
+    color:#777;
+    font-size:10px;
+    letter-spacing:2px;
+    font-weight:800;
+}
+
+.pvp-duel-box > div:first-child strong{
+    display:block;
+    color:#fff;
+    margin-top:4px;
+    font-size:18px;
+}
+
+.pvp-duel-controls{
+    display:grid;
+    grid-template-columns:180px minmax(0,1fr) 220px;
+    gap:10px;
+    margin-top:12px;
+}
+
+.pvp-duel-controls select,
+.pvp-duel-controls input{
+    min-height:42px;
+    border:1px solid #2b2b2b;
+    border-radius:8px;
+    background:#080808;
+    color:#fff;
+    padding:0 12px;
+    font-weight:800;
+}
+
+.pvp-duel-controls button{
+    min-height:42px;
+    border:1px solid #6b4b94;
+    border-radius:8px;
+    background:#160d22;
+    color:#d8b8ff;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.pvp-duel-controls button:hover{
+    background:#d8b8ff;
+    color:#14081e;
+}
+
+.pvp-duel-status{
+    min-height:18px;
+    margin-top:8px;
+    color:#aaa;
+    font-size:12px;
+    font-weight:800;
+}
+
+.pvp-invite-toast{
+    position:fixed;
+    right:18px;
+    top:72px;
+    z-index:4000;
+    width:min(360px,calc(100vw - 24px));
+    border:1px solid #6b4b94;
+    border-radius:8px;
+    background:#0c0812;
+    color:#fff;
+    padding:14px;
+    box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 24px rgba(216,184,255,.12);
+}
+
+.pvp-invite-toast[hidden]{
+    display:none!important;
+}
+
+.pvp-invite-kicker{
+    color:#d8b8ff;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.pvp-invite-title{
+    margin-top:6px;
+    font-size:20px;
+    font-weight:900;
+}
+
+.pvp-invite-meta{
+    margin-top:4px;
+    color:#aaa;
+    font-size:12px;
+}
+
+.pvp-invite-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:12px;
+}
+
+.pvp-invite-actions button{
+    min-height:38px;
+    border-radius:8px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.pvp-invite-accept{
+    border:1px solid #58d77b;
+    background:#0b1a10;
+    color:#73ff98;
+}
+
+.pvp-invite-decline{
+    border:1px solid #6b2b2b;
+    background:#170909;
+    color:#ff7777;
 }
 
 /* PAGE */
@@ -2171,6 +3121,103 @@ a:hover{text-decoration:underline}
     .fg-start-sub{
         font-size:14px;
     }
+
+    .vip-page{
+        width:calc(100% - 20px);
+        margin:16px auto 28px;
+    }
+
+    .vip-hero,
+    .vip-buy-box{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .vip-hero{
+        padding:18px;
+    }
+
+    .vip-crown{
+        width:62px;
+        height:62px;
+        font-size:34px;
+    }
+
+    .vip-hero h1{
+        font-size:34px;
+    }
+
+    .vip-benefit-list{
+        grid-template-columns:1fr;
+    }
+
+    .vip-buy-box button{
+        width:100%;
+    }
+
+    .pvp-page{
+        width:calc(100% - 20px);
+        margin:14px auto 30px;
+    }
+
+    .pvp-shell{
+        padding:12px;
+    }
+
+    .pvp-head,
+    .pvp-actions{
+        flex-direction:column;
+    }
+
+    .pvp-head h1{
+        font-size:24px;
+    }
+
+    .pvp-generator-grid,
+    .pvp-score,
+    .pvp-round-results{
+        grid-template-columns:1fr;
+    }
+
+    .pvp-game-frame-wrap{
+        height:78vh;
+        min-height:560px;
+    }
+
+    .pvp-search-btn,
+    .pvp-ready-btn,
+    .pvp-exit-btn,
+    .pvp-cancel-btn{
+        width:100%;
+    }
+
+    .pvp-duel-controls{
+        grid-template-columns:1fr;
+    }
+
+    .pvp-invite-toast{
+        top:auto;
+        right:10px;
+        bottom:12px;
+        width:calc(100vw - 20px);
+    }
+
+    .pvp-countdown{
+        padding:14px;
+    }
+
+    .pvp-countdown-card{
+        min-height:280px;
+        padding:22px;
+    }
+
+    .pvp-countdown span{
+        font-size:14px;
+    }
+
+    .pvp-countdown strong{
+        font-size:92px;
+    }
 }
 
 @media (max-width:520px){
@@ -2212,6 +3259,21 @@ a:hover{text-decoration:underline}
 
     .fg-start-sub{
         font-size:12px;
+    }
+
+    .vip-fg-board .fg-dot{
+        width:76%;
+        height:76%;
+        left:12%;
+        top:12%;
+    }
+
+    .vip-fg-board .fg-dot span{
+        font-size:8px!important;
+    }
+
+    .vip-hero h1{
+        font-size:30px;
     }
 
     #wireCanvas{
@@ -2478,6 +3540,15 @@ a:hover{text-decoration:underline}
 
     .profile-title-block h1{
         font-size:24px;
+    }
+
+    .profile-username-form{
+        width:100%;
+        grid-template-columns:1fr;
+    }
+
+    .profile-username-form button{
+        width:100%;
     }
 
     .profile-level-row,

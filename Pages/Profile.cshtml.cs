@@ -40,9 +40,12 @@ public class ProfileModel : PageModel
             {
                 u.Id,
                 u.Username,
+                u.UsernameChangedAt,
                 u.RobloxUsername,
                 u.RobloxAvatarUrl,
-                u.AvatarUrl
+                u.AvatarUrl,
+                u.VipUntil,
+                u.HideStatsFromOthers
             })
             .FirstOrDefaultAsync();
 
@@ -108,7 +111,7 @@ public class ProfileModel : PageModel
 
         View = new ProfileView
         {
-            Username = user.RobloxUsername ?? user.Username,
+            Username = user.Username,
             AvatarUrl = user.RobloxAvatarUrl ?? user.AvatarUrl,
             Level = level,
             Experience = experience,
@@ -120,7 +123,11 @@ public class ProfileModel : PageModel
             FavoriteGenerator = GeneratorName(favorite),
             TotalHours = totalMs / 3_600_000.0,
             Rank = await GetRankAsync(userId.Value, favorite),
-            Achievements = achievements.Concat(locked).ToList()
+            Achievements = achievements.Concat(locked).ToList(),
+            IsVip = VipService.IsVip(user.VipUntil),
+            VipUntil = user.VipUntil,
+            HideStatsFromOthers = user.HideStatsFromOthers,
+            UsernameChangedAt = user.UsernameChangedAt
         };
 
         return Page();
@@ -160,6 +167,7 @@ public class ProfileModel : PageModel
     private static string GeneratorName(string generator) => generator switch
     {
         "forsaken" => "Forsaken",
+        "vip" => "VIP Generator",
         "bitebynight" => "Bite by Night",
         _ => generator
     };
@@ -180,6 +188,11 @@ public class ProfileView
     public double TotalHours { get; set; }
     public int? Rank { get; set; }
     public List<AchievementCard> Achievements { get; set; } = new();
+    public bool IsVip { get; set; }
+    public DateTime? VipUntil { get; set; }
+    public bool HideStatsFromOthers { get; set; }
+    public DateTime? UsernameChangedAt { get; set; }
+    public DateTime? NextUsernameChangeAt => UsernameChangedAt?.AddDays(30);
 }
 
 public record AchievementCard(

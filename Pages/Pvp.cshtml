@@ -1,0 +1,116 @@
+@page "/pvp"
+@model GeneratorGame.Pages.PvpModel
+@{
+    ViewData["Title"] = "PVP";
+}
+
+<main class="pvp-page">
+    @await Html.PartialAsync("_GeneratorTabs", "pvp")
+
+    <section class="pvp-shell">
+        <div class="pvp-head">
+            <div>
+                <span>PVP MODE</span>
+                <h1>Битва генераторов</h1>
+            </div>
+            <div class="pvp-rules">Игра до 2 побед. Подбор по званию ±1.</div>
+        </div>
+
+        <div class="pvp-generator-grid">
+            @foreach (var rating in Model.Ratings)
+            {
+                <article class="pvp-generator-card" data-generator="@rating.Generator">
+                    <div class="pvp-card-top">
+                        <div>
+                            <span>ГЕНЕРАТОР</span>
+                            <strong>@rating.Title</strong>
+                        </div>
+                        <div class="pvp-cups">@rating.Points 🏆</div>
+                    </div>
+                    <div class="pvp-rank-line rank-@rating.RankCss">
+                        <div class="pvp-rank-badge">
+                            <span class="pvp-rank-icon">@rating.RankIcon</span>
+                            <div>
+                                <span>@rating.Rank</span>
+                                <small>@rating.Points кубков</small>
+                            </div>
+                        </div>
+                        <small>@rating.Wins W / @rating.Losses L</small>
+                    </div>
+                    <button type="button" class="pvp-search-btn" data-generator="@rating.Generator">ИСКАТЬ ИГРУ</button>
+                </article>
+            }
+        </div>
+
+        <section class="pvp-duel-box">
+            <div>
+                <span>ДУЭЛЬ ПО НИКУ</span>
+                <strong>Позвать игрока на поединок</strong>
+            </div>
+            <div class="pvp-duel-controls">
+                <select id="pvpInviteGenerator" aria-label="Генератор дуэли">
+                    <option value="bitebynight">Bite by Night</option>
+                    <option value="forsaken">Forsaken</option>
+                </select>
+                <input id="pvpInviteNick" type="text" placeholder="Ник игрока" autocomplete="off" />
+                <button type="button" id="pvpInviteBtn">ПОЗВАТЬ НА ПОЕДИНОК</button>
+            </div>
+            <div class="pvp-duel-status" id="pvpInviteStatus"></div>
+        </section>
+
+        <section class="pvp-match-panel" id="pvpPanel">
+            <div class="pvp-panel-title" id="pvpPanelTitle">Выбери генератор для PVP</div>
+            <div class="pvp-status" id="pvpStatus">Очередь подбирает игрока твоего звания или соседнего звания.</div>
+
+            <div class="pvp-searching" id="pvpSearching" hidden>
+                <div class="pvp-spinner"></div>
+                <strong>Идет поиск</strong>
+                <span>Игроков в очереди: <b id="pvpQueueCount">0</b></span>
+            </div>
+
+            <div class="pvp-score" id="pvpScore" hidden>
+                <div>
+                    <span>Ты</span>
+                    <div class="pvp-round-dots" id="pvpMyDots"></div>
+                </div>
+                <div>
+                    <span id="pvpOpponentName">Соперник</span>
+                    <div class="pvp-round-dots" id="pvpOpponentDots"></div>
+                </div>
+            </div>
+
+            <div class="pvp-round-results" id="pvpRoundResults" hidden>
+                <div>
+                    <span id="pvpOpponentResultName">Соперник</span>
+                    <strong id="pvpOpponentResult">—</strong>
+                </div>
+                <div>
+                    <span>Ты</span>
+                    <strong id="pvpMyResult">—</strong>
+                </div>
+            </div>
+
+            <div class="pvp-game-frame-wrap" id="pvpGameFrameWrap" hidden>
+                <iframe id="pvpGameFrame" title="PVP generator"></iframe>
+            </div>
+
+            <div class="pvp-actions">
+                <button type="button" class="pvp-ready-btn" id="pvpReadyBtn" hidden>ГОТОВ К ИГРЕ</button>
+                <button type="button" class="pvp-exit-btn" id="pvpExitBtn" hidden>ВЫЙТИ</button>
+                <button type="button" class="pvp-cancel-btn" id="pvpCancelBtn" hidden>ОТМЕНИТЬ ПОИСК</button>
+            </div>
+        </section>
+    </section>
+</main>
+
+<div class="pvp-countdown" id="pvpCountdown" hidden>
+    <div class="pvp-countdown-card">
+        <span id="pvpCountdownLabel">Ждем соперника</span>
+        <strong id="pvpCountdownValue">...</strong>
+        <small>Приготовься пройти генератор быстрее соперника</small>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pvp.js?v=8"></script>
+}

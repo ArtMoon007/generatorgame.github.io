@@ -5,6 +5,7 @@ public class User
     public int Id { get; set; }
 
     public string Username { get; set; } = null!;
+    public DateTime? UsernameChangedAt { get; set; }
 
     public string? Email { get; set; }
 
@@ -17,6 +18,9 @@ public class User
     public string? RobloxAvatarUrl { get; set; }
 
     public string? AvatarUrl { get; set; }
+
+    public DateTime? VipUntil { get; set; }
+    public bool HideStatsFromOthers { get; set; }
 
     // 🎮 СКОРОСТЬ / СЧЕТ
     public List<Score> Scores { get; set; } = new();

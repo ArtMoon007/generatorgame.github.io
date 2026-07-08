@@ -57,6 +57,9 @@ namespace GeneratorGame.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("HideStatsFromOthers")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -71,6 +74,9 @@ namespace GeneratorGame.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("VipUntil")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

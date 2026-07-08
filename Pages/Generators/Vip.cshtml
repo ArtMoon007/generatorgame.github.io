@@ -1,0 +1,88 @@
+@page "/generators/vip"
+@model GeneratorGame.Pages.Generators.VipModel
+@{
+    ViewData["Title"] = "VIP Generator";
+    var userName = HttpContext.Session.GetString("UserName") ?? "";
+    var isLoggedIn = User.Identity?.IsAuthenticated == true && HttpContext.Session.GetInt32("UserId") != null;
+}
+
+<div class="generator-page vip-generator-page">
+    @await Html.PartialAsync("_GeneratorTabs", "vip")
+
+    <div class="game-page">
+        <div class="game-header">
+            <div class="timer-lbl">VIP GENERATOR</div>
+            <div class="timer-display" id="timerDisplay" style="font-size:20px;letter-spacing:3px">00:00:000</div>
+        </div>
+
+        <div class="game-layout">
+            <div class="left-col">
+                <div class="lb-panel vip-lb-panel">
+                    <div class="lb-header">
+                        <span>VIP LEADERBOARD</span>
+                        <span>VIP ONLY</span>
+                    </div>
+                    <div class="lb-list" id="lbList"><div class="lb-loading">загрузка...</div></div>
+                    <div class="lb-my-row" id="myRow"></div>
+                </div>
+            </div>
+
+            <div class="center-col">
+                <div class="game-instruction fg-instruction vip-instruction">
+                    <div>VIP версия Forsaken: поле 12x12, больше маршрутов, отдельный лидерборд.</div>
+                    <div>Соедини одинаковые точки и пройди 4 слоя как можно быстрее.</div>
+                </div>
+
+                <div class="game-stage-square vip-stage-square" id="gameStageSquare">
+                    <div class="fg-game">
+                        <div class="fg-start-overlay" id="startBar" onclick="startGame()">
+                            <div class="fg-start-title">VIP</div>
+                            <div class="fg-start-sub">12x12 generator</div>
+                        </div>
+
+                        <div class="fg-info">
+                            <div>flows: <span id="fgFlows">0/0</span></div>
+                            <div>moves: <span id="fgMoves">0</span></div>
+                            <div>pipe: <span id="fgPipe">0%</span></div>
+                        </div>
+
+                        <div class="fg-board-wrap">
+                            <svg id="fgSvg"></svg>
+                            <div class="fg-board vip-fg-board" id="fgBoard"></div>
+                        </div>
+
+                        <div class="fg-side-bar"><div id="fgProgressFill"></div></div>
+                        <div class="fg-layer" id="fgLayer">LAYER 1 / 4</div>
+
+                        <div class="finish-overlay" id="finishOverlay" style="display:none">
+                            <div class="finish-glow"></div>
+                            <div class="finish-title">♛ VIP GENERATOR ЗАПУЩЕН</div>
+                            <div class="finish-time" id="finishTime"></div>
+                            <div class="finish-rank" id="finishRank"></div>
+                            <button class="restart-btn" onclick="startGame()">ИГРАТЬ СНОВА</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="panel personal-panel right-personal-panel">
+                    <div class="panel-title">МОИ VIP ПОПЫТКИ</div>
+                    <div class="pp-user" id="ppUser">—</div>
+                    <div class="pp-best" id="ppBest">—</div>
+                    <div class="pp-list" id="ppList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const IS_LOGGED_IN = @Json.Serialize(isLoggedIn);
+        const CURRENT_USER = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(userName));
+        const CURRENT_GENERATOR = "vip";
+        const VIP_BOARD_SIZE = 12;
+    </script>
+    <script src="~/js/forsaken.js?v=13"></script>
+}

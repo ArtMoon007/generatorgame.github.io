@@ -3,7 +3,7 @@
 // fixed: anti-skip, layer lock, leaderboard highlight
 // ============================================================
 
-var FG_SIZE = 6;
+var FG_SIZE = typeof VIP_BOARD_SIZE !== 'undefined' ? VIP_BOARD_SIZE : 6;
 var FG_LAYERS = 4;
 var FG_MIN_PATH_CELLS = 4;
 
@@ -34,6 +34,45 @@ var fgInputCooldownUntil = 0;
 
 function currentGenerator() {
     return typeof CURRENT_GENERATOR !== 'undefined' ? CURRENT_GENERATOR : 'forsaken';
+}
+
+function pvpMatchId() {
+    try { return new URLSearchParams(location.search).get('pvpMatchId'); }
+    catch (e) { return null; }
+}
+
+function submitPvpRound(ms) {
+    var matchId = pvpMatchId();
+    if (!matchId) return;
+
+    fetch('/api/pvp?handler=submitRound', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ matchId: parseInt(matchId, 10), timeMs: ms })
+    })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (body) {
+            var match = body && body.match;
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: 'pvp-round-submitted', match: match }, location.origin);
+            }
+            var fr = document.getElementById('finishRank');
+            if (!fr || !match) return;
+
+            var my = match.myWins || 0;
+            var opp = match.opponentWins || 0;
+            if (match.status === 'complete') {
+                fr.textContent = (match.iWonMatch ? 'PVP матч выигран' : 'PVP матч проигран') + ' · счет ' + my + ':' + opp;
+            } else if (match.opponentTimeMs) {
+                fr.textContent = 'PVP раунд завершен · счет ' + my + ':' + opp + ' · вернись в PVP';
+            } else {
+                fr.textContent = 'PVP результат отправлен · ждем соперника';
+            }
+        })
+        .catch(function () {
+            var fr = document.getElementById('finishRank');
+            if (fr) fr.textContent = 'PVP результат не отправлен';
+        });
 }
 
 function startTimer() {
@@ -106,6 +145,7 @@ function completeGame() {
     fgActivePair = null;
 
     var ms = Date.now() - startTime;
+    submitPvpRound(ms);
 
     var square = document.getElementById('gameStageSquare');
     if (square) square.classList.add('is-finished');
@@ -118,6 +158,11 @@ function completeGame() {
 
     var fr = document.getElementById('finishRank');
     if (fr) fr.textContent = 'результат сохраняется...';
+
+    if (pvpMatchId()) {
+        if (fr) fr.textContent = 'PVP результат отправляется...';
+        return;
+    }
 
     if (typeof IS_LOGGED_IN !== 'undefined' && IS_LOGGED_IN === true) {
         fetch('/api/submit-score', {
@@ -346,6 +391,8 @@ function fgRender() {
     if (!board) return;
 
     board.innerHTML = '';
+    board.style.gridTemplateColumns = 'repeat(' + FG_SIZE + ', 1fr)';
+    board.style.gridTemplateRows = 'repeat(' + FG_SIZE + ', 1fr)';
 
     for (var y = 0; y < FG_SIZE; y++) {
         for (var x = 0; x < FG_SIZE; x++) {
@@ -737,7 +784,7 @@ function renderLB(data) {
 
     el.innerHTML = list.map(function (e, i) {
         var rc = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-        var displayName = e.robloxUsername || e.username || 'Player';
+        var displayName = (e.isVip ? '\u265B ' : '') + (e.robloxUsername || e.username || 'Player');
 
         var av = e.robloxAvatarUrl
             ? '<img src="' + e.robloxAvatarUrl + '" alt=""/>'
@@ -747,7 +794,7 @@ function renderLB(data) {
             (e.username || '').toLowerCase() === String(me).toLowerCase() ||
             (e.robloxUsername || '').toLowerCase() === String(me).toLowerCase();
 
-        var nm = '<button type="button" class="lb-profile-btn' + (isMe ? ' is-me' : '') + '" onclick="openLeaderboardProfile(' + (e.id || 0) + ')">' + displayName + '</button>';
+        var nm = '<button type="button" class="lb-profile-btn' + (isMe ? ' is-me' : '') + (e.isVip ? ' is-vip' : '') + '" onclick="openLeaderboardProfile(' + (e.id || 0) + ')">' + displayName + '</button>';
 
         return '<div class="lb-row' + (isMe ? ' lb-me' : '') + '">' +
             '<div class="lb-num ' + rc + '">' + (i + 1) + '</div>' +

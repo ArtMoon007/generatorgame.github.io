@@ -27,7 +27,9 @@ public class PlayerProfileModel : PageModel
                 u.Username,
                 u.RobloxUsername,
                 u.RobloxAvatarUrl,
-                u.AvatarUrl
+                u.AvatarUrl,
+                u.VipUntil,
+                u.HideStatsFromOthers
             })
             .FirstOrDefaultAsync();
 
@@ -83,22 +85,26 @@ public class PlayerProfileModel : PageModel
 
         var best = scores.Count > 0 ? scores.Min(s => s.TimeMs) : 0;
         var average = scores.Count > 0 ? (long)scores.Average(s => s.TimeMs) : 0;
+        var isVip = VipService.IsVip(user.VipUntil);
+        var statsHidden = isVip && user.HideStatsFromOthers;
 
         return new JsonResult(new
         {
             id = user.Id,
             username = user.RobloxUsername ?? user.Username,
             avatarUrl = user.RobloxAvatarUrl ?? user.AvatarUrl,
-            level,
-            experience,
-            gamesPlayed = scores.Count,
-            bestTime = best > 0 ? FormatTime(best) : "-",
-            averageTime = average > 0 ? FormatTime(average) : "-",
-            favoriteGenerator = GeneratorName(favorite),
-            totalHours = Math.Round(scores.Sum(s => s.TimeMs) / 3_600_000.0, 2),
-            achievementsUnlocked,
+            isVip,
+            statsHidden,
+            level = statsHidden ? 0 : level,
+            experience = statsHidden ? 0 : experience,
+            gamesPlayed = statsHidden ? 0 : scores.Count,
+            bestTime = statsHidden ? "скрыто" : (best > 0 ? FormatTime(best) : "-"),
+            averageTime = statsHidden ? "скрыто" : (average > 0 ? FormatTime(average) : "-"),
+            favoriteGenerator = statsHidden ? "скрыто" : GeneratorName(favorite),
+            totalHours = statsHidden ? 0 : Math.Round(scores.Sum(s => s.TimeMs) / 3_600_000.0, 2),
+            achievementsUnlocked = statsHidden ? 0 : achievementsUnlocked,
             achievementsTotal = AchievementCatalog.All.Count,
-            achievements
+            achievements = statsHidden ? new List<object>() : achievements
         });
     }
 
@@ -109,6 +115,7 @@ public class PlayerProfileModel : PageModel
     {
         "forsaken" => "Forsaken",
         "bitebynight" => "Bite by Night",
+        "vip" => "VIP Generator",
         _ => generator
     };
 }
