@@ -14,6 +14,7 @@ public class PvpModel : PageModel
     }
 
     public IReadOnlyList<PvpRatingView> Ratings { get; private set; } = [];
+    public IReadOnlyList<PvpTopView> TopPlayers { get; private set; } = [];
 
     public async Task<IActionResult> OnGetAsync()
     {
@@ -21,6 +22,7 @@ public class PvpModel : PageModel
         if (userId == null) return RedirectToPage("/Auth/Login");
 
         Ratings = await _pvp.GetRatingsAsync(userId.Value);
+        TopPlayers = await _pvp.GetTopAsync();
         return Page();
     }
 

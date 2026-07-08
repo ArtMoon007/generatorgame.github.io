@@ -67,6 +67,18 @@
                         <span>Выключить звук</span>
                     </label>
                 </div>
+                <div class="profile-level-card">
+                    <div class="player-level-ring" style="--progress:@profile.LevelProgress">
+                        <div class="player-level-ring-center">
+                            <span>LVL</span>
+                            <strong>@profile.Level</strong>
+                        </div>
+                    </div>
+                    <div class="profile-level-card-info">
+                        <strong>@profile.Experience XP собрано</strong>
+                        <span>До уровня: @(Math.Max(0, profile.NextLevelExperience - profile.Experience)) XP</span>
+                    </div>
+                </div>
                 <div class="profile-level-row">
                     <span>LVL @profile.Level</span>
                     <span>@profile.Experience / @profile.NextLevelExperience XP</span>
@@ -110,6 +122,17 @@
                 </article>
             }
         </div>
+    </section>
+    <section class="profile-sound-settings profile-sound-settings-bottom">
+        <div>
+            <span>Звук</span>
+            <strong data-sound-value>70%</strong>
+        </div>
+        <input type="range" min="0" max="100" step="1" data-sound-volume aria-label="Громкость звука" />
+        <label>
+            <input type="checkbox" data-sound-muted />
+            <span>Выкл</span>
+        </label>
     </section>
 </main>
 

@@ -161,31 +161,41 @@ public static class PvpDatabaseInitializer
             CREATE INDEX IF NOT EXISTS "IX_PvpDuelInvites_TargetUserId_Status_ExpiresAt" ON "PvpDuelInvites" ("TargetUserId", "Status", "ExpiresAt");
             """);
 
-        try
+        await AddColumnIfMissingAsync(db, "PvpMatches", "RatingApplied", """ALTER TABLE "PvpMatches" ADD COLUMN "RatingApplied" INTEGER NOT NULL DEFAULT 0;""");
+        await AddColumnIfMissingAsync(db, "PvpMatches", "Player1CupDelta", """ALTER TABLE "PvpMatches" ADD COLUMN "Player1CupDelta" INTEGER NOT NULL DEFAULT 0;""");
+        await AddColumnIfMissingAsync(db, "PvpMatches", "Player2CupDelta", """ALTER TABLE "PvpMatches" ADD COLUMN "Player2CupDelta" INTEGER NOT NULL DEFAULT 0;""");
+    }
+
+    private static async Task AddColumnIfMissingAsync(AppDbContext db, string table, string column, string sql)
+    {
+        if (!await ColumnExistsAsync(db, table, column))
         {
-            await db.Database.ExecuteSqlRawAsync("""ALTER TABLE "PvpMatches" ADD COLUMN "RatingApplied" INTEGER NOT NULL DEFAULT 0;""");
+            await db.Database.ExecuteSqlRawAsync(sql);
         }
-        catch
-        {
-            // SQLite throws when the column already exists.
-        }
+    }
+
+    private static async Task<bool> ColumnExistsAsync(AppDbContext db, string table, string column)
+    {
+        var connection = db.Database.GetDbConnection();
+        var shouldClose = connection.State == System.Data.ConnectionState.Closed;
+        if (shouldClose) await connection.OpenAsync();
 
         try
         {
-            await db.Database.ExecuteSqlRawAsync("""ALTER TABLE "PvpMatches" ADD COLUMN "Player1CupDelta" INTEGER NOT NULL DEFAULT 0;""");
-        }
-        catch
-        {
-            // SQLite throws when the column already exists.
-        }
+            await using var command = connection.CreateCommand();
+            command.CommandText = $"PRAGMA table_info(\"{table}\");";
+            await using var reader = await command.ExecuteReaderAsync();
 
-        try
-        {
-            await db.Database.ExecuteSqlRawAsync("""ALTER TABLE "PvpMatches" ADD COLUMN "Player2CupDelta" INTEGER NOT NULL DEFAULT 0;""");
+            while (await reader.ReadAsync())
+            {
+                if (string.Equals(reader.GetString(1), column, StringComparison.OrdinalIgnoreCase)) return true;
+            }
+
+            return false;
         }
-        catch
+        finally
         {
-            // SQLite throws when the column already exists.
+            if (shouldClose) await connection.CloseAsync();
         }
     }
 }

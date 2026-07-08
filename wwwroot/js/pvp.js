@@ -396,6 +396,7 @@
     }
 
     function renderVictory(match) {
+        if (window.refreshPlayerLevelCard) window.refreshPlayerLevelCard();
         var delta = Number(match.myCupDelta || 0);
         var positive = delta >= 0;
         var nextText = match.nextRank

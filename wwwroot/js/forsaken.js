@@ -137,6 +137,7 @@ function startGame() {
 
 function completeGame() {
     stopTimer();
+    if (window.GameSounds) window.GameSounds.play('generatorStart');
 
     gameReady = false;
     gameStarted = false;
@@ -187,6 +188,7 @@ function completeGame() {
             .then(function (body) {
                 loadLeaderboard();
                 loadMyScores();
+                if (window.refreshPlayerLevelCard) window.refreshPlayerLevelCard();
                 if (window.showAchievementUnlocks) window.showAchievementUnlocks(body.newAchievements);
                 if (window.showRankUnlock) window.showRankUnlock(body.rankNotification);
 
@@ -620,6 +622,7 @@ function fgHandleCell(x, y) {
     path.push({ x: x, y: y });
 
     if (isTarget) {
+        if (window.GameSounds) window.GameSounds.play('pointConnect');
         pair.done = true;
         fgActivePair = null;
         fgMouseDown = false;
@@ -660,6 +663,7 @@ function fgStopDraw() {
 
 function fgFinishLayer() {
     if (fgLayerLocked) return;
+    if (window.GameSounds) window.GameSounds.play('stageComplete');
 
     fgLayerLocked = true;
     fgMouseDown = false;

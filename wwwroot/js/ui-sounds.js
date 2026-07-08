@@ -1,9 +1,14 @@
 (function () {
     var config = {
-        hover: { src: '/audio/ui-hover.aac', volume: 0.26, pool: 5 },
-        click: { src: '/audio/ui-click.aac', volume: 0.34, pool: 5 },
-        found: { src: '/audio/pvp-found.aac', volume: 0.58, pool: 3 },
-        wire: { src: '/audio/wire-connect.aac', volume: 0.46, pool: 4 }
+        hover: { src: '/audio/ui-hover.aac', volume: 0.12, pool: 5 },
+        click: { src: '/audio/ui-click.aac', volume: 0.42, pool: 5 },
+        found: { src: '/audio/pvp-found.aac', volume: 0.42, pool: 3 },
+        wire: { src: '/audio/wire-connect.aac', volume: 0.42, pool: 4 },
+        cordPull: { src: '/audio/cord-pull.aac', volume: 0.42, pool: 4, maxMs: 520 },
+        generatorStart: { src: '/audio/generator-start.aac', volume: 0.42, pool: 2 },
+        switch: { src: '/audio/switch.aac', volume: 0.42, pool: 5 },
+        pointConnect: { src: '/audio/point-connect.aac', volume: 0.42, pool: 5 },
+        stageComplete: { src: '/audio/stage-complete.aac', volume: 0.42, pool: 3 }
     };
     var pools = {};
     var cursors = {};
@@ -80,6 +85,14 @@
             audio.volume = effectiveVolume(config[name].volume);
             audio.currentTime = 0;
             var result = audio.play();
+            if (config[name].maxMs) {
+                setTimeout(function () {
+                    try {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    } catch {}
+                }, config[name].maxMs);
+            }
             if (result && typeof result.catch === 'function') {
                 result.catch(function () {
                     if (name === 'found') pendingFound = true;

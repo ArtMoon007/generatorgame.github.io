@@ -58,6 +58,32 @@
             <div class="pvp-duel-status" id="pvpInviteStatus"></div>
         </section>
 
+        <section class="pvp-top-box">
+            <div class="pvp-top-head">
+                <span>PVP TOP</span>
+                <strong>Топ игроков по кубкам</strong>
+            </div>
+            <div class="pvp-top-list">
+                @if (!Model.TopPlayers.Any())
+                {
+                    <div class="pvp-top-empty">Пока нет PVP рейтинга</div>
+                }
+                else
+                {
+                    @foreach (var player in Model.TopPlayers)
+                    {
+                        <div class="pvp-top-row rank-@player.RankCss">
+                            <span class="pvp-top-place">#@player.Place</span>
+                            <span class="pvp-top-name">@player.Username</span>
+                            <span class="pvp-top-rank">@player.RankIcon @player.Rank</span>
+                            <span class="pvp-top-points">@player.Points 🏆</span>
+                            <span class="pvp-top-meta">@player.BestGenerator · @player.Wins W / @player.Losses L</span>
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+
         <section class="pvp-match-panel" id="pvpPanel">
             <div class="pvp-panel-title" id="pvpPanelTitle">Выбери генератор для PVP</div>
             <div class="pvp-status" id="pvpStatus">Очередь подбирает игрока твоего звания или соседнего звания.</div>
@@ -112,5 +138,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/pvp.js?v=9"></script>
+    <script src="~/js/pvp.js?v=10"></script>
 }

@@ -319,6 +319,7 @@ function flashCanvas(col){
 
 function finishWires(){
     if(!canvas) return;
+    if(window.GameSounds) window.GameSounds.play('stageComplete');
     canvas.onmousedown=canvas.onmousemove=canvas.onmouseup=null;
     canvas.ontouchstart=canvas.ontouchmove=canvas.ontouchend=null;
     gameStarted=false;
@@ -344,10 +345,11 @@ function renderSwitches(){
 }
 function clickSw(i){
     if(!gameReady || stage!==1) return;
+    if(window.GameSounds) window.GameSounds.play('switch');
     swSt[i]=!swSt[i]; renderSwitches();
     if(swSt.every(function(s){return s;})) setTimeout(finishSwitches, STAGE_DELAY_MS);
 }
-function finishSwitches(){ setStage(2); }
+function finishSwitches(){ if(window.GameSounds) window.GameSounds.play('stageComplete'); setStage(2); }
 
 // ==========================================================
 //  ЭТАП 3: ТРОС  (10 рывков)
@@ -396,6 +398,7 @@ function cordUpGlobal(){
     snapCordBack();
 }
 function onPull(){
+    if(window.GameSounds) window.GameSounds.play('cordPull');
     if(navigator.vibrate) navigator.vibrate(25);
     pullsDone++; updateCordUI();
     var drum=document.getElementById('cordDrum');
@@ -418,6 +421,7 @@ function finishCord(){ completeGame(); }
 // ==========================================================
 function completeGame(){
     stopTimer(); setStage(3); gameReady=false; gameStarted=false;
+    if(window.GameSounds) window.GameSounds.play('generatorStart');
     var ms=Date.now()-startTime;
     submitPvpRound(ms);
     var square=document.getElementById('gameStageSquare'); if(square) square.classList.add('is-finished');
@@ -435,6 +439,7 @@ function completeGame(){
             .then(function(body){
                 loadLeaderboard();
                 loadMyScores();
+                if(window.refreshPlayerLevelCard) window.refreshPlayerLevelCard();
                 if(window.showAchievementUnlocks) window.showAchievementUnlocks(body.newAchievements);
                 if(window.showRankUnlock) window.showRankUnlock(body.rankNotification);
                 var fr2=document.getElementById('finishRank'); if(fr2) fr2.textContent='результат добавлен в таблицу';

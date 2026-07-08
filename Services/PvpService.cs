@@ -19,10 +19,12 @@ public class PvpService
     ];
 
     private readonly AppDbContext _db;
+    private readonly AchievementService _achievements;
 
-    public PvpService(AppDbContext db)
+    public PvpService(AppDbContext db, AchievementService achievements)
     {
         _db = db;
+        _achievements = achievements;
     }
 
     public static bool IsAllowedGenerator(string generator) =>
@@ -64,10 +66,54 @@ public class PvpService
         {
             var rating = await GetOrCreateRatingAsync(userId, generator);
             var rank = GetRank(rating.Points);
-            result.Add(new PvpRatingView(generator, GeneratorTitle(generator), rating.Points, rank.Name, rank.Index, RankIcon(rank.Index), RankCss(rank.Index), rating.Wins, rating.Losses));
+            result.Add(new PvpRatingView(generator, GeneratorTitle(generator), rating.Points, RankDisplayName(rank.Index), rank.Index, RankIcon(rank.Index), RankCss(rank.Index), rating.Wins, rating.Losses));
         }
 
         return result;
+    }
+
+    public async Task<IReadOnlyList<PvpTopView>> GetTopAsync(int take = 20)
+    {
+        var ratings = await _db.PvpRatings
+            .Include(r => r.User)
+            .ToListAsync();
+
+        var rows = ratings
+            .GroupBy(r => r.UserId)
+            .Select(g =>
+            {
+                var best = g.OrderByDescending(r => r.Points).First();
+                return new
+                {
+                    UserId = g.Key,
+                    Points = best.Points,
+                    Wins = g.Sum(r => r.Wins),
+                    Losses = g.Sum(r => r.Losses),
+                    Generator = best.Generator,
+                    Username = best.User.Username,
+                    RobloxUsername = best.User.RobloxUsername
+                };
+            })
+            .OrderByDescending(r => r.Points)
+            .ThenByDescending(r => r.Wins)
+            .Take(take)
+            .ToList();
+
+        return rows.Select((r, index) =>
+        {
+            var rank = GetRank(r.Points);
+            return new PvpTopView(
+                index + 1,
+                r.UserId,
+                r.RobloxUsername ?? r.Username ?? "Player",
+                r.Points,
+                RankDisplayName(rank.Index),
+                RankIcon(rank.Index),
+                RankCss(rank.Index),
+                GeneratorTitle(r.Generator),
+                r.Wins,
+                r.Losses);
+        }).ToList();
     }
 
     public async Task<int> GetQueueCountAsync(int userId, string generator)
@@ -441,6 +487,9 @@ public class PvpService
         loser.Losses++;
         loser.UpdatedAt = DateTime.UtcNow;
 
+        await _achievements.RecordPvpMatchAsync(winner.UserId, winner.Points);
+        await _achievements.RecordPvpMatchAsync(loser.UserId, loser.Points);
+
         match.RatingApplied = true;
     }
 
@@ -560,8 +609,8 @@ public class PvpService
             winnerId == userId,
             myCupDelta,
             myRating.Points,
-            myRank.Name,
-            nextRank?.Name,
+            RankDisplayName(myRank.Index),
+            nextRank == null ? null : RankDisplayName(nextRank.Index),
             rankProgress,
             pointsToNextRank);
     }
@@ -597,10 +646,14 @@ public class PvpService
         5 => "sapphire",
         _ => "legend"
     };
+
+    private static string RankDisplayName(int rankIndex) =>
+        Ranks.FirstOrDefault(r => r.Index == rankIndex)?.Name ?? "Дерево";
 }
 
 public record PvpRank(string Name, int Index, int MinPoints, int? MaxPoints);
 public record PvpRatingView(string Generator, string Title, int Points, string Rank, int RankIndex, string RankIcon, string RankCss, int Wins, int Losses);
+public record PvpTopView(int Place, int UserId, string Username, int Points, string Rank, string RankIcon, string RankCss, string BestGenerator, int Wins, int Losses);
 public record PvpSearchResult(bool Matched, int? MatchId, string Status, int QueueCount);
 public record PvpInviteSendResult(bool Ok, string Message, int? InviteId);
 public record PvpInviteView(int Id, string SenderName, string Generator, string GeneratorTitle, DateTime ExpiresAt);

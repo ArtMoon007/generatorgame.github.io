@@ -1,315 +1,339 @@
 {
   "Files": [
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\GeneratorGame.bundle.scp.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\GeneratorGame.bundle.scp.css",
       "PackagePath": "staticwebassets\\GeneratorGame.bundle.scp.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\android-chrome-192x192.png",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\android-chrome-192x192.png",
       "PackagePath": "staticwebassets\\android-chrome-192x192.png"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\android-chrome-512x512.png",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\android-chrome-512x512.png",
       "PackagePath": "staticwebassets\\android-chrome-512x512.png"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\apple-touch-icon.png",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\apple-touch-icon.png",
       "PackagePath": "staticwebassets\\apple-touch-icon.png"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\pvp-found.aac",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\cord-pull.aac",
+      "PackagePath": "staticwebassets\\audio\\cord-pull.aac"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\generator-start.aac",
+      "PackagePath": "staticwebassets\\audio\\generator-start.aac"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\point-connect.aac",
+      "PackagePath": "staticwebassets\\audio\\point-connect.aac"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\pvp-found.aac",
       "PackagePath": "staticwebassets\\audio\\pvp-found.aac"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\ui-click.aac",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\stage-complete.aac",
+      "PackagePath": "staticwebassets\\audio\\stage-complete.aac"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\switch.aac",
+      "PackagePath": "staticwebassets\\audio\\switch.aac"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\ui-click.aac",
       "PackagePath": "staticwebassets\\audio\\ui-click.aac"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\ui-hover.aac",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\ui-hover.aac",
       "PackagePath": "staticwebassets\\audio\\ui-hover.aac"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\wire-connect.aac",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\wire-connect.aac",
       "PackagePath": "staticwebassets\\audio\\wire-connect.aac"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon-16x16.png",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon-16x16.png",
       "PackagePath": "staticwebassets\\favicon-16x16.png"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon-32x32.png",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon-32x32.png",
       "PackagePath": "staticwebassets\\favicon-32x32.png"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\index.html",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\achievements.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\achievements.js",
       "PackagePath": "staticwebassets\\js\\achievements.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\bytebynight.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\bytebynight.js",
       "PackagePath": "staticwebassets\\js\\bytebynight.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\forsaken.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\forsaken.js",
       "PackagePath": "staticwebassets\\js\\forsaken.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\online.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\online.js",
       "PackagePath": "staticwebassets\\js\\online.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\pvp-invites.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\player-level.js",
+      "PackagePath": "staticwebassets\\js\\player-level.js"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\pvp-invites.js",
       "PackagePath": "staticwebassets\\js\\pvp-invites.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\pvp.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\pvp.js",
       "PackagePath": "staticwebassets\\js\\pvp.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\ui-sounds.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\ui-sounds.js",
       "PackagePath": "staticwebassets\\js\\ui-sounds.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\site.webmanifest",
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\site.webmanifest",
       "PackagePath": "staticwebassets\\site.webmanifest"
     },
     {

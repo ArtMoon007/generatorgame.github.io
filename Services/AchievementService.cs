@@ -83,6 +83,11 @@ public class AchievementService
         await TryUnlock("first_game");
         if (stat.GamesPlayed >= 5) await TryUnlock("five_games");
         if (stat.GamesPlayed >= 20) await TryUnlock("twenty_games");
+        if (stat.GamesPlayed >= 100) await TryUnlock("games_100");
+        if (stat.GamesPlayed >= 250) await TryUnlock("games_250");
+        if (stat.GamesPlayed >= 500) await TryUnlock("games_500");
+        if (stat.TotalPlayTimeMs >= 3_600_000) await TryUnlock("hours_1");
+        if (stat.TotalPlayTimeMs >= 18_000_000) await TryUnlock("hours_5");
         if (generator == "bitebynight") await TryUnlock("first_bbn");
         if (generator == "forsaken") await TryUnlock("first_forsaken");
         if (generator == "bitebynight" && rank is > 0 and <= 10) await TryUnlock("bbn_top_10");
@@ -174,10 +179,16 @@ public class AchievementService
         var bestTime = scores.Min(s => s.TimeMs);
         var bbnRank = await GetRankAsync(userId, "bitebynight");
         var forsakenRank = await GetRankAsync(userId, "forsaken");
+        var pvpRankIndex = await GetBestPvpRankIndexAsync(userId);
 
         TryUnlock("first_game");
         if (scores.Count >= 5) TryUnlock("five_games");
         if (scores.Count >= 20) TryUnlock("twenty_games");
+        if (scores.Count >= 100) TryUnlock("games_100");
+        if (scores.Count >= 250) TryUnlock("games_250");
+        if (scores.Count >= 500) TryUnlock("games_500");
+        if (stat.TotalPlayTimeMs >= 3_600_000) TryUnlock("hours_1");
+        if (stat.TotalPlayTimeMs >= 18_000_000) TryUnlock("hours_5");
         if (scores.Any(s => s.Generator == "bitebynight")) TryUnlock("first_bbn");
         if (scores.Any(s => s.Generator == "forsaken")) TryUnlock("first_forsaken");
         if (bbnRank is > 0 and <= 10) TryUnlock("bbn_top_10");
@@ -185,6 +196,7 @@ public class AchievementService
         if (bestTime <= 30_000) TryUnlock("sub_30");
         if (bestTime <= 10_000) TryUnlock("sub_10");
         if (bestTime <= 5_000) TryUnlock("sub_5");
+        foreach (var key in PvpAchievementKeys(pvpRankIndex)) TryUnlock(key);
 
         stat.Level = CalculateLevel(stat.Experience);
         if (stat.Level >= 5) TryUnlock("level_5");
@@ -236,6 +248,79 @@ public class AchievementService
         return betterPlayers + 1;
     }
 
+    private async Task<int> GetBestPvpRankIndexAsync(int userId)
+    {
+        var maxPoints = await _db.PvpRatings
+            .Where(r => r.UserId == userId)
+            .MaxAsync(r => (int?)r.Points) ?? 0;
+
+        var hasRating = await _db.PvpRatings.AnyAsync(r => r.UserId == userId);
+        return hasRating ? PvpService.GetRank(maxPoints).Index : -1;
+    }
+
+    public async Task<IReadOnlyList<AchievementDto>> RecordPvpMatchAsync(int userId, int points)
+    {
+        var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId);
+        if (stat == null)
+        {
+            stat = new UserStat
+            {
+                UserId = userId,
+                Level = 1,
+                FavoriteGenerator = "pvp"
+            };
+            _db.UserStats.Add(stat);
+        }
+
+        stat.Experience += BaseGameExperience * 2;
+        stat.UpdatedAt = DateTime.UtcNow;
+
+        var existingKeys = await _db.UserAchievements
+            .Where(a => a.UserId == userId)
+            .Select(a => a.Key)
+            .ToListAsync();
+
+        var existing = existingKeys.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var unlocked = new List<UserAchievement>();
+        var rankIndex = PvpService.GetRank(points).Index;
+
+        foreach (var key in PvpAchievementKeys(rankIndex))
+        {
+            TryUnlock(key);
+        }
+
+        stat.Level = CalculateLevel(stat.Experience);
+        if (stat.Level >= 5) TryUnlock("level_5");
+        if (stat.Level >= 10) TryUnlock("level_10");
+        stat.Level = CalculateLevel(stat.Experience);
+
+        return unlocked.Select(ToDto).ToList();
+
+        void TryUnlock(string key)
+        {
+            if (existing.Contains(key)) return;
+            var def = AchievementCatalog.Get(key);
+            if (def == null) return;
+
+            existing.Add(key);
+            stat.Experience += def.Experience;
+
+            var achievement = new UserAchievement
+            {
+                UserId = userId,
+                Key = def.Key,
+                Title = def.Title,
+                Description = def.Description,
+                Icon = def.Icon,
+                Experience = def.Experience,
+                UnlockedAt = DateTime.UtcNow
+            };
+
+            _db.UserAchievements.Add(achievement);
+            unlocked.Add(achievement);
+        }
+    }
+
     private async Task<IReadOnlyList<AchievementDto>> BackfillPostgresAsync(int userId)
     {
         var scores = await _db.Scores
@@ -255,7 +340,8 @@ public class AchievementService
         var bestTime = scores.Min(s => s.TimeMs);
         var bbnRank = await GetRankAsync(userId, "bitebynight");
         var forsakenRank = await GetRankAsync(userId, "forsaken");
-        var keys = BuildAchievementKeys(scores, bestTime, bbnRank, forsakenRank);
+        var pvpRankIndex = await GetBestPvpRankIndexAsync(userId);
+        var keys = BuildAchievementKeys(scores, bestTime, bbnRank, forsakenRank, pvpRankIndex);
         var totalAchievementExperience = keys
             .Select(AchievementCatalog.Get)
             .Where(a => a != null)
@@ -333,12 +419,16 @@ public class AchievementService
         List<ScoreLite> scores,
         long bestTime,
         int? bbnRank,
-        int? forsakenRank)
+        int? forsakenRank,
+        int pvpRankIndex)
     {
         var keys = new List<string> { "first_game" };
 
         if (scores.Count >= 5) keys.Add("five_games");
         if (scores.Count >= 20) keys.Add("twenty_games");
+        if (scores.Count >= 100) keys.Add("games_100");
+        if (scores.Count >= 250) keys.Add("games_250");
+        if (scores.Count >= 500) keys.Add("games_500");
         if (scores.Any(s => s.Generator == "bitebynight")) keys.Add("first_bbn");
         if (scores.Any(s => s.Generator == "forsaken")) keys.Add("first_forsaken");
         if (bbnRank is > 0 and <= 10) keys.Add("bbn_top_10");
@@ -346,6 +436,10 @@ public class AchievementService
         if (bestTime <= 30_000) keys.Add("sub_30");
         if (bestTime <= 10_000) keys.Add("sub_10");
         if (bestTime <= 5_000) keys.Add("sub_5");
+        var totalMs = scores.Sum(s => s.TimeMs);
+        if (totalMs >= 3_600_000) keys.Add("hours_1");
+        if (totalMs >= 18_000_000) keys.Add("hours_5");
+        keys.AddRange(PvpAchievementKeys(pvpRankIndex));
 
         var experienceBeforeLevelAchievements = scores.Count * BaseGameExperience +
             keys.Select(AchievementCatalog.Get).Where(a => a != null).Sum(a => a!.Experience);
@@ -355,6 +449,17 @@ public class AchievementService
         if (level >= 10) keys.Add("level_10");
 
         return keys.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
+    private static IEnumerable<string> PvpAchievementKeys(int rankIndex)
+    {
+        if (rankIndex >= 0) yield return "pvp_wood";
+        if (rankIndex >= 1) yield return "pvp_bronze";
+        if (rankIndex >= 2) yield return "pvp_silver";
+        if (rankIndex >= 3) yield return "pvp_gold";
+        if (rankIndex >= 4) yield return "pvp_diamond";
+        if (rankIndex >= 5) yield return "pvp_sapphire";
+        if (rankIndex >= 6) yield return "pvp_legend";
     }
 
     public static int CalculateLevel(int experience)

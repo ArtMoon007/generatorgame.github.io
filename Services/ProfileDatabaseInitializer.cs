@@ -1,4 +1,5 @@
 using GeneratorGame.Data;
+using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeneratorGame.Services;
@@ -15,13 +16,34 @@ public static class ProfileDatabaseInitializer
             return;
         }
 
-        try
+        if (!await ColumnExistsAsync(db, "Users", "UsernameChangedAt"))
         {
             await db.Database.ExecuteSqlRawAsync("""ALTER TABLE "Users" ADD COLUMN "UsernameChangedAt" TEXT NULL;""");
         }
-        catch
+    }
+
+    private static async Task<bool> ColumnExistsAsync(AppDbContext db, string table, string column)
+    {
+        var connection = db.Database.GetDbConnection();
+        var shouldClose = connection.State == System.Data.ConnectionState.Closed;
+        if (shouldClose) await connection.OpenAsync();
+
+        try
         {
-            // SQLite throws when the column already exists.
+            await using var command = connection.CreateCommand();
+            command.CommandText = $"PRAGMA table_info(\"{table}\");";
+            await using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                if (string.Equals(reader.GetString(1), column, StringComparison.OrdinalIgnoreCase)) return true;
+            }
+
+            return false;
+        }
+        finally
+        {
+            if (shouldClose) await connection.CloseAsync();
         }
     }
 }
