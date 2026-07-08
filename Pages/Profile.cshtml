@@ -56,6 +56,17 @@
                         }
                     </span>
                 </div>
+                <div class="profile-sound-settings">
+                    <div>
+                        <span>ЗВУК САЙТА</span>
+                        <strong data-sound-value>70%</strong>
+                    </div>
+                    <input type="range" min="0" max="100" step="1" data-sound-volume aria-label="Громкость звука" />
+                    <label>
+                        <input type="checkbox" data-sound-muted />
+                        <span>Выключить звук</span>
+                    </label>
+                </div>
                 <div class="profile-level-row">
                     <span>LVL @profile.Level</span>
                     <span>@profile.Experience / @profile.NextLevelExperience XP</span>

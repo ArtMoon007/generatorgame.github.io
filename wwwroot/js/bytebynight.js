@@ -303,6 +303,7 @@ function wUp(e){
 }
 
 function connectWire(pi,ji){
+    if(window.GameSounds) window.GameSounds.play('wire');
     plugs[pi].done=true; jacks[ji].done=true;
     done.push({pi:pi,ji:ji});
     dragging=null;

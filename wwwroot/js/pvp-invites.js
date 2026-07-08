@@ -51,6 +51,7 @@
         document.getElementById('pvpInviteToastTitle').textContent = invite.senderName;
         document.getElementById('pvpInviteToastMeta').textContent = invite.generatorTitle + ' PVP';
         toast.hidden = false;
+        if (window.GameSounds) window.GameSounds.play('found');
     }
 
     function hideToast() {

@@ -10,6 +10,8 @@ public class PvpMatch
     public bool Player2Ready { get; set; }
     public int Player1Wins { get; set; }
     public int Player2Wins { get; set; }
+    public int Player1CupDelta { get; set; }
+    public int Player2CupDelta { get; set; }
     public bool RatingApplied { get; set; }
     public int CurrentRound { get; set; } = 1;
     public string Status { get; set; } = "waiting_ready";

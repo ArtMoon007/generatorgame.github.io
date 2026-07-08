@@ -39,6 +39,8 @@ public static class PvpDatabaseInitializer
                     "Player2Ready" boolean NOT NULL DEFAULT false,
                     "Player1Wins" integer NOT NULL DEFAULT 0,
                     "Player2Wins" integer NOT NULL DEFAULT 0,
+                    "Player1CupDelta" integer NOT NULL DEFAULT 0,
+                    "Player2CupDelta" integer NOT NULL DEFAULT 0,
                     "RatingApplied" boolean NOT NULL DEFAULT false,
                     "CurrentRound" integer NOT NULL DEFAULT 1,
                     "Status" text NOT NULL DEFAULT 'waiting_ready',
@@ -74,6 +76,8 @@ public static class PvpDatabaseInitializer
                 );
 
                 ALTER TABLE "PvpMatches" ADD COLUMN IF NOT EXISTS "RatingApplied" boolean NOT NULL DEFAULT false;
+                ALTER TABLE "PvpMatches" ADD COLUMN IF NOT EXISTS "Player1CupDelta" integer NOT NULL DEFAULT 0;
+                ALTER TABLE "PvpMatches" ADD COLUMN IF NOT EXISTS "Player2CupDelta" integer NOT NULL DEFAULT 0;
 
                 CREATE UNIQUE INDEX IF NOT EXISTS "IX_PvpRatings_UserId_Generator" ON "PvpRatings" ("UserId", "Generator");
                 CREATE UNIQUE INDEX IF NOT EXISTS "IX_PvpQueueEntries_UserId_Generator" ON "PvpQueueEntries" ("UserId", "Generator");
@@ -114,6 +118,8 @@ public static class PvpDatabaseInitializer
                 "Player2Ready" INTEGER NOT NULL DEFAULT 0,
                 "Player1Wins" INTEGER NOT NULL DEFAULT 0,
                 "Player2Wins" INTEGER NOT NULL DEFAULT 0,
+                "Player1CupDelta" INTEGER NOT NULL DEFAULT 0,
+                "Player2CupDelta" INTEGER NOT NULL DEFAULT 0,
                 "RatingApplied" INTEGER NOT NULL DEFAULT 0,
                 "CurrentRound" INTEGER NOT NULL DEFAULT 1,
                 "Status" TEXT NOT NULL DEFAULT 'waiting_ready',
@@ -158,6 +164,24 @@ public static class PvpDatabaseInitializer
         try
         {
             await db.Database.ExecuteSqlRawAsync("""ALTER TABLE "PvpMatches" ADD COLUMN "RatingApplied" INTEGER NOT NULL DEFAULT 0;""");
+        }
+        catch
+        {
+            // SQLite throws when the column already exists.
+        }
+
+        try
+        {
+            await db.Database.ExecuteSqlRawAsync("""ALTER TABLE "PvpMatches" ADD COLUMN "Player1CupDelta" INTEGER NOT NULL DEFAULT 0;""");
+        }
+        catch
+        {
+            // SQLite throws when the column already exists.
+        }
+
+        try
+        {
+            await db.Database.ExecuteSqlRawAsync("""ALTER TABLE "PvpMatches" ADD COLUMN "Player2CupDelta" INTEGER NOT NULL DEFAULT 0;""");
         }
         catch
         {

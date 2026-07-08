@@ -17,6 +17,22 @@
       "PackagePath": "staticwebassets\\apple-touch-icon.png"
     },
     {
+      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\pvp-found.aac",
+      "PackagePath": "staticwebassets\\audio\\pvp-found.aac"
+    },
+    {
+      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\ui-click.aac",
+      "PackagePath": "staticwebassets\\audio\\ui-click.aac"
+    },
+    {
+      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\ui-hover.aac",
+      "PackagePath": "staticwebassets\\audio\\ui-hover.aac"
+    },
+    {
+      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\audio\\wire-connect.aac",
+      "PackagePath": "staticwebassets\\audio\\wire-connect.aac"
+    },
+    {
       "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -59,6 +75,10 @@
     {
       "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\pvp.js",
       "PackagePath": "staticwebassets\\js\\pvp.js"
+    },
+    {
+      "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\ui-sounds.js",
+      "PackagePath": "staticwebassets\\js\\ui-sounds.js"
     },
     {
       "Id": "c:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\bootstrap\\LICENSE",

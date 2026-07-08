@@ -7,6 +7,16 @@ namespace GeneratorGame.Services;
 public class PvpService
 {
     public static readonly string[] AllowedGenerators = ["bitebynight", "forsaken"];
+    private static readonly PvpRank[] Ranks =
+    [
+        new("Дерево", 0, 0, 50),
+        new("Бронза", 1, 50, 150),
+        new("Серебро", 2, 150, 400),
+        new("Золото", 3, 400, 700),
+        new("Алмаз", 4, 700, 1000),
+        new("Сапфир", 5, 1000, 1500),
+        new("Легенда", 6, 1500, null)
+    ];
 
     private readonly AppDbContext _db;
 
@@ -412,6 +422,17 @@ public class PvpService
         var winnerDelta = RollCupDelta(GetRank(winner.Points).Index, true);
         var loserDelta = RollCupDelta(GetRank(loser.Points).Index, false);
 
+        if (winnerId == match.Player1Id)
+        {
+            match.Player1CupDelta = winnerDelta;
+            match.Player2CupDelta = -loserDelta;
+        }
+        else
+        {
+            match.Player1CupDelta = -loserDelta;
+            match.Player2CupDelta = winnerDelta;
+        }
+
         winner.Points += winnerDelta;
         winner.Wins++;
         winner.UpdatedAt = DateTime.UtcNow;
@@ -512,6 +533,14 @@ public class PvpService
         var winnerId = match.Status == "complete"
             ? (match.Player1Wins > match.Player2Wins ? match.Player1Id : match.Player2Id)
             : (int?)null;
+        var myRating = await GetOrCreateRatingAsync(userId, match.Generator);
+        var myRank = GetRank(myRating.Points);
+        var nextRank = Ranks.FirstOrDefault(r => r.Index == myRank.Index + 1);
+        var rankProgress = nextRank == null
+            ? 100
+            : Math.Clamp((int)Math.Round((myRating.Points - myRank.MinPoints) * 100.0 / (nextRank.MinPoints - myRank.MinPoints)), 0, 100);
+        var pointsToNextRank = nextRank == null ? 0 : Math.Max(0, nextRank.MinPoints - myRating.Points);
+        var myCupDelta = match.Player1Id == userId ? match.Player1CupDelta : match.Player2CupDelta;
 
         return new PvpMatchView(
             match.Id,
@@ -528,7 +557,13 @@ public class PvpService
             displayRound?.OpponentTime,
             displayRound?.WinnerUserId,
             winnerId,
-            winnerId == userId);
+            winnerId == userId,
+            myCupDelta,
+            myRating.Points,
+            myRank.Name,
+            nextRank?.Name,
+            rankProgress,
+            pointsToNextRank);
     }
 
     private static string NormalizeGenerator(string generator) =>
@@ -585,4 +620,10 @@ public record PvpMatchView(
     long? OpponentTimeMs,
     int? RoundWinnerUserId,
     int? MatchWinnerUserId,
-    bool IWonMatch);
+    bool IWonMatch,
+    int MyCupDelta,
+    int MyPoints,
+    string MyRank,
+    string? NextRank,
+    int RankProgressPercent,
+    int PointsToNextRank);
