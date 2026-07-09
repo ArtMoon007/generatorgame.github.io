@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "y9DW+6tH19Zv9kMNwMfvv7TE2OnWrPm+yEE5nUUEOts=",
+  "Hash": "8Go0y2WJAuhp5GKHSZY2dsMYmjX1K6F2Y+LIr5QJfXI=",
   "Source": "GeneratorGame",
   "BasePath": "_content/GeneratorGame",
   "Mode": "Default",
@@ -300,6 +300,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\enot_8e725c46.html",
+      "SourceId": "GeneratorGame",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\",
+      "BasePath": "_content/GeneratorGame",
+      "RelativePath": "enot_8e725c46.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\enot_8e725c46.html"
     },
     {
       "Identity": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\favicon-16x16.png",
