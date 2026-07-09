@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<url>
+<loc>https://generator-rb.online/</loc>
+<priority>1.0</priority>
+</url>
+
+<url>
+<loc>https://generator-rb.online/auth/login</loc>
+</url>
+
+<url>
+<loc>https://generator-rb.online/auth/register</loc>
+</url>
+
+<url>
+<loc>https://generator-rb.online/generators/forsaken</loc>
+</url>
+
+<url>
+<loc>https://generator-rb.online/generators/bitebynight</loc>
+</url>
+
+</urlset>

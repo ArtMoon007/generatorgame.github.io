@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8Go0y2WJAuhp5GKHSZY2dsMYmjX1K6F2Y+LIr5QJfXI=",
+  "Hash": "FtXel6uS25ZHep1ZRbz56Fu2tBU35JxC1KBlUgfWcnk=",
   "Source": "GeneratorGame",
   "BasePath": "_content/GeneratorGame",
   "Mode": "Default",
@@ -1782,6 +1782,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\site.webmanifest"
+    },
+    {
+      "Identity": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\sitemap.xml",
+      "SourceId": "GeneratorGame",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\",
+      "BasePath": "_content/GeneratorGame",
+      "RelativePath": "sitemap.xml",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\sitemap.xml"
     }
   ]
 }

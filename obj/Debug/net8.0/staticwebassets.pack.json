@@ -369,6 +369,10 @@
       "PackagePath": "staticwebassets\\site.webmanifest"
     },
     {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\sitemap.xml",
+      "PackagePath": "staticwebassets\\sitemap.xml"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.GeneratorGame.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

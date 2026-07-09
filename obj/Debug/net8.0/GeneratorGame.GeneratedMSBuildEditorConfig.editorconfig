@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\GYM MEN\source\repos\GeneratorGame
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWJvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/Leaderboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXExlYWRlcmJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,6 +90,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -124,6 +132,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Terms.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVybXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Vip.cshtml]
