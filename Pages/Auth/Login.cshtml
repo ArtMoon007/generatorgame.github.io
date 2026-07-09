@@ -5,35 +5,107 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="auth-wrap">
-    <div class="auth-card">
-        <div class="auth-logo">GEN<span class="accent">ERATOR</span></div>
-        <div class="auth-sub">CHALLENGE · LEADERBOARD · SPEED</div>
-        <div class="auth-tabs">
-            <a href="/auth/login" class="auth-tab active">ВХОД</a>
-            <a href="/auth/register" class="auth-tab">РЕГИСТРАЦИЯ</a>
+<div class="auth-wrap register-wrap">
+    <section class="register-left">
+        <div class="register-kicker">RETURN · RECORDS · PVP</div>
+        <h1 class="register-title">Возвращайся в игру и забирай своё место в топе</h1>
+        <p class="register-text">Войди в аккаунт, продолжай копить опыт, улучшай время и поднимай звание в PVP.</p>
+
+        <div class="auth-card register-card">
+            <div class="auth-logo">GEN<span class="accent">ERATOR</span></div>
+            <div class="auth-sub">CHALLENGE · LEADERBOARD · SPEED</div>
+            <div class="auth-tabs">
+                <a href="/auth/login" class="auth-tab active">ВХОД</a>
+                <a href="/auth/register" class="auth-tab">РЕГИСТРАЦИЯ</a>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="auth-error">@Model.ErrorMessage</div>
+            }
+
+            <form method="post" action="/auth/login" class="auth-form">
+                <div class="field">
+                    <label>ЛОГИН ИЛИ ПОЧТА</label>
+                    <input name="login" placeholder="username or email" required autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
+                </div>
+                <div class="field">
+                    <label>ПАРОЛЬ</label>
+                    <input name="password" type="password" placeholder="••••••••" required autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
+                </div>
+                <label class="auth-remember">
+                    <input type="checkbox" name="rememberMe" value="true" checked />
+                    <span class="auth-remember-box"></span>
+                    <span class="auth-remember-text">Запомнить меня на 30 дней</span>
+                </label>
+                <button type="submit" class="auth-main-btn">ВОЙТИ</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="register-showcase" aria-label="Превью страниц сайта">
+        <div class="register-preview" data-register-carousel>
+            <div class="register-preview-head">
+                <button type="button" class="register-arrow" data-register-prev aria-label="Предыдущий скрин">‹</button>
+                <div class="register-preview-title" data-register-title>BITE BY NIGHT</div>
+                <button type="button" class="register-arrow" data-register-next aria-label="Следующий скрин">›</button>
+            </div>
+            <div class="register-preview-question">Что есть на сайте?</div>
+
+            <div class="register-slides">
+                <figure class="register-slide active" data-title="BITE BY NIGHT">
+                    <img src="~/images/register/bite-by-night.png" alt="Bite by Night" />
+                </figure>
+                <figure class="register-slide" data-title="FORSAKEN">
+                    <img src="~/images/register/forsaken.png" alt="Forsaken" />
+                </figure>
+                <figure class="register-slide" data-title="PVP LEADERBOARD">
+                    <img src="~/images/register/pvp-leaderboard.png" alt="PVP leaderboard" />
+                </figure>
+                <figure class="register-slide" data-title="PROFILE">
+                    <img src="~/images/register/profile.png" alt="Профиль игрока" />
+                </figure>
+                <figure class="register-slide" data-title="TOP PLAYERS">
+                    <img src="~/images/register/leaderboard.png" alt="Таблица лидеров" />
+                </figure>
+            </div>
         </div>
 
-        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-        {
-            <div class="auth-error">@Model.ErrorMessage</div>
-        }
-
-        <form method="post" action="/auth/login" class="auth-form">
-            <div class="field">
-                <label>ЛОГИН ИЛИ ПОЧТА</label>
-                <input name="login" placeholder="username or email" required autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" />
-            </div>
-            <div class="field">
-                <label>ПАРОЛЬ</label>
-                <input name="password" type="password" placeholder="••••••••" required autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
-            </div>
-            <label class="auth-remember">
-                <input type="checkbox" name="rememberMe" value="true" checked />
-                <span class="auth-remember-box"></span>
-                <span class="auth-remember-text">Запомнить меня на 30 дней</span>
-            </label>
-            <button type="submit" class="auth-main-btn">ВОЙТИ</button>
-        </form>
-    </div>
+        <div class="register-character-panel">
+            <img src="~/images/register/character-transparent.png" alt="Персонаж ArjoPlay" class="register-character" />
+            <div class="register-slogan">Тренируйся, если хочешь быть первым во всем</div>
+        </div>
+    </section>
 </div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const root = document.querySelector('[data-register-carousel]');
+            if (!root) return;
+
+            const slides = Array.from(root.querySelectorAll('.register-slide'));
+            const title = root.querySelector('[data-register-title]');
+            const prev = root.querySelector('[data-register-prev]');
+            const next = root.querySelector('[data-register-next]');
+            let index = 0;
+            let startX = 0;
+
+            const show = (nextIndex) => {
+                index = (nextIndex + slides.length) % slides.length;
+                slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === index));
+                title.textContent = slides[index].dataset.title || '';
+            };
+
+            prev.addEventListener('click', () => show(index - 1));
+            next.addEventListener('click', () => show(index + 1));
+            root.addEventListener('touchstart', (event) => {
+                startX = event.touches[0].clientX;
+            }, { passive: true });
+            root.addEventListener('touchend', (event) => {
+                const diff = event.changedTouches[0].clientX - startX;
+                if (Math.abs(diff) > 45) show(index + (diff < 0 ? 1 : -1));
+            }, { passive: true });
+        })();
+    </script>
+}

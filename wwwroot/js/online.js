@@ -1,8 +1,8 @@
 (function () {
-    var el = document.getElementById('onlineCount');
-    var label = document.getElementById('onlineLabel');
-    var badge = document.getElementById('onlineBadge');
-    if (!el) return;
+    var countEls = Array.prototype.slice.call(document.querySelectorAll('#onlineCount, [data-online-count]'));
+    var labelEls = Array.prototype.slice.call(document.querySelectorAll('#onlineLabel, [data-online-label]'));
+    var badges = Array.prototype.slice.call(document.querySelectorAll('#onlineBadge, [data-online-badge]'));
+    if (!countEls.length) return;
 
     var modeKey = 'generator_online_badge_mode';
     var mode = localStorage.getItem(modeKey) || 'online';
@@ -18,17 +18,21 @@
 
     function render() {
         if (mode === 'visits') {
-            el.textContent = latest.visits;
-            if (label) label.textContent = 'визиты';
-            if (badge) badge.title = 'Показать онлайн';
-            if (badge) badge.classList.add('is-visits');
+            countEls.forEach(function (el) { el.textContent = latest.visits; });
+            labelEls.forEach(function (label) { label.textContent = 'визиты'; });
+            badges.forEach(function (badge) {
+                badge.title = 'Показать онлайн';
+                badge.classList.add('is-visits');
+            });
             return;
         }
 
-        el.textContent = latest.online;
-        if (badge) badge.classList.remove('is-visits');
-        if (label) label.textContent = 'онлайн';
-        if (badge) badge.title = 'Показать визиты';
+        countEls.forEach(function (el) { el.textContent = latest.online; });
+        labelEls.forEach(function (label) { label.textContent = 'онлайн'; });
+        badges.forEach(function (badge) {
+            badge.classList.remove('is-visits');
+            badge.title = 'Показать визиты';
+        });
     }
 
     function updateOnline() {
@@ -58,13 +62,13 @@
             .catch(function () {});
     }
 
-    if (badge) {
+    badges.forEach(function (badge) {
         badge.addEventListener('click', function () {
             mode = mode === 'online' ? 'visits' : 'online';
             localStorage.setItem(modeKey, mode);
             render();
         });
-    }
+    });
 
     render();
     updateOnline();

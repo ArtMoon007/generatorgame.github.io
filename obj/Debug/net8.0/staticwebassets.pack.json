@@ -69,6 +69,34 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\images\\register\\bite-by-night.png",
+      "PackagePath": "staticwebassets\\images\\register\\bite-by-night.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\images\\register\\character-transparent.png",
+      "PackagePath": "staticwebassets\\images\\register\\character-transparent.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\images\\register\\character.png",
+      "PackagePath": "staticwebassets\\images\\register\\character.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\images\\register\\forsaken.png",
+      "PackagePath": "staticwebassets\\images\\register\\forsaken.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\images\\register\\leaderboard.png",
+      "PackagePath": "staticwebassets\\images\\register\\leaderboard.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\images\\register\\profile.png",
+      "PackagePath": "staticwebassets\\images\\register\\profile.png"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\images\\register\\pvp-leaderboard.png",
+      "PackagePath": "staticwebassets\\images\\register\\pvp-leaderboard.png"
+    },
+    {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },

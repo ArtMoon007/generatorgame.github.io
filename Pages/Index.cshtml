@@ -1,16 +1,91 @@
-﻿@page
+@page
 @model GeneratorGame.Pages.IndexModel
 @{
     ViewData["Title"] = "Generator Challenge";
 }
 
-<div class="auth-wrap">
-    <div class="auth-card">
-        <div class="auth-logo">GEN<span class="accent">ERATOR</span></div>
-        <div class="auth-sub">CHALLENGE · LEADERBOARD · SPEED</div>
-        <div class="welcome-desc">Запусти генератор быстрее всех.<br />Три этапа — провода, рубильники, трос.</div>
-        <a href="/auth/register" class="auth-main-btn" style="display:block;text-align:center;margin-bottom:10px;margin-top:16px;text-decoration:none">СОЗДАТЬ АККАУНТ</a>
-        <div class="auth-divider"><span>уже есть аккаунт</span></div>
-        <a href="/auth/login" class="auth-sec-btn">ВОЙТИ</a>
-    </div>
+<div class="auth-wrap register-wrap">
+    <section class="register-left">
+        <div class="register-kicker">GENERATOR · SPEED · RANK</div>
+        <h1 class="register-title">Тренируйся, попадай в топ и сражайся за звание</h1>
+        <p class="register-text">Bite by Night, Forsaken и PVP режим ждут тебя. Создай аккаунт, чтобы сохранять рекорды, опыт, достижения и кубки.</p>
+
+        <div class="auth-card register-card welcome-card">
+            <div class="auth-logo">GEN<span class="accent">ERATOR</span></div>
+            <div class="auth-sub">CHALLENGE · LEADERBOARD · SPEED</div>
+            <div class="welcome-desc">Запусти генератор быстрее всех, прокачай уровень и докажи скорость в PVP.</div>
+
+            <div class="welcome-actions">
+                <a href="/auth/register" class="auth-main-btn">СОЗДАТЬ АККАУНТ</a>
+                <div class="auth-divider"><span>уже есть аккаунт</span></div>
+                <a href="/auth/login" class="auth-sec-btn">ВОЙТИ</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="register-showcase" aria-label="Превью страниц сайта">
+        <div class="register-preview" data-register-carousel>
+            <div class="register-preview-head">
+                <button type="button" class="register-arrow" data-register-prev aria-label="Предыдущий скрин">‹</button>
+                <div class="register-preview-title" data-register-title>BITE BY NIGHT</div>
+                <button type="button" class="register-arrow" data-register-next aria-label="Следующий скрин">›</button>
+            </div>
+            <div class="register-preview-question">Что есть на сайте?</div>
+
+            <div class="register-slides">
+                <figure class="register-slide active" data-title="BITE BY NIGHT">
+                    <img src="~/images/register/bite-by-night.png" alt="Bite by Night" />
+                </figure>
+                <figure class="register-slide" data-title="FORSAKEN">
+                    <img src="~/images/register/forsaken.png" alt="Forsaken" />
+                </figure>
+                <figure class="register-slide" data-title="PVP LEADERBOARD">
+                    <img src="~/images/register/pvp-leaderboard.png" alt="PVP leaderboard" />
+                </figure>
+                <figure class="register-slide" data-title="PROFILE">
+                    <img src="~/images/register/profile.png" alt="Профиль игрока" />
+                </figure>
+                <figure class="register-slide" data-title="TOP PLAYERS">
+                    <img src="~/images/register/leaderboard.png" alt="Таблица лидеров" />
+                </figure>
+            </div>
+        </div>
+
+        <div class="register-character-panel">
+            <img src="~/images/register/character-transparent.png" alt="Персонаж ArjoPlay" class="register-character" />
+            <div class="register-slogan">Тренируйся, если хочешь быть первым во всем</div>
+        </div>
+    </section>
 </div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const root = document.querySelector('[data-register-carousel]');
+            if (!root) return;
+
+            const slides = Array.from(root.querySelectorAll('.register-slide'));
+            const title = root.querySelector('[data-register-title]');
+            const prev = root.querySelector('[data-register-prev]');
+            const next = root.querySelector('[data-register-next]');
+            let index = 0;
+            let startX = 0;
+
+            const show = (nextIndex) => {
+                index = (nextIndex + slides.length) % slides.length;
+                slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === index));
+                title.textContent = slides[index].dataset.title || '';
+            };
+
+            prev.addEventListener('click', () => show(index - 1));
+            next.addEventListener('click', () => show(index + 1));
+            root.addEventListener('touchstart', (event) => {
+                startX = event.touches[0].clientX;
+            }, { passive: true });
+            root.addEventListener('touchend', (event) => {
+                const diff = event.changedTouches[0].clientX - startX;
+                if (Math.abs(diff) > 45) show(index + (diff < 0 ? 1 : -1));
+            }, { passive: true });
+        })();
+    </script>
+}
