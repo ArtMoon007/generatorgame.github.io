@@ -94,17 +94,18 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    Console.WriteLine("DATABASE MIGRATION START");
     db.Database.Migrate();
+    Console.WriteLine("DATABASE MIGRATION DONE");
 
+    Console.WriteLine("DATABASE SCHEMA INIT START");
     AchievementDatabaseInitializer.EnsureSchemaAsync(db).GetAwaiter().GetResult();
     ProfileDatabaseInitializer.EnsureSchemaAsync(db).GetAwaiter().GetResult();
     PvpDatabaseInitializer.EnsureSchemaAsync(db).GetAwaiter().GetResult();
 
-    var achievements = scope.ServiceProvider.GetRequiredService<AchievementService>();
-    AchievementDatabaseInitializer.BackfillAllAsync(db, achievements).GetAwaiter().GetResult();
-
     var visits = scope.ServiceProvider.GetRequiredService<VisitCounterService>();
     visits.EnsureSchemaAsync().GetAwaiter().GetResult();
+    Console.WriteLine("DATABASE SCHEMA INIT DONE");
 }
 
 app.UseStaticFiles();
@@ -149,5 +150,27 @@ app.Use(async (context, next) =>
 });
 
 app.MapRazorPages();
+
+app.Lifetime.ApplicationStarted.Register(() =>
+{
+    Console.WriteLine("APPLICATION STARTED");
+
+    _ = Task.Run(async () =>
+    {
+        try
+        {
+            Console.WriteLine("ACHIEVEMENT BACKFILL START");
+            using var scope = app.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            var achievements = scope.ServiceProvider.GetRequiredService<AchievementService>();
+            await AchievementDatabaseInitializer.BackfillAllAsync(db, achievements);
+            Console.WriteLine("ACHIEVEMENT BACKFILL DONE");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ACHIEVEMENT BACKFILL ERROR: {ex.GetType().Name}: {ex.Message}");
+        }
+    });
+});
 
 app.Run();
