@@ -6,14 +6,19 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrWhiteSpace(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(LogLevel.Warning);
 
-Console.WriteLine($"APP PORT: {port}");
+Console.WriteLine(string.IsNullOrWhiteSpace(port)
+    ? "APP PORT: local/default"
+    : $"APP PORT: {port}");
 
 builder.Services.AddRazorPages();
 
