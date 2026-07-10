@@ -1,6 +1,8 @@
 using System.Globalization;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using GeneratorGame.Data;
 using Microsoft.AspNetCore.Http;
@@ -12,13 +14,15 @@ public class EnotPaymentService
 {
     public const decimal VipPriceRub = 75m;
     public const string ShopId = "8e725c46-695f-4eb4-97cb-42c03e3d0d85";
-    public const string WidgetId = "42f940ee-9bd1-4f09-be60-f6874ffa2b1c";
+    public const string WidgetId = "51021f73-ec5c-4178-8a75-4cea5944742c";
 
     private readonly AppDbContext _db;
+    private readonly IHttpClientFactory _httpClientFactory;
 
-    public EnotPaymentService(AppDbContext db)
+    public EnotPaymentService(AppDbContext db, IHttpClientFactory httpClientFactory)
     {
         _db = db;
+        _httpClientFactory = httpClientFactory;
     }
 
     public static string BuildVipWidgetUrl(int userId, string username, string? email)
@@ -26,20 +30,71 @@ public class EnotPaymentService
         var comment = $"VIP-{userId}-{username}";
         var query = new Dictionary<string, string?>
         {
-            ["color"] = "black",
+            ["color"] = "white",
             ["size"] = "large",
-            ["email"] = "1",
             ["comment"] = comment,
             ["amount"] = "75",
-            ["currency"] = "RUB",
-            ["success_url"] = "https://generator-rb.online/vip/success",
-            ["fail_url"] = "https://generator-rb.online/vip/fail"
+            ["currency"] = "RUB"
         };
 
-        if (!string.IsNullOrWhiteSpace(email)) query["default_email"] = email;
-
         return QueryString.Create(query).ToUriComponent()
-            .Insert(0, $"https://pay.enot.io/widget/{WidgetId}/form");
+            .Insert(0, $"https://pay.enot.io/widget/{WidgetId}/button");
+    }
+
+    public async Task<EnotInvoiceResult> CreateVipInvoiceAsync(int userId, string username, string? email)
+    {
+        var secret = Environment.GetEnvironmentVariable("ENOT_SECRET_KEY");
+        if (string.IsNullOrWhiteSpace(secret))
+        {
+            return new EnotInvoiceResult(false, null, "ENOT_SECRET_KEY is not configured");
+        }
+
+        var orderId = $"vip-{userId}-{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+        var payload = new
+        {
+            amount = VipPriceRub,
+            order_id = orderId,
+            email = string.IsNullOrWhiteSpace(email) ? null : email,
+            currency = "RUB",
+            custom_fields = JsonSerializer.Serialize(new { userId, product = "vip_30_days" }),
+            comment = $"VIP PASS 30 days for {username}",
+            fail_url = "https://generator-rb.online/vip/fail",
+            success_url = "https://generator-rb.online/vip/success",
+            hook_url = "https://generator-rb.online/api/enot/webhook",
+            shop_id = ShopId,
+            expire = 300
+        };
+
+        var client = _httpClientFactory.CreateClient();
+        using var request = new HttpRequestMessage(HttpMethod.Post, "https://api.enot.io/invoice/create");
+        request.Headers.Accept.ParseAdd("application/json");
+        request.Headers.Add("x-api-key", secret);
+        request.Content = JsonContent.Create(payload);
+
+        using var response = await client.SendAsync(request);
+        var body = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            return new EnotInvoiceResult(false, null, $"Enot API error {(int)response.StatusCode}: {body}");
+        }
+
+        try
+        {
+            using var doc = JsonDocument.Parse(body);
+            var root = doc.RootElement;
+            var statusCheck = !root.TryGetProperty("status_check", out var statusEl) || statusEl.GetBoolean();
+            var url = root.GetProperty("data").GetProperty("url").GetString();
+            if (!statusCheck || string.IsNullOrWhiteSpace(url))
+            {
+                return new EnotInvoiceResult(false, null, body);
+            }
+
+            return new EnotInvoiceResult(true, url, null);
+        }
+        catch (Exception ex)
+        {
+            return new EnotInvoiceResult(false, null, $"Bad Enot response: {ex.Message}");
+        }
     }
 
     public async Task EnsureSchemaAsync()
@@ -78,7 +133,7 @@ public class EnotPaymentService
 
     public async Task<EnotWebhookResult> ProcessWebhookAsync(Dictionary<string, string> data, string rawBody)
     {
-        var signature = Get(data, "sign", "signature", "hash");
+        var signature = Get(data, "sign", "signature", "hash", "x-api-sha256-signature");
         if (!VerifySignature(data, rawBody, signature))
         {
             return new EnotWebhookResult(false, "Bad signature");
@@ -102,7 +157,7 @@ public class EnotPaymentService
         }
 
         var comment = Get(data, "comment", "description", "merchant_order_desc", "custom_field");
-        var userId = ParseUserId(comment);
+        var userId = ParseUserId(comment) ?? ParseUserIdFromCustomFields(Get(data, "custom_fields"));
         if (userId == null)
         {
             return new EnotWebhookResult(false, "User id not found");
@@ -155,6 +210,7 @@ public class EnotPaymentService
         {
             var candidates = new[]
             {
+                HmacSha256Hex(SortJsonForEnot(rawBody), key),
                 Md5Hex($"{amount}:{shopId}:{key}:{orderId}"),
                 Md5Hex($"{shopId}:{amount}:{key}:{orderId}"),
                 Md5Hex($"{orderId}:{amount}:{key}"),
@@ -228,6 +284,46 @@ public class EnotPaymentService
         return match.Success && int.TryParse(match.Groups[1].Value, out var userId) ? userId : null;
     }
 
+    private static int? ParseUserIdFromCustomFields(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return null;
+        try
+        {
+            using var doc = JsonDocument.Parse(value);
+            if (doc.RootElement.TryGetProperty("userId", out var userId) && userId.TryGetInt32(out var id)) return id;
+            if (doc.RootElement.TryGetProperty("user", out var user) && user.TryGetInt32(out id)) return id;
+        }
+        catch { }
+
+        return null;
+    }
+
+    private static string SortJsonForEnot(string rawBody)
+    {
+        try
+        {
+            using var doc = JsonDocument.Parse(rawBody);
+            if (doc.RootElement.ValueKind != JsonValueKind.Object) return rawBody;
+
+            using var stream = new MemoryStream();
+            using (var writer = new Utf8JsonWriter(stream))
+            {
+                writer.WriteStartObject();
+                foreach (var prop in doc.RootElement.EnumerateObject().OrderBy(p => p.Name, StringComparer.Ordinal))
+                {
+                    prop.WriteTo(writer);
+                }
+                writer.WriteEndObject();
+            }
+
+            return Encoding.UTF8.GetString(stream.ToArray());
+        }
+        catch
+        {
+            return rawBody;
+        }
+    }
+
     private static decimal ParseAmount(string? value)
     {
         if (string.IsNullOrWhiteSpace(value)) return 0;
@@ -270,3 +366,4 @@ public class EnotPaymentService
 }
 
 public record EnotWebhookResult(bool Ok, string Message);
+public record EnotInvoiceResult(bool Ok, string? Url, string? Error);

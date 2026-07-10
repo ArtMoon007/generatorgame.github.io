@@ -23,6 +23,11 @@ public class EnotWebhookModel : PageModel
         Request.Body.Position = 0;
 
         var data = await ReadDataAsync(rawBody);
+        if (Request.Headers.TryGetValue("x-api-sha256-signature", out var sha256Signature))
+        {
+            data["x-api-sha256-signature"] = sha256Signature.ToString();
+        }
+
         var result = await _payments.ProcessWebhookAsync(data, rawBody);
         if (!result.Ok)
         {

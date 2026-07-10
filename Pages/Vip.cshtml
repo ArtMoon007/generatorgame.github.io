@@ -15,7 +15,7 @@
     </section>
 
     <section class="vip-benefits">
-        <h2>Что даёт VIP?</h2>
+        <h2>Что дает VIP?</h2>
         <div class="vip-benefit-list">
             <div><span>1</span>Анонимность от других игроков: можно скрыть статистику</div>
             <div><span>2</span>Пропуск всех реклам</div>
@@ -32,21 +32,22 @@
         {
             <div>
                 <strong>VIP на 30 дней</strong>
-                <span>После успешной оплаты VIP выдаётся автоматически. Если VIP уже активен, срок продлится ещё на 30 дней.</span>
+                <span>После успешной оплаты VIP выдается автоматически. Если VIP уже активен, срок продлится еще на 30 дней.</span>
                 @if (Model.VipUntil.HasValue && Model.VipUntil.Value > DateTime.UtcNow)
                 {
                     <span>Сейчас VIP активен до @Model.VipUntil.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span>
                 }
             </div>
             <div class="vip-payment-frame">
-                <iframe src="@Model.WidgetUrl" height="272" width="414" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="@Model.WidgetUrl" height="56" width="240" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="payment; clipboard-write"></iframe>
+                <a class="vip-pay-open" href="@Model.WidgetUrl" target="_blank" rel="noopener">ОТКРЫТЬ ОПЛАТУ</a>
             </div>
         }
         else
         {
             <div>
                 <strong>Войди в аккаунт для покупки VIP</strong>
-                <span>Так сайт поймёт, кому выдать VIP после оплаты.</span>
+                <span>Так сайт поймет, кому выдать VIP после оплаты.</span>
             </div>
             <a class="vip-buy-link" href="/auth/login">ВОЙТИ</a>
         }

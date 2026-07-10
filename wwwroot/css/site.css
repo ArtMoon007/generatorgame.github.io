@@ -672,7 +672,8 @@ body.pvp-embedded .restart-btn{
 }
 
 .vip-payment-frame{
-    width:min(414px,100%);
+    width:min(280px,100%);
+    padding:12px;
     overflow:hidden;
     border:1px solid rgba(248,219,122,.18);
     border-radius:10px;
@@ -680,10 +681,27 @@ body.pvp-embedded .restart-btn{
     box-shadow:0 0 34px rgba(248,219,122,.1);
 }
 
+.vip-pay-open{
+    min-height:44px;
+    margin:10px 0 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #ffe28a;
+    border-radius:8px;
+    background:linear-gradient(135deg,#ffe28a,#a97812);
+    color:#111;
+    font-size:13px;
+    font-weight:1000;
+    letter-spacing:1px;
+    text-decoration:none;
+}
+
 .vip-payment-frame iframe{
     display:block;
-    width:100%;
-    max-width:414px;
+    width:240px;
+    max-width:100%;
+    margin:0 auto;
     border:0;
 }
 
