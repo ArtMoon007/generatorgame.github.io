@@ -10,7 +10,9 @@ var FG_MIN_PATH_CELLS = 4;
 var FG_COLORS = [
     '#ff4f7b', '#e60028', '#ff8a00', '#f5dfc3',
     '#d000d8', '#f0c94a', '#1d45ff', '#00a000',
-    '#eaff00', '#00d8ff', '#b16cff', '#ffffff', '#ff4040'
+    '#eaff00', '#00d8ff', '#b16cff', '#ffffff', '#ff4040',
+    '#39ff88', '#ff66d8', '#8dfffb', '#b8ff2e', '#ffb347',
+    '#7a5cff', '#ff2f8a'
 ];
 
 var startTime = 0;
@@ -34,6 +36,10 @@ var fgInputCooldownUntil = 0;
 
 function currentGenerator() {
     return typeof CURRENT_GENERATOR !== 'undefined' ? CURRENT_GENERATOR : 'forsaken';
+}
+
+function fgIsVipGenerator() {
+    return currentGenerator() === 'vip';
 }
 
 function pvpMatchId() {
@@ -214,6 +220,13 @@ function fgSaveErrorText(err) {
 // ============================================================
 
 function fgTargetPairsForLayer() {
+    if (fgIsVipGenerator()) {
+        if (fgLayer === 1) return fgRand(7, 9);
+        if (fgLayer === 2) return fgRand(9, 11);
+        if (fgLayer === 3) return fgRand(11, 13);
+        return fgRand(13, 15);
+    }
+
     if (fgLayer === 1) return fgRand(3, 5);
     if (fgLayer === 2) return fgRand(4, 7);
     if (fgLayer === 3) return fgRand(5, 9);
