@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<Score> Scores => Set<Score>();
     public DbSet<UserStat> UserStats => Set<UserStat>();
     public DbSet<UserAchievement> UserAchievements => Set<UserAchievement>();
+    public DbSet<DailyRewardState> DailyRewards => Set<DailyRewardState>();
     public DbSet<PvpRating> PvpRatings => Set<PvpRating>();
     public DbSet<PvpQueueEntry> PvpQueueEntries => Set<PvpQueueEntry>();
     public DbSet<PvpMatch> PvpMatches => Set<PvpMatch>();
@@ -61,6 +62,16 @@ public class AppDbContext : DbContext
 
         b.Entity<UserAchievement>()
             .HasIndex(a => new { a.UserId, a.Key })
+            .IsUnique();
+
+        b.Entity<DailyRewardState>()
+            .HasOne(r => r.User)
+            .WithOne(u => u.DailyReward)
+            .HasForeignKey<DailyRewardState>(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        b.Entity<DailyRewardState>()
+            .HasIndex(r => r.UserId)
             .IsUnique();
 
         b.Entity<PvpRating>()

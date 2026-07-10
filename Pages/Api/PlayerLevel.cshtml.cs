@@ -40,7 +40,7 @@ public class PlayerLevelModel : PageModel
 
         var stat = await _db.UserStats
             .Where(s => s.UserId == userId.Value)
-            .Select(s => new { s.Experience, s.Level })
+            .Select(s => new { s.Experience, s.Level, s.Diamons })
             .FirstOrDefaultAsync();
 
         var experience = stat?.Experience ?? 0;
@@ -58,6 +58,7 @@ public class PlayerLevelModel : PageModel
             username = user?.RobloxUsername ?? user?.Username ?? "Player",
             level,
             experience,
+            diamons = stat?.Diamons ?? 0,
             nextLevelExperience = nextLevelXp,
             experienceToNextLevel = left,
             progress,

@@ -87,6 +87,8 @@ builder.Services.AddScoped<AchievementService>();
 builder.Services.AddScoped<VisitCounterService>();
 builder.Services.AddScoped<VipService>();
 builder.Services.AddScoped<PvpService>();
+builder.Services.AddScoped<DailyRewardService>();
+builder.Services.AddScoped<EnotPaymentService>();
 
 var app = builder.Build();
 
@@ -105,6 +107,12 @@ using (var scope = app.Services.CreateScope())
 
     var visits = scope.ServiceProvider.GetRequiredService<VisitCounterService>();
     visits.EnsureSchemaAsync().GetAwaiter().GetResult();
+
+    var rewards = scope.ServiceProvider.GetRequiredService<DailyRewardService>();
+    rewards.EnsureSchemaAsync().GetAwaiter().GetResult();
+
+    var enot = scope.ServiceProvider.GetRequiredService<EnotPaymentService>();
+    enot.EnsureSchemaAsync().GetAwaiter().GetResult();
     Console.WriteLine("DATABASE SCHEMA INIT DONE");
 }
 

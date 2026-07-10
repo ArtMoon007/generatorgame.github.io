@@ -58,17 +58,36 @@ public class ProfileModel : PageModel
 
         var experience = 0;
         var level = 1;
+        var diamons = 0;
+        var rainbowNameUnlocked = false;
+        var rainbowNameEnabled = false;
+        var diamondEmojiUnlocked = false;
+        var diamondEmojiEnabled = false;
         var achievements = new List<AchievementCard>();
 
         try
         {
             var stat = await _db.UserStats
                 .Where(s => s.UserId == userId.Value)
-                .Select(s => new { s.Experience, s.Level })
+                .Select(s => new
+                {
+                    s.Experience,
+                    s.Level,
+                    s.Diamons,
+                    s.RainbowNameUnlocked,
+                    s.RainbowNameEnabled,
+                    s.DiamondEmojiUnlocked,
+                    s.DiamondEmojiEnabled
+                })
                 .FirstOrDefaultAsync();
 
             experience = stat?.Experience ?? 0;
             level = stat?.Level ?? AchievementService.CalculateLevel(experience);
+            diamons = stat?.Diamons ?? 0;
+            rainbowNameUnlocked = stat?.RainbowNameUnlocked ?? false;
+            rainbowNameEnabled = stat?.RainbowNameEnabled ?? false;
+            diamondEmojiUnlocked = stat?.DiamondEmojiUnlocked ?? false;
+            diamondEmojiEnabled = stat?.DiamondEmojiEnabled ?? false;
 
             achievements = await _db.UserAchievements
                 .Where(a => a.UserId == userId.Value)
@@ -127,7 +146,12 @@ public class ProfileModel : PageModel
             IsVip = VipService.IsVip(user.VipUntil),
             VipUntil = user.VipUntil,
             HideStatsFromOthers = user.HideStatsFromOthers,
-            UsernameChangedAt = user.UsernameChangedAt
+            UsernameChangedAt = user.UsernameChangedAt,
+            Diamons = diamons,
+            RainbowNameUnlocked = rainbowNameUnlocked,
+            RainbowNameEnabled = rainbowNameEnabled,
+            DiamondEmojiUnlocked = diamondEmojiUnlocked,
+            DiamondEmojiEnabled = diamondEmojiEnabled
         };
 
         return Page();
@@ -193,6 +217,11 @@ public class ProfileView
     public bool HideStatsFromOthers { get; set; }
     public DateTime? UsernameChangedAt { get; set; }
     public DateTime? NextUsernameChangeAt => UsernameChangedAt?.AddDays(30);
+    public int Diamons { get; set; }
+    public bool RainbowNameUnlocked { get; set; }
+    public bool RainbowNameEnabled { get; set; }
+    public bool DiamondEmojiUnlocked { get; set; }
+    public bool DiamondEmojiEnabled { get; set; }
 }
 
 public record AchievementCard(
@@ -202,4 +231,7 @@ public record AchievementCard(
     string Icon,
     int Experience,
     bool Unlocked,
-    DateTime? UnlockedAt);
+    DateTime? UnlockedAt)
+{
+    public int Diamons => Math.Max(5, Experience / 20);
+}

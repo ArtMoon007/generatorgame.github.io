@@ -66,6 +66,27 @@ public class ProfileSettingsModel : PageModel
         });
     }
 
+    public async Task<IActionResult> OnPostCosmeticsAsync([FromBody] CosmeticsRequest? request)
+    {
+        var userId = GetCurrentUserId();
+        if (userId == null) return Unauthorized();
+
+        var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId.Value);
+        if (stat == null) return BadRequest(new { error = "Профиль еще не готов" });
+
+        stat.RainbowNameEnabled = stat.RainbowNameUnlocked && (request?.RainbowName ?? false);
+        stat.DiamondEmojiEnabled = stat.DiamondEmojiUnlocked && (request?.DiamondEmoji ?? false);
+        stat.UpdatedAt = DateTime.UtcNow;
+        await _db.SaveChangesAsync();
+
+        return new JsonResult(new
+        {
+            ok = true,
+            stat.RainbowNameEnabled,
+            stat.DiamondEmojiEnabled
+        });
+    }
+
     private int? GetCurrentUserId()
     {
         var userId = HttpContext.Session.GetInt32("UserId");
@@ -82,4 +103,5 @@ public class ProfileSettingsModel : PageModel
     }
 
     public record UsernameRequest(string? Username);
+    public record CosmeticsRequest(bool RainbowName, bool DiamondEmoji);
 }

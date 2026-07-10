@@ -464,10 +464,10 @@ function renderLB(list){
     var me=typeof CURRENT_USER!=='undefined'?CURRENT_USER:'';
     el.innerHTML=list.map(function(e,i){
         var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-        var displayName=(e.isVip?'\u265B ':'')+(e.robloxUsername||e.username||'Player');
+        var displayName=(e.isVip?'\u265B ':'')+(e.robloxUsername||e.username||'Player')+(e.diamondEmoji?' 💎':'');
         var av=e.robloxAvatarUrl?'<img src="'+e.robloxAvatarUrl+'" alt=""/>':'<span class="lb-av-txt">'+displayName[0].toUpperCase()+'</span>';
         var isMe = (e.username||'') === me || (e.robloxUsername||'') === me;
-        var nm='<button type="button" class="lb-profile-btn'+(isMe?' is-me':'')+(e.isVip?' is-vip':'')+'" onclick="openLeaderboardProfile('+(e.id||0)+')">'+displayName+'</button>';
+        var nm='<button type="button" class="lb-profile-btn'+(isMe?' is-me':'')+(e.isVip?' is-vip':'')+(e.rainbowName?' is-rainbow':'')+'" onclick="openLeaderboardProfile('+(e.id||0)+')">'+displayName+'</button>';
         return '<div class="lb-row'+(isMe?' lb-me':'')+'"><div class="lb-num '+rc+'">'+(i+1)+'</div><div class="lb-av">'+av+'</div><div class="lb-name">'+nm+'</div><div class="lb-time">'+e.timeFormatted+'</div></div>';
     }).join('');
     var myI=list.findIndex(function(e){ return (e.username||'')===me || (e.robloxUsername||'')===me; });
@@ -475,7 +475,7 @@ function renderLB(list){
     if(mr){
         if(myI>=0){
             var e=list[myI];
-            var displayName=e.robloxUsername||e.username||'Player';
+            var displayName=(e.robloxUsername||e.username||'Player')+(e.diamondEmoji?' 💎':'');
             mr.innerHTML='<div class="lb-my-inner"><div class="lb-num" style="color:#e05050">'+(myI+1)+'</div><div class="lb-av"><span class="lb-av-txt">'+displayName[0].toUpperCase()+'</span></div><div class="lb-name" style="color:#e05050">'+displayName+'</div><div class="lb-time" style="color:#e05050">'+e.timeFormatted+'</div></div><div class="lb-my-lbl">твоё место</div>';
         } else {
             mr.innerHTML='';

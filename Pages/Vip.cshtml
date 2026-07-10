@@ -19,19 +19,37 @@
         <div class="vip-benefit-list">
             <div><span>1</span>Анонимность от других игроков: можно скрыть статистику</div>
             <div><span>2</span>Пропуск всех реклам</div>
-            <div><span>3</span>Уникальные значки и корона возле ника</div>
-            <div><span>4</span>Поддержка автору игры</div>
-            <div><span>5</span>Уникальный VIP GENERATOR</div>
-            <div><span>6</span>Coming soon ...</div>
+            <div><span>3</span>Diamons начисляются x2</div>
+            <div><span>4</span>Уникальные значки и корона возле ника</div>
+            <div><span>5</span>Поддержка автору игры</div>
+            <div><span>6</span>Уникальный VIP GENERATOR</div>
+            <div><span>7</span>Новые VIP-бонусы будут добавляться по мере развития сайта</div>
         </div>
     </section>
 
     <section class="vip-buy-box">
-        <div>
-            <strong>Покупка скоро будет доступна</strong>
-            <span>Ссылка на оплату появится здесь позже.</span>
-        </div>
-        <button type="button" disabled>КУПИТЬ VIP</button>
+        @if (Model.LoggedIn && !string.IsNullOrWhiteSpace(Model.WidgetUrl))
+        {
+            <div>
+                <strong>VIP на 30 дней</strong>
+                <span>После успешной оплаты VIP выдаётся автоматически. Если VIP уже активен, срок продлится ещё на 30 дней.</span>
+                @if (Model.VipUntil.HasValue && Model.VipUntil.Value > DateTime.UtcNow)
+                {
+                    <span>Сейчас VIP активен до @Model.VipUntil.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span>
+                }
+            </div>
+            <div class="vip-payment-frame">
+                <iframe src="@Model.WidgetUrl" height="272" width="414" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        }
+        else
+        {
+            <div>
+                <strong>Войди в аккаунт для покупки VIP</strong>
+                <span>Так сайт поймёт, кому выдать VIP после оплаты.</span>
+            </div>
+            <a class="vip-buy-link" href="/auth/login">ВОЙТИ</a>
+        }
     </section>
 
     <section class="vip-refund-box">
@@ -40,7 +58,7 @@
             <div class="vip-refund-content">
                 <p>Пользователь может потребовать возврат денежных средств за товар при условии его неисправности по вине магазина или при невыдаче товара в сроки до 48 часов.</p>
                 <p>Возврат денежных средств осуществляется на реквизиты пользователя, с которых производилась оплата.</p>
-                <p>Возврат и замена товаров возможны только при условии неисправности самих товаров по вине магазина. Если пользователь передумал, не понравился товар и т.д., то возврат и замена не предусмотрены.</p>
+                <p>Возврат и замена товаров возможны только при условии неисправности самих товаров по вине магазина. Если пользователь передумал или товар не понравился, возврат и замена не предусмотрены.</p>
                 <p>Рассмотрение заявки пользователя осуществляется в течение 24 часов с момента обращения в поддержку магазина.</p>
                 <p>В случае одобрения заявки возврат денежных средств осуществляется в течение 72 часов с момента принятия решения о возврате.</p>
             </div>

@@ -21,6 +21,11 @@ public static class AchievementDatabaseInitializer
                 "TotalPlayTimeMs" bigint NOT NULL DEFAULT 0,
                 "Experience" integer NOT NULL DEFAULT 0,
                 "Level" integer NOT NULL DEFAULT 1,
+                "Diamons" integer NOT NULL DEFAULT 0,
+                "RainbowNameUnlocked" boolean NOT NULL DEFAULT false,
+                "RainbowNameEnabled" boolean NOT NULL DEFAULT false,
+                "DiamondEmojiUnlocked" boolean NOT NULL DEFAULT false,
+                "DiamondEmojiEnabled" boolean NOT NULL DEFAULT false,
                 "FavoriteGenerator" text NOT NULL DEFAULT 'bitebynight',
                 "UpdatedAt" timestamp with time zone NOT NULL DEFAULT now(),
                 CONSTRAINT "FK_UserStats_Users_UserId"
@@ -45,6 +50,11 @@ public static class AchievementDatabaseInitializer
             ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "TotalPlayTimeMs" bigint NOT NULL DEFAULT 0;
             ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "Experience" integer NOT NULL DEFAULT 0;
             ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "Level" integer NOT NULL DEFAULT 1;
+            ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "Diamons" integer NOT NULL DEFAULT 0;
+            ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "RainbowNameUnlocked" boolean NOT NULL DEFAULT false;
+            ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "RainbowNameEnabled" boolean NOT NULL DEFAULT false;
+            ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "DiamondEmojiUnlocked" boolean NOT NULL DEFAULT false;
+            ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "DiamondEmojiEnabled" boolean NOT NULL DEFAULT false;
             ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "FavoriteGenerator" text NOT NULL DEFAULT 'bitebynight';
             ALTER TABLE "UserStats" ADD COLUMN IF NOT EXISTS "UpdatedAt" timestamp with time zone NOT NULL DEFAULT now();
 

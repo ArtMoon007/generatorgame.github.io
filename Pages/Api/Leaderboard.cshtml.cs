@@ -47,18 +47,34 @@ public class LeaderboardModel : PageModel
             .ToListAsync();
 
         var currentUserId = GetCurrentUserId();
+        var userIds = top.Select(x => x.Id).ToList();
+        var cosmetics = await _db.UserStats
+            .Where(s => userIds.Contains(s.UserId))
+            .Select(s => new
+            {
+                s.UserId,
+                s.RainbowNameEnabled,
+                s.DiamondEmojiEnabled
+            })
+            .ToDictionaryAsync(s => s.UserId);
 
-        return new JsonResult(top.Select(x => new
+        return new JsonResult(top.Select(x =>
         {
-            x.Id,
-            Username = x.HideStatsFromOthers && currentUserId != x.Id ? "VIP Player" : x.Username,
-            RobloxUsername = x.HideStatsFromOthers && currentUserId != x.Id ? null : x.RobloxUsername,
-            RobloxId = x.HideStatsFromOthers && currentUserId != x.Id ? null : x.RobloxId,
-            RobloxAvatarUrl = x.HideStatsFromOthers && currentUserId != x.Id ? null : x.RobloxAvatarUrl,
-            isVip = VipService.IsVip(x.VipUntil),
-            statsHidden = x.HideStatsFromOthers && currentUserId != x.Id,
-            timeMs = x.TimeMs,
-            timeFormatted = $"{x.TimeMs / 60000:D2}:{(x.TimeMs % 60000) / 1000:D2}.{x.TimeMs % 1000:D3}"
+            cosmetics.TryGetValue(x.Id, out var cosmetic);
+            return new
+            {
+                x.Id,
+                Username = x.HideStatsFromOthers && currentUserId != x.Id ? "VIP Player" : x.Username,
+                RobloxUsername = x.HideStatsFromOthers && currentUserId != x.Id ? null : x.RobloxUsername,
+                RobloxId = x.HideStatsFromOthers && currentUserId != x.Id ? null : x.RobloxId,
+                RobloxAvatarUrl = x.HideStatsFromOthers && currentUserId != x.Id ? null : x.RobloxAvatarUrl,
+                isVip = VipService.IsVip(x.VipUntil),
+                rainbowName = cosmetic?.RainbowNameEnabled ?? false,
+                diamondEmoji = cosmetic?.DiamondEmojiEnabled ?? false,
+                statsHidden = x.HideStatsFromOthers && currentUserId != x.Id,
+                timeMs = x.TimeMs,
+                timeFormatted = $"{x.TimeMs / 60000:D2}:{(x.TimeMs % 60000) / 1000:D2}.{x.TimeMs % 1000:D3}"
+            };
         }));
     }
 

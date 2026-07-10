@@ -1,0 +1,15 @@
+@page "/vip/fail"
+@{
+    ViewData["Title"] = "Оплата не прошла";
+}
+
+<main class="payment-result-page">
+    <section class="payment-result-card is-fail">
+        <a class="payment-result-close" href="/vip" aria-label="Вернуться назад">×</a>
+        <div class="payment-result-icon">!</div>
+        <div class="payment-result-kicker">ОПЛАТА НЕ ПРОШЛА</div>
+        <h1>Платёж не завершён</h1>
+        <p>Деньги не были списаны или платёж был отменён. Можно попробовать оплатить VIP ещё раз.</p>
+        <a class="payment-result-btn" href="/vip">ПОПРОБОВАТЬ СНОВА</a>
+    </section>
+</main>

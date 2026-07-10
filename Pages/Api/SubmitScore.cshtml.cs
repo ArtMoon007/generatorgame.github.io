@@ -76,6 +76,10 @@ public class SubmitScoreModel : PageModel
         {
             rank = await GetRankAsync(userId.Value, generator);
             rankNotification = BuildRankNotification(rank, previousBest, req.TimeMs);
+            if (rankNotification != null)
+            {
+                await AddTopDiamonsAsync(userId.Value, rankNotification.Rank);
+            }
         }
         catch (Exception ex)
         {
@@ -97,6 +101,7 @@ public class SubmitScoreModel : PageModel
                 experience = achievementResult.Experience,
                 nextLevelExperience = achievementResult.NextLevelExperience,
                 newAchievements = achievementResult.NewAchievements,
+                diamons = await GetDiamonsAsync(userId.Value),
                 rank,
                 rankNotification
             });
@@ -113,6 +118,7 @@ public class SubmitScoreModel : PageModel
                 timeMs = req.TimeMs,
                 achievementWarning = true,
                 newAchievements = Array.Empty<object>(),
+                diamons = await GetDiamonsAsync(userId.Value),
                 rankNotification = (object?)null
             });
         }
@@ -188,6 +194,43 @@ public class SubmitScoreModel : PageModel
             $"Ты попал в {label}",
             $"+ место #{rank.Value}");
     }
+
+    private async Task AddTopDiamonsAsync(int userId, int rank)
+    {
+        var amount = rank switch
+        {
+            1 => 100,
+            <= 3 => 75,
+            <= 5 => 50,
+            <= 10 => 30,
+            <= 100 => 10,
+            _ => 0
+        };
+
+        if (amount <= 0) return;
+        var vipUntil = await _db.Users
+            .Where(u => u.Id == userId)
+            .Select(u => u.VipUntil)
+            .FirstOrDefaultAsync();
+        if (VipService.IsVip(vipUntil)) amount *= 2;
+
+        var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId);
+        if (stat == null)
+        {
+            stat = new UserStat { UserId = userId, Level = 1 };
+            _db.UserStats.Add(stat);
+        }
+
+        stat.Diamons += amount;
+        stat.UpdatedAt = DateTime.UtcNow;
+        await _db.SaveChangesAsync();
+    }
+
+    private async Task<int> GetDiamonsAsync(int userId) =>
+        await _db.UserStats
+            .Where(s => s.UserId == userId)
+            .Select(s => (int?)s.Diamons)
+            .FirstOrDefaultAsync() ?? 0;
 
     public record SubmitRequest(long TimeMs, string Generator);
     public record RankNotification(int Rank, string Title, string Description, string Meta);

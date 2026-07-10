@@ -113,6 +113,10 @@
       "PackagePath": "staticwebassets\\js\\bytebynight.js"
     },
     {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\daily-rewards.js",
+      "PackagePath": "staticwebassets\\js\\daily-rewards.js"
+    },
+    {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\js\\forsaken.js",
       "PackagePath": "staticwebassets\\js\\forsaken.js"
     },
@@ -363,6 +367,10 @@
     {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\robots.txt",
+      "PackagePath": "staticwebassets\\robots.txt"
     },
     {
       "Id": "C:\\Users\\GYM MEN\\source\\repos\\GeneratorGame\\wwwroot\\site.webmanifest",

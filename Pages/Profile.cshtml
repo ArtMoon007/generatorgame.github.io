@@ -1,8 +1,9 @@
-@page "/profile"
+﻿@page "/profile"
 @model GeneratorGame.Pages.ProfileModel
 @{
     ViewData["Title"] = "Профиль";
     var profile = Model.View;
+    var profileNameClass = $"{(profile.IsVip ? "is-vip-name" : "")} {(profile.RainbowNameEnabled ? "is-rainbow-name" : "")}";
 }
 
 <main class="profile-page">
@@ -25,8 +26,12 @@
 
             <div class="profile-title-block">
                 <div class="profile-kicker">PLAYER PROFILE</div>
-                <h1 class="@(profile.IsVip ? "is-vip-name" : "")">
+                <h1 class="@profileNameClass">
                     @profile.Username
+                    @if (profile.DiamondEmojiEnabled)
+                    {
+                        <span class="diamond-name-badge">💎</span>
+                    }
                     @if (profile.IsVip)
                     {
                         <span class="vip-name-badge">♛ VIP</span>
@@ -79,6 +84,23 @@
                         <span>До уровня: @(Math.Max(0, profile.NextLevelExperience - profile.Experience)) XP</span>
                     </div>
                 </div>
+                <div class="profile-cosmetics">
+                    <span class="profile-diamons-line">◆ @profile.Diamons Diamons</span>
+                    @if (profile.RainbowNameUnlocked)
+                    {
+                        <label>
+                            <input type="checkbox" id="rainbowNameToggle" @(profile.RainbowNameEnabled ? "checked" : "") />
+                            <span>Переливающийся ник</span>
+                        </label>
+                    }
+                    @if (profile.DiamondEmojiUnlocked)
+                    {
+                        <label>
+                            <input type="checkbox" id="diamondEmojiToggle" @(profile.DiamondEmojiEnabled ? "checked" : "") />
+                            <span>Диамант возле ника</span>
+                        </label>
+                    }
+                </div>
                 <div class="profile-level-row">
                     <span>LVL @profile.Level</span>
                     <span>@profile.Experience / @profile.NextLevelExperience XP</span>
@@ -117,7 +139,10 @@
                     <div>
                         <h3>@achievement.Title</h3>
                         <p>@achievement.Description</p>
-                        <span>+@achievement.Experience XP</span>
+                        <div class="profile-achievement-rewards">
+                            <span>+@achievement.Experience XP</span>
+                            <span class="achievement-diamons-reward">◆ +@(achievement.Diamons * (profile.IsVip ? 2 : 1)) Diamons@(profile.IsVip ? " x2" : "")</span>
+                        </div>
                     </div>
                 </article>
             }
@@ -148,6 +173,23 @@
                 }).catch(function () {});
             });
         }
+
+        const rainbowNameToggle = document.getElementById('rainbowNameToggle');
+        const diamondEmojiToggle = document.getElementById('diamondEmojiToggle');
+        const saveCosmetics = function () {
+            fetch('/api/profile-settings?handler=cosmetics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    rainbowName: rainbowNameToggle ? rainbowNameToggle.checked : false,
+                    diamondEmoji: diamondEmojiToggle ? diamondEmojiToggle.checked : false
+                })
+            }).then(function (response) {
+                if (response.ok) window.location.reload();
+            }).catch(function () {});
+        };
+        if (rainbowNameToggle) rainbowNameToggle.addEventListener('change', saveCosmetics);
+        if (diamondEmojiToggle) diamondEmojiToggle.addEventListener('change', saveCosmetics);
 
         const usernameInput = document.getElementById('profileUsernameInput');
         const usernameButton = document.getElementById('profileUsernameBtn');

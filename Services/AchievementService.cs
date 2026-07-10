@@ -35,6 +35,7 @@ public class AchievementService
         }
 
         var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId);
+        var diamonsMultiplier = await GetDiamonsMultiplierAsync(userId);
         if (stat == null)
         {
             stat = new UserStat
@@ -129,6 +130,7 @@ public class AchievementService
             };
 
             _db.UserAchievements.Add(achievement);
+            stat.Diamons += DiamonsForAchievement(def.Experience, diamonsMultiplier);
             unlocked.Add(achievement);
             return Task.CompletedTask;
         }
@@ -149,6 +151,7 @@ public class AchievementService
         if (scores.Count == 0) return Array.Empty<AchievementDto>();
 
         var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId);
+        var diamonsMultiplier = await GetDiamonsMultiplierAsync(userId);
         if (stat == null)
         {
             stat = new UserStat { UserId = userId, Level = 1 };
@@ -227,6 +230,7 @@ public class AchievementService
             };
 
             _db.UserAchievements.Add(achievement);
+            stat.Diamons += DiamonsForAchievement(def.Experience, diamonsMultiplier);
             unlocked.Add(achievement);
         }
     }
@@ -261,6 +265,7 @@ public class AchievementService
     public async Task<IReadOnlyList<AchievementDto>> RecordPvpMatchAsync(int userId, int points)
     {
         var stat = await _db.UserStats.FirstOrDefaultAsync(s => s.UserId == userId);
+        var diamonsMultiplier = await GetDiamonsMultiplierAsync(userId);
         if (stat == null)
         {
             stat = new UserStat
@@ -273,6 +278,7 @@ public class AchievementService
         }
 
         stat.Experience += BaseGameExperience * 2;
+        stat.Diamons += 8 * diamonsMultiplier;
         stat.UpdatedAt = DateTime.UtcNow;
 
         var existingKeys = await _db.UserAchievements
@@ -317,6 +323,7 @@ public class AchievementService
             };
 
             _db.UserAchievements.Add(achievement);
+            stat.Diamons += DiamonsForAchievement(def.Experience, diamonsMultiplier);
             unlocked.Add(achievement);
         }
     }
@@ -329,6 +336,7 @@ public class AchievementService
             .ToListAsync();
 
         if (scores.Count == 0) return Array.Empty<AchievementDto>();
+        var diamonsMultiplier = await GetDiamonsMultiplierAsync(userId);
 
         var favorite = scores
             .GroupBy(s => s.Generator)
@@ -402,6 +410,12 @@ public class AchievementService
 
             if (rows > 0)
             {
+                await _db.Database.ExecuteSqlInterpolatedAsync($"""
+                    UPDATE "UserStats"
+                    SET "Diamons" = "Diamons" + {DiamonsForAchievement(def.Experience, diamonsMultiplier)}
+                    WHERE "UserId" = {userId};
+                    """);
+
                 unlocked.Add(new AchievementDto(
                     def.Key,
                     def.Title,
@@ -485,6 +499,19 @@ public class AchievementService
         if (level >= 100) return ExperienceForLevel(100);
         return ExperienceForLevel(level + 1);
     }
+
+    private async Task<int> GetDiamonsMultiplierAsync(int userId)
+    {
+        var vipUntil = await _db.Users
+            .Where(u => u.Id == userId)
+            .Select(u => u.VipUntil)
+            .FirstOrDefaultAsync();
+
+        return VipService.IsVip(vipUntil) ? 2 : 1;
+    }
+
+    private static int DiamonsForAchievement(int experience, int multiplier = 1) =>
+        Math.Max(5, experience / 20) * Math.Max(1, multiplier);
 
     private static AchievementDto ToDto(UserAchievement achievement) =>
         new(

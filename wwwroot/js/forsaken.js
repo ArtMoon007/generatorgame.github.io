@@ -789,7 +789,7 @@ function renderLB(data) {
 
     el.innerHTML = list.map(function (e, i) {
         var rc = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-        var displayName = (e.isVip ? '\u265B ' : '') + (e.robloxUsername || e.username || 'Player');
+        var displayName = (e.isVip ? '\u265B ' : '') + (e.robloxUsername || e.username || 'Player') + (e.diamondEmoji ? ' 💎' : '');
 
         var av = e.robloxAvatarUrl
             ? '<img src="' + e.robloxAvatarUrl + '" alt=""/>'
@@ -799,7 +799,7 @@ function renderLB(data) {
             (e.username || '').toLowerCase() === String(me).toLowerCase() ||
             (e.robloxUsername || '').toLowerCase() === String(me).toLowerCase();
 
-        var nm = '<button type="button" class="lb-profile-btn' + (isMe ? ' is-me' : '') + (e.isVip ? ' is-vip' : '') + '" onclick="openLeaderboardProfile(' + (e.id || 0) + ')">' + displayName + '</button>';
+        var nm = '<button type="button" class="lb-profile-btn' + (isMe ? ' is-me' : '') + (e.isVip ? ' is-vip' : '') + (e.rainbowName ? ' is-rainbow' : '') + '" onclick="openLeaderboardProfile(' + (e.id || 0) + ')">' + displayName + '</button>';
 
         return '<div class="lb-row' + (isMe ? ' lb-me' : '') + '">' +
             '<div class="lb-num ' + rc + '">' + (i + 1) + '</div>' +
@@ -823,7 +823,7 @@ function renderMyRankRow(found, myRankFromServer) {
 
     if (found) {
         var e = found.entry;
-        var displayName = e.robloxUsername || e.username || 'Player';
+        var displayName = (e.robloxUsername || e.username || 'Player') + (e.diamondEmoji ? ' 💎' : '');
 
         mr.innerHTML =
             '<div class="lb-my-inner">' +

@@ -22,6 +22,14 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWJvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/DailyRewards.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXERhaWx5UmV3YXJkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/EnotWebhook.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXEVub3RXZWJob29rLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Api/Leaderboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBpXExlYWRlcmJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -140,6 +148,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/Vip.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/VipFail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlwRmFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/VipSuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlwU3VjY2Vzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/GYM MEN/source/repos/GeneratorGame/Pages/_ViewImports.cshtml]
