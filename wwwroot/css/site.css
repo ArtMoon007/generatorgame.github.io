@@ -635,6 +635,46 @@ body.pvp-embedded .restart-btn{
     opacity:.72;
 }
 
+.vip-refund-box{
+    margin-top:14px;
+    border:1px solid #2a2414;
+    border-radius:8px;
+    background:#101010;
+    overflow:hidden;
+}
+
+.vip-refund-box summary{
+    min-height:54px;
+    display:flex;
+    align-items:center;
+    padding:0 18px;
+    color:#f8db7a;
+    font-size:15px;
+    font-weight:900;
+    letter-spacing:.8px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.vip-refund-box summary::marker{
+    color:#f8db7a;
+}
+
+.vip-refund-content{
+    border-top:1px solid #2a2414;
+    padding:18px;
+    color:#bbb;
+    line-height:1.65;
+}
+
+.vip-refund-content p{
+    margin:0 0 12px;
+}
+
+.vip-refund-content p:last-child{
+    margin-bottom:0;
+}
+
 .vip-generator-page .timer-lbl,
 .vip-instruction,
 .vip-lb-panel .lb-header{
