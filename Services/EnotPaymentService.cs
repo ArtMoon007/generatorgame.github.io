@@ -163,7 +163,7 @@ public class EnotPaymentService
             ?? ParseUserIdFromCustomFields(Get(data, "custom_fields", "custom_field"));
         if (userId == null)
         {
-            return new EnotWebhookResult(false, "User id not found");
+            return new EnotWebhookResult(true, $"Paid webhook accepted, but user id not found. Payment must be issued manually. Payment: {orderId}");
         }
 
         var paymentId = Get(data, "payment_id", "invoice_id", "transaction_id", "order_id", "merchant_order_id", "id", "intid")
@@ -194,12 +194,7 @@ public class EnotPaymentService
 
     private bool VerifySignature(Dictionary<string, string> data, string rawBody, string? signature)
     {
-        var secret = Environment.GetEnvironmentVariable("ENOT_SECRET_KEY");
-        var additional = Environment.GetEnvironmentVariable("ENOT_ADDITIONAL_KEY");
-        var keys = new[] { additional, secret }
-            .Where(k => !string.IsNullOrWhiteSpace(k))
-            .Select(k => k!)
-            .ToArray();
+        var keys = GetEnotKeys();
 
         if (keys.Length == 0) return false;
         if (string.IsNullOrWhiteSpace(signature)) return false;
@@ -210,6 +205,11 @@ public class EnotPaymentService
         var orderId = Get(data, "order_id", "merchant_order_id", "payment_id", "invoice_id", "transaction_id", "id", "intid") ?? "";
         var merchantOrderId = Get(data, "merchant_id", "merchant_order_id", "order_id") ?? "";
         var shopId = Get(data, "shop_id", "merchant", "merchant_id", "shop") ?? ShopId;
+
+        if (VerifyLegacySign2(data, normalizedSign, keys))
+        {
+            return true;
+        }
 
         foreach (var key in keys)
         {
@@ -226,6 +226,51 @@ public class EnotPaymentService
                 Sha256Hex($"{amount}:{shopId}:{key}:{orderId}"),
                 Sha256Hex($"{shopId}:{amount}:{key}:{orderId}"),
                 HmacSha256Hex(rawBody, key)
+            };
+
+            if (candidates.Any(c => FixedEquals(c, normalizedSign))) return true;
+        }
+
+        return false;
+    }
+
+    private static string[] GetEnotKeys()
+    {
+        var names = new[]
+        {
+            "ENOT_ADDITIONAL_KEY",
+            "ENOT_ADDITIONAL_SECRET",
+            "ENOT_EXTRA_KEY",
+            "ENOT_SECRET_2",
+            "ENOT_SECRET_KEY",
+            "ENOT_API_KEY"
+        };
+
+        return names
+            .Select(Environment.GetEnvironmentVariable)
+            .Where(k => !string.IsNullOrWhiteSpace(k))
+            .Select(k => k!.Trim())
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
+    }
+
+    private static bool VerifyLegacySign2(Dictionary<string, string> data, string normalizedSign, string[] keys)
+    {
+        if (string.IsNullOrWhiteSpace(Get(data, "sign_2"))) return false;
+
+        var merchant = Get(data, "merchant", "shop_id", "shop") ?? "";
+        var merchantOrderId = Get(data, "merchant_id", "merchant_order_id", "order_id") ?? "";
+        var amount = Get(data, "amount", "credited", "credited_amount", "sum") ?? "";
+        var credited = Get(data, "credited", "credited_amount", "amount", "sum") ?? "";
+
+        foreach (var key in keys)
+        {
+            var candidates = new[]
+            {
+                Md5Hex($"{merchant}:{amount}:{key}:{merchantOrderId}"),
+                Md5Hex($"{merchant}:{credited}:{key}:{merchantOrderId}"),
+                Md5Hex($"{amount}:{merchant}:{key}:{merchantOrderId}"),
+                Md5Hex($"{credited}:{merchant}:{key}:{merchantOrderId}")
             };
 
             if (candidates.Any(c => FixedEquals(c, normalizedSign))) return true;

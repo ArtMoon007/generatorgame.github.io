@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GeneratorGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f0e228443a352d09e2091f4a7edb42e055d6cabb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b841de880bac4f7a9e57a780e1da7c913eb91f80")]
 [assembly: System.Reflection.AssemblyProductAttribute("GeneratorGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeneratorGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
