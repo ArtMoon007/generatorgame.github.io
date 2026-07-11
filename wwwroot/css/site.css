@@ -684,6 +684,7 @@ body.pvp-embedded .restart-btn{
 .vip-pay-open{
     min-height:44px;
     margin:10px 0 0;
+    width:100%;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -695,14 +696,25 @@ body.pvp-embedded .restart-btn{
     font-weight:1000;
     letter-spacing:1px;
     text-decoration:none;
+    cursor:pointer;
 }
 
-.vip-payment-frame iframe{
+button.vip-pay-open{
+    font:inherit;
+}
+
+.vip-pay-open:disabled{
+    opacity:.7;
+    cursor:wait;
+}
+
+.vip-pay-note{
     display:block;
-    width:240px;
-    max-width:100%;
-    margin:0 auto;
-    border:0;
+    margin-top:10px;
+    color:#aaa;
+    font-size:12px;
+    line-height:1.35;
+    text-align:center;
 }
 
 .vip-refund-box{

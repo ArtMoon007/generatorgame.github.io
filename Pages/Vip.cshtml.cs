@@ -15,7 +15,6 @@ public class VipModel : PageModel
     }
 
     public bool LoggedIn { get; private set; }
-    public string? WidgetUrl { get; private set; }
     public DateTime? VipUntil { get; private set; }
 
     public async Task OnGetAsync()
@@ -32,6 +31,5 @@ public class VipModel : PageModel
 
         LoggedIn = true;
         VipUntil = user.VipUntil;
-        WidgetUrl = EnotPaymentService.BuildVipWidgetUrl(user.Id, user.Username, user.Email);
     }
 }

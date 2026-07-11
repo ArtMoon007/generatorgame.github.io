@@ -57,7 +57,7 @@ public class EnotPaymentService
             email = string.IsNullOrWhiteSpace(email) ? null : email,
             currency = "RUB",
             custom_fields = JsonSerializer.Serialize(new { userId, product = "vip_30_days" }),
-            comment = $"VIP PASS 30 days for {username}",
+            comment = $"VIP-{userId}-{username}",
             fail_url = "https://generator-rb.online/vip/fail",
             success_url = "https://generator-rb.online/vip/success",
             hook_url = "https://generator-rb.online/api/enot/webhook",
@@ -133,7 +133,7 @@ public class EnotPaymentService
 
     public async Task<EnotWebhookResult> ProcessWebhookAsync(Dictionary<string, string> data, string rawBody)
     {
-        var signature = Get(data, "sign", "signature", "hash", "x-api-sha256-signature");
+        var signature = Get(data, "sign", "sign_2", "signature", "hash", "x-api-sha256-signature");
         if (!VerifySignature(data, rawBody, signature))
         {
             return new EnotWebhookResult(false, "Bad signature");
@@ -157,13 +157,16 @@ public class EnotPaymentService
         }
 
         var comment = Get(data, "comment", "description", "merchant_order_desc", "custom_field");
-        var userId = ParseUserId(comment) ?? ParseUserIdFromCustomFields(Get(data, "custom_fields"));
+        var orderId = Get(data, "order_id", "merchant_order_id", "payment_id", "invoice_id", "transaction_id", "id", "intid");
+        var userId = ParseUserId(comment)
+            ?? ParseUserId(orderId)
+            ?? ParseUserIdFromCustomFields(Get(data, "custom_fields", "custom_field"));
         if (userId == null)
         {
             return new EnotWebhookResult(false, "User id not found");
         }
 
-        var paymentId = Get(data, "payment_id", "invoice_id", "transaction_id", "order_id", "merchant_order_id", "id")
+        var paymentId = Get(data, "payment_id", "invoice_id", "transaction_id", "order_id", "merchant_order_id", "id", "intid")
             ?? Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(rawBody)));
 
         var exists = await PaymentExistsAsync(paymentId);
@@ -203,7 +206,9 @@ public class EnotPaymentService
 
         var normalizedSign = NormalizeSign(signature);
         var amount = Get(data, "amount", "sum", "credited", "credited_amount") ?? "";
-        var orderId = Get(data, "order_id", "merchant_order_id", "payment_id", "invoice_id", "transaction_id", "id") ?? "";
+        var credited = Get(data, "credited", "credited_amount", "amount", "sum") ?? "";
+        var orderId = Get(data, "order_id", "merchant_order_id", "payment_id", "invoice_id", "transaction_id", "id", "intid") ?? "";
+        var merchantOrderId = Get(data, "merchant_id", "merchant_order_id", "order_id") ?? "";
         var shopId = Get(data, "shop_id", "merchant", "merchant_id", "shop") ?? ShopId;
 
         foreach (var key in keys)
@@ -211,6 +216,9 @@ public class EnotPaymentService
             var candidates = new[]
             {
                 HmacSha256Hex(SortJsonForEnot(rawBody), key),
+                HmacSha256Hex(SortJsonForEnot(rawBody, withSpaces: true), key),
+                Md5Hex($"{shopId}:{amount}:{key}:{merchantOrderId}"),
+                Md5Hex($"{shopId}:{credited}:{key}:{merchantOrderId}"),
                 Md5Hex($"{amount}:{shopId}:{key}:{orderId}"),
                 Md5Hex($"{shopId}:{amount}:{key}:{orderId}"),
                 Md5Hex($"{orderId}:{amount}:{key}"),
@@ -290,15 +298,33 @@ public class EnotPaymentService
         try
         {
             using var doc = JsonDocument.Parse(value);
-            if (doc.RootElement.TryGetProperty("userId", out var userId) && userId.TryGetInt32(out var id)) return id;
-            if (doc.RootElement.TryGetProperty("user", out var user) && user.TryGetInt32(out id)) return id;
+            if (TryReadInt(doc.RootElement, "userId", out var id)) return id;
+            if (TryReadInt(doc.RootElement, "user_id", out id)) return id;
+            if (TryReadInt(doc.RootElement, "user", out id)) return id;
         }
         catch { }
+
+        var parsed = ParseUserId(value);
+        if (parsed != null) return parsed;
+
+        if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var directId))
+        {
+            return directId;
+        }
 
         return null;
     }
 
-    private static string SortJsonForEnot(string rawBody)
+    private static bool TryReadInt(JsonElement root, string property, out int value)
+    {
+        value = 0;
+        if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty(property, out var element)) return false;
+        if (element.ValueKind == JsonValueKind.Number && element.TryGetInt32(out value)) return true;
+        return element.ValueKind == JsonValueKind.String
+            && int.TryParse(element.GetString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
+    }
+
+    private static string SortJsonForEnot(string rawBody, bool withSpaces = false)
     {
         try
         {
@@ -306,23 +332,39 @@ public class EnotPaymentService
             if (doc.RootElement.ValueKind != JsonValueKind.Object) return rawBody;
 
             using var stream = new MemoryStream();
-            using (var writer = new Utf8JsonWriter(stream))
+            using (var writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = false }))
             {
                 writer.WriteStartObject();
+                var first = true;
                 foreach (var prop in doc.RootElement.EnumerateObject().OrderBy(p => p.Name, StringComparer.Ordinal))
                 {
+                    if (IsSignatureField(prop.Name)) continue;
+                    if (withSpaces)
+                    {
+                        if (!first) writer.Flush();
+                    }
+
                     prop.WriteTo(writer);
+                    first = false;
                 }
                 writer.WriteEndObject();
             }
 
-            return Encoding.UTF8.GetString(stream.ToArray());
+            var compact = Encoding.UTF8.GetString(stream.ToArray());
+            return withSpaces ? compact.Replace("\":", "\": ").Replace(",", ", ") : compact;
         }
         catch
         {
             return rawBody;
         }
     }
+
+    private static bool IsSignatureField(string name) =>
+        string.Equals(name, "sign", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(name, "sign_2", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(name, "signature", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(name, "hash", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(name, "x-api-sha256-signature", StringComparison.OrdinalIgnoreCase);
 
     private static decimal ParseAmount(string? value)
     {

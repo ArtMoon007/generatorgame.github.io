@@ -28,7 +28,7 @@
     </section>
 
     <section class="vip-buy-box">
-        @if (Model.LoggedIn && !string.IsNullOrWhiteSpace(Model.WidgetUrl))
+        @if (Model.LoggedIn)
         {
             <div>
                 <strong>VIP на 30 дней</strong>
@@ -39,8 +39,8 @@
                 }
             </div>
             <div class="vip-payment-frame">
-                <iframe src="@Model.WidgetUrl" height="56" width="240" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="payment; clipboard-write"></iframe>
-                <a class="vip-pay-open" href="@Model.WidgetUrl" target="_blank" rel="noopener">ОТКРЫТЬ ОПЛАТУ</a>
+                <button class="vip-pay-open" id="vipPayBtn" type="button">ОПЛАТИТЬ 75 РУБ</button>
+                <span class="vip-pay-note" id="vipPayStatus">Сайт создаст счет Enot и привяжет оплату к твоему аккаунту.</span>
             </div>
         }
         else
@@ -66,3 +66,33 @@
         </details>
     </section>
 </main>
+
+@section Scripts {
+    <script>
+        (function () {
+            var btn = document.getElementById('vipPayBtn');
+            var status = document.getElementById('vipPayStatus');
+            if (!btn || !status) return;
+
+            btn.addEventListener('click', async function () {
+                btn.disabled = true;
+                status.textContent = 'Создаем счет Enot...';
+
+                try {
+                    var response = await fetch('/api/enot/invoice', { method: 'POST' });
+                    var body = await response.json().catch(function () { return {}; });
+
+                    if (!response.ok || !body.url) {
+                        throw new Error(body.error || body.detail || 'Не удалось создать оплату');
+                    }
+
+                    status.textContent = 'Переходим к оплате...';
+                    window.location.href = body.url;
+                } catch (err) {
+                    status.textContent = err && err.message ? err.message : 'Не удалось открыть оплату';
+                    btn.disabled = false;
+                }
+            });
+        })();
+    </script>
+}
