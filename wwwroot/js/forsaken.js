@@ -834,9 +834,11 @@ function renderLB(data) {
             ? '<img src="' + e.robloxAvatarUrl + '" alt=""/>'
             : '<span class="lb-av-txt">' + displayName[0].toUpperCase() + '</span>';
 
-        var isMe =
-            (e.username || '').toLowerCase() === String(me).toLowerCase() ||
-            (e.robloxUsername || '').toLowerCase() === String(me).toLowerCase();
+        var normalizedMe = String(me || '').trim().toLowerCase();
+        var isMe = normalizedMe.length > 0 && (
+            (e.username || '').toLowerCase() === normalizedMe ||
+            (e.robloxUsername || '').toLowerCase() === normalizedMe
+        );
 
         var nm = '<button type="button" class="lb-profile-btn' + (isMe ? ' is-me' : '') + (e.isVip ? ' is-vip' : '') + (e.rainbowName ? ' is-rainbow' : '') + '" onclick="openLeaderboardProfile(' + (e.id || 0) + ')">' + displayName + '</button>';
 
@@ -848,10 +850,11 @@ function renderLB(data) {
             '</div>';
     }).join('');
 
-    var myIndex = list.findIndex(function (e) {
-        return (e.username || '').toLowerCase() === String(me).toLowerCase() ||
-            (e.robloxUsername || '').toLowerCase() === String(me).toLowerCase();
-    });
+    var normalizedMe = String(me || '').trim().toLowerCase();
+    var myIndex = normalizedMe.length > 0 ? list.findIndex(function (e) {
+        return (e.username || '').toLowerCase() === normalizedMe ||
+            (e.robloxUsername || '').toLowerCase() === normalizedMe;
+    }) : -1;
 
     renderMyRankRow(myIndex >= 0 ? { index: myIndex, entry: list[myIndex] } : null, myRankFromServer);
 }

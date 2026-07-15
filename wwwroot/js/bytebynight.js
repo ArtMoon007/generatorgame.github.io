@@ -466,11 +466,13 @@ function renderLB(list){
         var rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
         var displayName=(e.isVip?'\u265B ':'')+(e.robloxUsername||e.username||'Player')+(e.diamondEmoji?' 💎':'');
         var av=e.robloxAvatarUrl?'<img src="'+e.robloxAvatarUrl+'" alt=""/>':'<span class="lb-av-txt">'+displayName[0].toUpperCase()+'</span>';
-        var isMe = (e.username||'') === me || (e.robloxUsername||'') === me;
+        var normalizedMe=String(me||'').trim().toLowerCase();
+        var isMe=normalizedMe.length>0&&((e.username||'').toLowerCase()===normalizedMe||(e.robloxUsername||'').toLowerCase()===normalizedMe);
         var nm='<button type="button" class="lb-profile-btn'+(isMe?' is-me':'')+(e.isVip?' is-vip':'')+(e.rainbowName?' is-rainbow':'')+'" onclick="openLeaderboardProfile('+(e.id||0)+')">'+displayName+'</button>';
         return '<div class="lb-row'+(isMe?' lb-me':'')+'"><div class="lb-num '+rc+'">'+(i+1)+'</div><div class="lb-av">'+av+'</div><div class="lb-name">'+nm+'</div><div class="lb-time">'+e.timeFormatted+'</div></div>';
     }).join('');
-    var myI=list.findIndex(function(e){ return (e.username||'')===me || (e.robloxUsername||'')===me; });
+    var normalizedMe=String(me||'').trim().toLowerCase();
+    var myI=normalizedMe.length>0?list.findIndex(function(e){ return (e.username||'').toLowerCase()===normalizedMe || (e.robloxUsername||'').toLowerCase()===normalizedMe; }):-1;
     var mr=document.getElementById('myRow');
     if(mr){
         if(myI>=0){

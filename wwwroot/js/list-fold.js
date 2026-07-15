@@ -23,6 +23,7 @@
         list.insertAdjacentElement('afterend', button);
 
         let expanded = false;
+        let animating = false;
 
         function rows() {
             return Array.from(list.children).filter(row =>
@@ -68,13 +69,23 @@
         }
 
         button.addEventListener('click', () => {
+            if (animating) return;
+            animating = true;
+            button.disabled = true;
             expanded = !expanded;
             apply(true);
+            setTimeout(() => {
+                animating = false;
+                button.disabled = false;
+                apply(false);
+            }, 680);
         });
 
         new MutationObserver(() => requestAnimationFrame(() => apply(false)))
             .observe(list, { childList: true });
         window.addEventListener('resize', () => apply(false));
+        window.addEventListener('load', () => apply(false), { once: true });
+        window.addEventListener('orientationchange', () => setTimeout(() => apply(false), 250));
         apply(false);
     }
 
