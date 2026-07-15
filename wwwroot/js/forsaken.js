@@ -16,6 +16,7 @@ var FG_COLORS = [
 ];
 
 var startTime = 0;
+var finishTime = 0;
 var timerInt = null;
 var gameReady = false;
 var gameStarted = false;
@@ -84,6 +85,7 @@ function submitPvpRound(ms) {
 function startTimer() {
     stopTimer();
     startTime = Date.now();
+    finishTime = 0;
     timerInt = setInterval(tickTimer, 13);
 }
 
@@ -152,7 +154,7 @@ function completeGame() {
     fgMouseDown = false;
     fgActivePair = null;
 
-    var ms = Date.now() - startTime;
+    var ms = (finishTime || Date.now()) - startTime;
     submitPvpRound(ms);
 
     var square = document.getElementById('gameStageSquare');
@@ -586,6 +588,15 @@ function fgHandleCell(x, y) {
     var dot = fgDotAt(x, y);
 
     if (!fgActivePair) {
+        var continuation = fgIncompletePathEndingAt(x, y);
+        if (continuation) {
+            fgActivePair = continuation.pair;
+            fgMoves++;
+            fgRenderLines();
+            fgUpdateInfo();
+            return;
+        }
+
         if (!dot) return;
 
         fgResetPair(dot.id);
@@ -663,13 +674,6 @@ function fgStopDraw() {
 
     if (!fgActivePair) return;
 
-    var pair = fgActivePair;
-    var path = fgPaths[pair.id];
-
-    if (!pair.done && path && path.length <= 1) {
-        fgPaths[pair.id] = [];
-    }
-
     fgActivePair = null;
     fgRenderLines();
     fgUpdateInfo();
@@ -683,7 +687,14 @@ function fgFinishLayer() {
     fgMouseDown = false;
     fgActivePair = null;
     fgLastCellKey = null;
-    fgInputCooldownUntil = Date.now() + 900;
+    fgInputCooldownUntil = Date.now() + 300;
+
+    if (fgLayer >= FG_LAYERS) {
+        finishTime = Date.now();
+        stopTimer();
+        var timerDisplay = document.getElementById('timerDisplay');
+        if (timerDisplay) timerDisplay.textContent = fmt(finishTime - startTime);
+    }
 
     var fill = document.getElementById('fgProgressFill');
     if (fill) fill.style.height = (fgLayer / FG_LAYERS * 100) + '%';
@@ -696,7 +707,7 @@ function fgFinishLayer() {
 
         fgLayer++;
         fgGenerateRandomLayer();
-    }, 900);
+    }, 300);
 }
 
 // ============================================================
@@ -739,6 +750,21 @@ function fgPathAt(x, y) {
                     color: pair ? pair.color : '#fff'
                 };
             }
+        }
+    }
+
+    return null;
+}
+
+function fgIncompletePathEndingAt(x, y) {
+    for (var id in fgPaths) {
+        var pair = fgPairById(Number(id));
+        var path = fgPaths[id];
+        if (!pair || pair.done || !path || !path.length) continue;
+
+        var last = path[path.length - 1];
+        if (last.x === x && last.y === y) {
+            return { id: Number(id), pair: pair, path: path };
         }
     }
 

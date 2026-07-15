@@ -21,6 +21,7 @@ Console.WriteLine(string.IsNullOrWhiteSpace(port)
     : $"APP PORT: {port}");
 
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -89,6 +90,7 @@ builder.Services.AddScoped<VipService>();
 builder.Services.AddScoped<PvpService>();
 builder.Services.AddScoped<DailyRewardService>();
 builder.Services.AddScoped<EnotPaymentService>();
+builder.Services.AddSingleton<KillerGameService>();
 
 var app = builder.Build();
 
@@ -143,14 +145,14 @@ app.Use(async (context, next) =>
     if (context.Request.Path.StartsWithSegments("/auth/login") &&
         context.User.Identity?.IsAuthenticated == true)
     {
-        context.Response.Redirect("/Generators/BiteByNight");
+        context.Response.Redirect("/Generators/Forsaken");
         return;
     }
 
     if (context.Request.Path.StartsWithSegments("/auth/register") &&
         context.User.Identity?.IsAuthenticated == true)
     {
-        context.Response.Redirect("/Generators/BiteByNight");
+        context.Response.Redirect("/Generators/Forsaken");
         return;
     }
 
@@ -158,6 +160,7 @@ app.Use(async (context, next) =>
 });
 
 app.MapRazorPages();
+app.MapHub<KillerGameHub>("/hubs/killer-game");
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {

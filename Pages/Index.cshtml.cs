@@ -7,12 +7,7 @@ namespace GeneratorGame.Pages
     {
         public IActionResult OnGet()
         {
-            if (User.Identity?.IsAuthenticated == true)
-            {
-                return RedirectToPage("/Generators/BiteByNight");
-            }
-
-            return Page();
+            return RedirectToPage("/Generators/Forsaken");
         }
     }
 }

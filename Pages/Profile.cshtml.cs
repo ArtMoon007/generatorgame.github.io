@@ -22,7 +22,23 @@ public class ProfileModel : PageModel
     public async Task<IActionResult> OnGetAsync()
     {
         var userId = GetCurrentUserId();
-        if (userId == null) return RedirectToPage("/Auth/Login");
+        if (userId == null)
+        {
+            View = new ProfileView
+            {
+                Username = "Гость",
+                Level = 1,
+                Experience = 0,
+                NextLevelExperience = AchievementService.ExperienceForNextLevel(1),
+                LevelProgress = 0,
+                FavoriteGenerator = "—",
+                Rank = null,
+                Achievements = AchievementCatalog.All
+                    .Select(a => new AchievementCard(a.Key, a.Title, a.Description, a.Icon, a.Experience, false, null))
+                    .ToList()
+            };
+            return Page();
+        }
 
         try
         {

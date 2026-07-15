@@ -19,11 +19,11 @@ public class VipModel : PageModel
     {
         if (User.Identity?.IsAuthenticated != true)
         {
-            return RedirectToPage("/Auth/Login");
+            return Page();
         }
 
         var userId = HttpContext.Session.GetInt32("UserId");
-        if (userId == null) return RedirectToPage("/Auth/Login");
+        if (userId == null) return Page();
 
         var vipUntil = await _db.Users
             .Where(u => u.Id == userId.Value)

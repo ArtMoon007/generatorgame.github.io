@@ -50,6 +50,7 @@
         var adsenseAllowed =
             path == "/" ||
             path.StartsWithSegments("/generators") ||
+            path.StartsWithSegments("/killer-game") ||
             path.StartsWithSegments("/pvp") ||
             path.StartsWithSegments("/profile") ||
             path.StartsWithSegments("/about") ||
@@ -61,16 +62,56 @@
     {
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4743364872844858"
                 crossorigin="anonymous"></script>
+        <script async custom-element="amp-auto-ads"
+                src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
     }
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 @{
     var isEmbedded = Context.Request.Query["embedded"] == "1";
+    var bodyPath = Context.Request.Path;
+    var bodyAdsenseAllowed =
+        bodyPath == "/" ||
+        bodyPath.StartsWithSegments("/generators") ||
+        bodyPath.StartsWithSegments("/killer-game") ||
+        bodyPath.StartsWithSegments("/pvp") ||
+        bodyPath.StartsWithSegments("/profile") ||
+        bodyPath.StartsWithSegments("/about") ||
+        bodyPath.StartsWithSegments("/privacy") ||
+        bodyPath.StartsWithSegments("/terms") ||
+        bodyPath.StartsWithSegments("/contact");
+    var guestInteractionGate =
+        User.Identity?.IsAuthenticated != true &&
+        !bodyPath.StartsWithSegments("/auth");
 }
 <body class="@(isEmbedded ? "pvp-embedded" : "")">
+    @if (bodyAdsenseAllowed)
+    {
+        <amp-auto-ads type="adsense"
+                      data-ad-client="ca-pub-4743364872844858">
+        </amp-auto-ads>
+    }
+    @if (guestInteractionGate)
+    {
+        <div class="guest-auth-modal" id="guestAuthModal" hidden role="dialog" aria-modal="true" aria-labelledby="guestAuthTitle">
+            <div class="guest-auth-backdrop" data-guest-auth-close></div>
+            <div class="guest-auth-card">
+                <button type="button" class="guest-auth-close" data-guest-auth-close aria-label="Закрыть">×</button>
+                <div class="guest-auth-icon">G</div>
+                <div class="guest-auth-kicker">НУЖЕН АККАУНТ</div>
+                <h2 id="guestAuthTitle">Хочешь играть?</h2>
+                <p>Войди в аккаунт или зарегистрируйся, чтобы играть, сохранять результаты и получать даймонсы.</p>
+                <div class="guest-auth-actions">
+                    <a href="/auth/login" class="guest-auth-login">ВОЙТИ</a>
+                    <a href="/auth/register" class="guest-auth-register">ЗАРЕГИСТРИРОВАТЬСЯ</a>
+                </div>
+                <button type="button" class="guest-auth-later" data-guest-auth-close>Пока просто смотреть</button>
+            </div>
+        </div>
+    }
     <nav class="navbar">
         <div class="nav-brand">
-            <div class="nav-logo">GEN<span class="accent">ERATOR</span></div>
+            <a href="/generators/forsaken" class="nav-logo nav-logo-link" aria-label="На главную страницу генераторов">GEN<span class="accent">ERATOR</span></a>
             <button class="online-badge" id="onlineBadge" type="button" title="РџРѕРєР°Р·Р°С‚СЊ РІРёР·РёС‚С‹">
                 <span class="online-dot"></span>
                 <span id="onlineCount">0</span>
@@ -145,6 +186,11 @@
     <script src="~/js/daily-rewards.js?v=3"></script>
     <script src="~/js/achievements.js?v=3"></script>
     <script src="~/js/pvp-invites.js?v=1"></script>
+    <script src="~/js/list-fold.js?v=2"></script>
+    @if (guestInteractionGate)
+    {
+        <script src="~/js/guest-auth-gate.js?v=1"></script>
+    }
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

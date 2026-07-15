@@ -67,7 +67,7 @@ public class LoginModel : PageModel
         HttpContext.Session.SetInt32("UserId", user.Id);
         HttpContext.Session.SetString("UserName", user.Username);
 
-        return RedirectToPage("/Generators/BiteByNight");
+        return RedirectToPage("/Generators/Forsaken");
     }
 
     private void SetSession(int id, string name, string? avatar)

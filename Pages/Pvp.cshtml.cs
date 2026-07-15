@@ -19,9 +19,13 @@ public class PvpModel : PageModel
     public async Task<IActionResult> OnGetAsync()
     {
         var userId = GetCurrentUserId();
-        if (userId == null) return RedirectToPage("/Auth/Login");
-
-        Ratings = await _pvp.GetRatingsAsync(userId.Value);
+        Ratings = userId == null
+            ?
+            [
+                new PvpRatingView("bitebynight", "Bite by Night", 0, "Дерево", 0, "🪵", "wood", 0, 0),
+                new PvpRatingView("forsaken", "Forsaken", 0, "Дерево", 0, "🪵", "wood", 0, 0)
+            ]
+            : await _pvp.GetRatingsAsync(userId.Value);
         TopPlayers = await _pvp.GetTopAsync();
         return Page();
     }

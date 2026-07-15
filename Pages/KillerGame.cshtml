@@ -1,0 +1,104 @@
+@page "/killer-game"
+@model GeneratorGame.Pages.KillerGameModel
+@{
+    ViewData["Title"] = "Угадай киллера — Forsaken";
+    var userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+}
+
+<main class="kg-page @(!Model.IsUnlocked ? "kg-level-locked" : "")" data-user-id="@userId">
+    @await Html.PartialAsync("_GeneratorTabs", "killer")
+
+    <header class="kg-hero">
+        <div class="kg-eyebrow">FORSAKEN SOCIAL GAME</div>
+        <h1>УГАДАЙ <span>КИЛЛЕРА</span></h1>
+        <p>У всех один убийца. Но среди вас есть тот, кто увидел другого.</p>
+    </header>
+
+    @if (!Model.IsUnlocked)
+    {
+        <section class="kg-level-lock">
+            <div class="kg-lock-icon">🔒</div>
+            <div class="kg-lock-kicker">РЕЖИМ ЗАБЛОКИРОВАН</div>
+            <h2>ДОСТУПНО С 8 УРОВНЯ</h2>
+            @if (Model.IsLoggedIn)
+            {
+                <p>Твой текущий уровень: <strong>@Model.Level</strong>. Играй в генераторы и получай опыт, чтобы открыть «Угадай киллера».</p>
+                <a href="/generators/forsaken" class="kg-lock-action">ИГРАТЬ В FORSAKEN</a>
+            }
+            else
+            {
+                <p>Войди в аккаунт, чтобы проверить свой уровень и открыть мини-игру.</p>
+                <div class="kg-lock-actions"><a href="/auth/login">ВОЙТИ</a><a href="/auth/register">РЕГИСТРАЦИЯ</a></div>
+            }
+        </section>
+    }
+
+    <section id="kgBrowser" class="kg-browser">
+        <div class="kg-browser-head">
+            <div><span class="kg-live-dot"></span> ОТКРЫТЫЕ СЕРВЕРЫ</div>
+            <button class="kg-btn kg-btn-red" id="kgCreateOpen">+ СОЗДАТЬ СЕРВЕР</button>
+        </div>
+        <div class="kg-server-list" id="kgServerList"><div class="kg-empty">Подключение к серверам...</div></div>
+        <button class="kg-refresh" id="kgRefresh">↻ ОБНОВИТЬ СПИСОК</button>
+        <div class="kg-code-join"><span>ПРИВАТНЫЙ СЕРВЕР</span><div><input id="kgJoinCode" inputmode="numeric" maxlength="6" placeholder="Введи код из 6 цифр"/><button class="kg-btn" id="kgJoinByCode">ВОЙТИ ПО КОДУ</button></div></div>
+    </section>
+
+    <section id="kgRoom" class="kg-room" hidden>
+        <div class="kg-room-top">
+            <button class="kg-back" id="kgLeave">← ВЫЙТИ</button>
+            <div><small>КОД СЕРВЕРА</small><strong id="kgCode">------</strong></div>
+            <div class="kg-phase" id="kgPhase">ЛОББИ</div>
+        </div>
+
+        <div id="kgCountdown" class="kg-countdown" hidden><small>ИГРА НАЧИНАЕТСЯ</small><b>5</b></div>
+
+        <div id="kgLobby" class="kg-lobby">
+            <div class="kg-players" id="kgPlayers"></div>
+            <div class="kg-ready-line"><span id="kgReadyCount">0/4 ГОТОВЫ</span><button class="kg-btn kg-btn-ready" id="kgReady">ГОТОВ</button></div>
+            <div class="kg-owner-tools" id="kgOwnerTools" hidden><label><input type="checkbox" id="kgPrivateToggle"> Закрытый сервер — вход только по коду</label><button class="kg-btn" id="kgStartTest">▶ ЗАПУСТИТЬ ОДНОМУ ДЛЯ ТЕСТА</button></div>
+            <p class="kg-tip">Игра начнётся, когда на сервере будет 4 игрока и каждый нажмёт «Готов».</p>
+        </div>
+
+        <div id="kgReveal" class="kg-reveal" hidden>
+            <div class="kg-role-label" id="kgRoleLabel">ТВОЙ КИЛЛЕР</div>
+            <div class="kg-killer-card" id="kgKillerCard"><div class="kg-killer-image"><img id="kgKillerImage" src="" alt=""></div><strong id="kgKillerName">СЕКРЕТ</strong></div>
+            <div class="kg-role-note" id="kgRoleNote"></div>
+            <div class="kg-timer"><span>Запомни его</span><b data-timer>12</b></div>
+        </div>
+
+        <div id="kgQuestions" class="kg-game-panel" hidden>
+            <div class="kg-round-title"><span id="kgRound">РАУНД 1</span><strong id="kgTurnText">ХОД ИГРОКА</strong></div>
+            <div id="kgQuestionComposer" class="kg-composer" hidden><label>ЗАДАЙ ВОПРОС ОБ УБИЙЦЕ</label><div><input id="kgQuestionInput" maxlength="120" placeholder="Например: какого цвета одежда?"/><button id="kgAsk" class="kg-btn kg-btn-red">ЗАДАТЬ</button></div></div>
+            <div id="kgCurrentQuestion" class="kg-current-question" hidden><small>ВОПРОС</small><strong></strong></div>
+            <div id="kgAnswerComposer" class="kg-composer" hidden><label>ТВОЙ ОТВЕТ</label><div><input id="kgAnswerInput" maxlength="160" placeholder="Ответь так, чтобы не выдать лишнего..."/><button id="kgAnswer" class="kg-btn">ОТВЕТИТЬ</button></div></div>
+            <div id="kgAnswers" class="kg-answers"></div>
+            <div id="kgHistory" class="kg-history"></div>
+        </div>
+
+        <div id="kgDiscussion" class="kg-discussion" hidden>
+            <div class="kg-round-title"><span>ОБСУЖДЕНИЕ</span><strong>ОСТАЛОСЬ <b data-timer>60</b> СЕК</strong></div>
+            <div class="kg-chat" id="kgChat"></div>
+            <div class="kg-chat-send"><input id="kgChatInput" maxlength="220" placeholder="Кто ведёт себя подозрительно?"/><button id="kgChatSend" class="kg-btn">➤</button></div>
+            <button id="kgOpenVote" class="kg-btn kg-btn-red kg-wide">ПРОГОЛОСОВАТЬ</button>
+        </div>
+
+        <div id="kgVoting" class="kg-voting" hidden>
+            <div class="kg-round-title"><span>КОГО ВЫГНАТЬ?</span><strong>ГОЛОСОВ: <b id="kgVotesCount">0</b>/4</strong></div>
+            <div class="kg-vote-grid" id="kgVoteGrid"></div>
+            <button id="kgSkip" class="kg-btn kg-wide">ПРОПУСТИТЬ ГОЛОСОВАНИЕ</button>
+        </div>
+
+        <div id="kgFinished" class="kg-finished" hidden><div class="kg-finish-icon">◆</div><h2 id="kgFinishTitle"></h2><p id="kgFinishTraitor"></p><small>Возврат в лобби через несколько секунд...</small></div>
+    </section>
+</main>
+
+<div class="kg-modal" id="kgCreateModal" hidden><form class="kg-modal-card" id="kgCreateForm"><button type="button" class="kg-modal-x">×</button><h2>СОЗДАТЬ СЕРВЕР</h2><p>Придумай короткое название комнаты</p><input id="kgServerName" maxlength="24" placeholder="Сервер профи"/><label class="kg-private-create"><input type="checkbox" id="kgCreatePrivate"> Закрытый сервер — только по коду</label><button class="kg-btn kg-btn-red kg-wide">СОЗДАТЬ</button></form></div>
+<div class="kg-toast" id="kgToast"></div>
+
+@section Scripts {
+    @if (Model.IsUnlocked)
+    {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="~/js/killer-game.js?v=1"></script>
+    }
+}
